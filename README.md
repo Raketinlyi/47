@@ -1,4 +1,5 @@
 ﻿# CrazyOctagon / CrazyCube — Frontend (Monad Mainnet)
+*Last updated: 2026-02-01 (V4)*
 
 Фронтенд Web3-игры CrazyOctagon на Monad Mainnet. Сайт работает как интерфейс к смарт-контрактам: отображает NFT, таймеры, награды, статистику и выполняет вызовы контрактов.
 

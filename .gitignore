@@ -118,4 +118,3 @@ scripts/remove-*.js
 eslint.security.config.js
 .eslintrc.security.cjs
 BREED_MAINNET_README.md
-rarity/

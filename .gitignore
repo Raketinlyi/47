@@ -1,0 +1,121 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Next.js
+.next/
+.next/cache/
+out/
+build/
+dist/
+.turbo/
+.eslintcache
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# SonarCloud
+.sonar/
+.scannerwork/
+sonar-config-dump.txt
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.backup
+
+# Build metadata
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.history/
+.fleet/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary folders
+tmp/
+temp/
+.temp/
+.cache/
+.artifacts/
+.qoder/
+.qodo/
+tmp_*
+temp_*
+.artifacts/
+.qoder/
+.qodo/
+
+# Logs and diagnostics
+*.log
+logs/
+reports/
+coverage/
+.nyc_output/
+
+# Storybook / docs builds
+storybook-static/
+docs-build/
+
+# Hardhat
+cache/
+artifacts/
+typechain/
+typechain-types/
+
+# Private keys and sensitive data
+*.pem
+*.key
+private/
+secrets/
+
+# Security: files with secrets/API keys (DO NOT COMMIT)
+netlify-env-import.txt
+FIX_NOW.txt
+SECURITY_AUDIT_2025.md
+*secret*.txt
+*keys*.txt
+*-secrets.md
+
+# Build artifacts
+.vercel
+.netlify
+.parcel-cache/
+.sass-cache/
+
+# Debug and temporary files (DO NOT COMMIT)
+*_output.txt
+*_search.txt
+*_results.txt
+*_ranks.txt
+audit_report.json
+fix-*.mjs
+fix-*.cjs
+fix-*.js
+remove-*.cjs
+replace-*.mjs
+scan-*.js
+scripts/debug-*.ts
+scripts/remove-*.js
+eslint.security.config.js
+.eslintrc.security.cjs
+BREED_MAINNET_README.md
+rarity/

@@ -1,0 +1,164 @@
+/* Универсальная стабильная анимация для кнопок */
+/* Использует только transform и opacity для максимальной стабильности */
+
+/* Стабильная кнопка - замена для neon-button */
+.stable-button {
+  /* Базовые стили */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 2px solid #f59e0b;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  color: #1f2937;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+
+  /* Оптимизация производительности */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+
+  /* Стабильная анимация - только transform и opacity */
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+}
+
+.stable-button:hover {
+  /* Простое увеличение без мерцания */
+  transform: translateY(-2px) scale(1.02);
+  opacity: 0.9;
+}
+
+.stable-button:active {
+  /* Эффект нажатия */
+  transform: translateY(0) scale(0.98);
+  opacity: 0.8;
+}
+
+/* Стабильная пульсация - замена для animate-pulse */
+.stable-pulse {
+  animation: stable-pulse-animation 2s ease-in-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+@keyframes stable-pulse-animation {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+/* Мобильные оптимизации */
+@media (max-width: 768px) {
+  .stable-button {
+    /* Упрощенная анимация для мобильных */
+    transition: opacity 0.2s ease-out;
+  }
+
+  .stable-button:hover {
+    /* Только opacity на мобильных для стабильности */
+    transform: none;
+    opacity: 0.8;
+  }
+
+  .stable-pulse {
+    /* Замедленная пульсация на мобильных */
+    animation-duration: 3s;
+  }
+}
+
+/* Поддержка prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .stable-button {
+    transition: none;
+  }
+
+  .stable-button:hover {
+    transform: none;
+    opacity: 0.8;
+  }
+
+  .stable-pulse {
+    animation: none;
+  }
+}
+
+/* Дополнительные варианты стабильных кнопок */
+.stable-button-secondary {
+  background: transparent;
+  border-color: #6b7280;
+  color: #6b7280;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.stable-button-secondary:hover {
+  transform: translateY(-1px);
+  opacity: 0.8;
+  border-color: #374151;
+  color: #374151;
+}
+
+.stable-button-success {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  border-color: #10b981;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.stable-button-success:hover {
+  transform: translateY(-2px) scale(1.02);
+  opacity: 0.9;
+}
+
+/* Стабильная анимация загрузки */
+.stable-loading {
+  animation: stable-loading-animation 1.5s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+@keyframes stable-loading-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Фокус для доступности */
+.stable-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.stable-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.stable-button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}

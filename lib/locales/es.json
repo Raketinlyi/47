@@ -1,0 +1,1036 @@
+{
+  "home": {
+    "title": "CrazyOctagon",
+    "subtitle": "Where octagons cry and joke!",
+    "balance": "Balance:",
+    "connectWallet": "Connect MetaMask",
+    "walletNotDetected": "MetaMask not detected. Install MetaMask"
+  },
+  "navigation": {
+    "home": "Home",
+    "returnHome": "Return to Home"
+  },
+  "bridge": {
+    "title": "Cross-Chain Bridge 🌉",
+    "description": "Transfiera sin problemas sus tokens CRAA entre Monad y ApeChain",
+    "connectWallet": "Conecte su billetera",
+    "connectWalletDesc": "Por favor, conecte su billetera para acceder al puente entre cadenas",
+    "guide": {
+      "title": "Cómo usar el puente",
+      "intro": "Transfiera sus tokens CRAA entre las redes Monad y ApeChain de forma segura y eficiente.",
+      "step1": "Select the type of asset to bridge (OCTAA tokens or NFTs)",
+      "step2": "Choose source and destination networks",
+      "step3": "Enter amount or select NFT to transfer",
+      "step4": "Confirm transaction and wait for completion",
+      "note": "Bridge process typically takes 30-60 seconds. Assets are secured by smart contracts during transfer."
+    },
+    "interface": {
+      "title": "Bridge Interface",
+      "amountLabel": "Amount to Bridge",
+      "amountPlaceholder": "0.00",
+      "available": "Available: 1,234.56 OCTA",
+      "useMax": "Use Max",
+      "selectNftLabel": "Select NFT to Bridge",
+      "selectNftPlaceholder": "Choose your CrazyOctagon NFT",
+      "bridgeButton": "Bridge {type}",
+      "bridgeAgain": "Bridge Again",
+      "preparing": "Preparing...",
+      "processing": "Processing...",
+      "confirming": "Confirming...",
+      "insufficientOCTA": "Insufficient OCTAA",
+      "insufficientOCTADesc": "You need {required} OCTA to bridge. Your balance: {balance} OCTAA",
+      "balanceDetails": {
+        "you": "👤 You",
+        "pool": "🏦 Pool",
+        "burn": "🔥 Burn",
+        "split": "60% / 30% / 10%"
+      }
+    },
+    "status": {
+      "ready": "Ready to Bridge",
+      "preparing": "Preparing Transaction",
+      "processing": "Processing Bridge",
+      "confirming": "Confirming on Destination",
+      "success": "Bridge Complete",
+      "error": "Bridge Failed",
+      "remaining": "~{time}s remaining"
+    },
+    "success": {
+      "title": "Bridge Successful!",
+      "description": "Your {type} have been successfully bridged to {network}.",
+      "transaction": "Transaction: {hash}"
+    },
+    "info": {
+      "title": "Bridge Information",
+      "security": {
+        "title": "Security",
+        "description": "Assets are secured by smart contracts during the bridge process"
+      },
+      "speed": {
+        "title": "Speed",
+        "description": "Bridge completion typically takes 30-60 seconds"
+      },
+      "fees": {
+        "title": "Fees",
+        "description": "Minimal bridge fees for cross-chain transfers"
+      }
+    },
+    "comingSoon": {
+      "title": "🚀 Coming Soon Features",
+      "features": [
+        "Bridget tokens CRAA entre Monad y ApeChain",
+        "Transfer CrazyOctagon NFTs across networks",
+        "Maintain NFT metadata and rarity",
+        "Low-cost cross-chain transactions",
+        "Real-time bridge status tracking",
+        "Automatic balance synchronization"
+      ]
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "loadingNFTs": "Cargando NFTs...",
+    "fetchingCollection": "Obteniendo tu colección CrazyOctagon",
+    "noNFTsFound": "No se encontraron NFTs",
+    "goToCollection": "Ir a la Colección",
+    "retry": "Reintentar",
+    "total": "total"
+  },
+  "social": {
+    "followUs": "Síguenos",
+    "megaGiveaway": "¡MEGA SORTEO!",
+    "supportAndWin": "¡Apóyanos y GANA NFT + tokens OCTAA!",
+    "prizePool": "BOLSA DE PREMIOS:",
+    "exclusiveNFTs": "NFTs Exclusivos",
+    "CRAATokens": "Tokens OCTAA (varias cantidades)",
+    "discordRoles": "Roles especiales de Discord",
+    "bonusSurprises": "Bonos y sorpresas",
+    "joinTelegram": "Unirse a Telegram",
+    "joinDiscord": "Unirse a Discord",
+    "twitterActions": "Acciones en Twitter:",
+    "followTwitter": "Seguir a @crazy___octagon",
+    "viewPost": "Ver post",
+    "like": "Me gusta",
+    "retweet": "Retweet",
+    "allDone": "¡LO HICE TODO!",
+    "later": "Más tarde",
+    "participateNow": "¡PARTICIPA AHORA!",
+    "weeklyGiveaway": "¡Sorteo semanal entre los participantes activos!",
+    "github": "GitHub",
+    "share": "Compartir",
+    "shareTitle": "CrazyOctagon - ¡Donde los octágonos lloran y bromean!"
+  },
+  "graveyard": {
+    "loading": "Loading your NFTs from the graveyard...",
+    "empty": {
+      "title": "GRAVEYARD IS EMPTY",
+      "description": "No burned octagons found."
+    },
+    "showingFirst": "Showing first 20 cubes. Total: {count}"
+  },
+  "burn": {
+    "interface": {
+      "burnButton": "Quemar",
+      "insufficientOCTA": "OCTAA Insuficiente",
+      "balanceDetails": {
+        "you": "👤 Tú",
+        "pool": "🏦 Pool",
+        "burn": "🔥 Quema",
+        "split12h": "30 min: 50% / 40% / 10%",
+        "split24h": "120 min: 70% / 20% / 10%",
+        "split48h": "480 min: 80% / 10% / 10%"
+      }
+    }
+  },
+  "info": {
+    "title": "Información y Estadísticas",
+    "nalaPhrases": [
+      "📊 Los datos están un poco desviados, ¡pero lo arreglaremos todo! Danos tiempo ⏰",
+      "🔧 Depuración del sistema en curso, ¡todo funcionará perfectamente pronto! ✨",
+      "📈 Los números aún no coinciden, pero el equipo está trabajando en la corrección 🛠️",
+      "⚡ Probando nuevas funciones, ten paciencia - ¡será genial! 🚀",
+      "🎯 Ajustando algoritmos para la máxima precisión de datos 📊",
+      "🌟 ¡Todas las discrepancias temporales se corregirán pronto! 💫",
+      "🔄 Sistema actualзиándose, ¡pronto todo funcionará como un reloj! ⏰"
+    ]
+  },
+  "sections": {
+    "bridge": {
+      "title": "Bridge (Bring Back Octagon!)",
+      "description": "Transfiera sus tokens CRAA entre Monad y ApeChain. ¡Rápido, seguro y con comisiones mínimas!",
+      "button": "Bridge NFT",
+      "guide": {
+        "title": "🪄 Guía de Resurrección",
+        "intro": "Puedes traer un cubo de vuelta del cementerio pagando el 45% del precio Floor de la colección: 5% CRAA (quema) + 15% OCTAA (LP) + 25% OCTAA (recompensas).",
+        "fee": "La tarifa se calcula automáticamente desde el precio de mercado y se distribuye: 5% CRAA quemado; 15% OCTAA al LP del nuevo NFT; 25% OCTAA al pool de recompensas.",
+        "requirement": "Para resucitar, selecciona 2 NFTs activos que tengan al menos 1 estrella (Boy + Girl).",
+        "rarity": "Niveles: 1 ⭐ — Common, 2 ⭐ — Uncommon, 3 ⭐ — Rare, 4 ⭐ — Epic, 5 ⭐ — Legendary, 6 ⭐ — Mythic.",
+        "penalty": "Tras la resurrección, cada padre pierde 1 estrella y entra en un cooldown de 48h.",
+        "step1": "1. Aprueba el gasto de CRAA y OCTAA para las tarifas (45%).",
+        "step2": "2. Confirma la transacción — un nuevo cubo resucita del cementerio.",
+        "note": "La colección está limitada a ~9,700 octágonos. Breed da la oportunidad de obtener mutaciones más raras."
+      }
+    },
+    "burn": {
+      "title": "Burn NFT (Roast the Octagon!)",
+      "description": "Burn the NFT and get OCTAA tokens! Picture a fiery grill with octagons screaming: \"Tell my mom I love her!\"",
+      "button": "Burn NFT",
+      "feeBox": {
+        "title": "🔥 Burn Fee & Steps",
+        "line1": "• Burn fee: 10% of locked OCTAA.",
+        "line2": "• Requires 3 confirmations.",
+        "step1": "1. Give the contract permission to move your NFT.",
+        "step2": "2. Allow OCTAA spending for 10% of locked coins.",
+        "step3": "3. Confirm final transaction — octagon burns, OCTAA goes to you.",
+        "note": "Make sure you have enough OCTAA in your wallet for the fee before starting.",
+        "guide": {
+          "title": "🔥 Burn Guide",
+          "intro": "Ping your NFT within the last 7 days to unlock mined OCTAA — burning releases those locked coins after the wait you choose.",
+          "loss": "Burning permanently moves the NFT to the graveyard. When the timer ends the OCTAA heads to your wallet — grab it via the Claim section. If the NFT came from Breed you also receive the MON locked in its LP share, making those octagons even more valuable.",
+          "step1": "1. Approve the game contract to transfer your NFT.",
+          "step2": "2. Approve OCTAA spending for the burn fee (10% of locked OCTAA).",
+          "step3": "3. Confirm the burn transaction. After it completes, the octagon is burned and OCTAA is released to you after the selected wait.",
+          "timing": "OCTAA unlocks after the selected delay (30 min / 120 min / 480 min). During the wait the octagon appears greyed out in the Claim section (cooldown).",
+          "note": "Example: 10,000 locked OCTAA → fee = 1,000 OCTAA (10%). Longer delays change the pool split, not the fee amount.",
+          "pingLock": "Pinging only accrues rewards — OCTAA remains locked until burn.",
+          "bridgeNote": "To resurrect an NFT from the graveyard, use the 'Bridge' section. The collection is capped at roughly 9,700 octagons, and any OCTAA burned in-game goes to a dead wallet forever.",
+          "sellOCTA": "Open Uniswap — Swap OCTAA",
+          "fees": "🔘 Comisiones del token OCTAA: 0% compra • 4% transferencia • 10% venta en DEX. Estas tarifas sostienen la economía del juego.",
+          "contractAddress": "Contrato del token OCTAA: 0xBB848dAC056e385d2f7c750eC839157dccf4cfF3"
+        },
+        "confirmDialog": {
+          "title": "Burn NFT #{tokenId}",
+          "warning": "⚠️ IMPORTANT: This action is irreversible!",
+          "description": "Your NFT will be permanently burned and sent to graveyard.",
+          "waitPeriod": "Wait period:",
+          "minutes": "minutes",
+          "lockedCRAA": "Locked OCTAA:",
+          "fee": "Fee:",
+          "afterBurn": "After burn you get",
+          "poolReceives": "Pool receives:",
+          "burnedForever": "Burned forever:",
+          "transactions": "You will sign 3 transactions:",
+          "transaction1": "1️⃣ Approve OCTAA fee",
+          "transaction2": "2️⃣ Approve NFT",
+          "transaction3": "3️⃣ Burn NFT",
+          "yourBalance": "Your OCTAA balance:",
+          "cancel": "Cancel",
+          "confirm": "Confirm Burn",
+          "nftEarnings": "🎉 NFT Earnings",
+          "totalLockedAmount": "Total locked OCTAA"
+        }
+      }
+    },
+    "claim": {
+      "title": "Claim Burn Rewards",
+      "subtitle": "Claim your OCTAA rewards from burned NFTs",
+      "filters": {
+        "all": "All",
+        "eligible": "Eligible",
+        "pending": "Pending",
+        "claimed": "Claimed"
+      },
+      "toolbar": {
+        "claimAll": "Claim All",
+        "claimAllProcessing": "Claiming...",
+        "refresh": "Refresh"
+      },
+      "status": {
+        "eligible": "Eligible to claim",
+        "pending": "Pending",
+        "pendingPrefix": "Claimable in:",
+        "claimed": "Already claimed"
+      },
+      "amounts": {
+        "player": "Your reward (OCTAA)",
+        "pool": "To main pool (OCTAA)",
+        "burned": "Burned (OCTAA)",
+        "total": "Total amount"
+      },
+      "lpBadge": "Includes LP payout",
+      "lpTooltip": "LP will be paid according to the current payout mode.",
+      "buttons": {
+        "claim": "Claim",
+        "claiming": "Claiming...",
+        "viewTx": "View Transaction"
+      },
+      "errors": {
+        "tooEarly": "Too early to claim",
+        "notOwner": "You are not the owner",
+        "alreadyClaimed": "Already claimed",
+        "paused": "Claims are paused",
+        "unexpected": "Unexpected error. Please try again.",
+        "insufficient": "Insufficient funds. Please check your balance.",
+        "rejected": "Transaction rejected",
+        "wrongNetwork": "Switch to Monad to claim rewards."
+      },
+      "blockedBanner": {
+        "title": "Claim section blocked",
+        "subtitle": "Please wait before trying again.",
+        "remaining": "{{seconds}}s remaining"
+      },
+      "blockedToast": "Claim section is temporarily blocked. Please wait.",
+      "pausedBanner": {
+        "title": "Game is paused",
+        "subtitle": "Claims are temporarily unavailable."
+      },
+      "noWallet": {
+        "title": "Connect Wallet",
+        "description": "Connect your wallet to view and claim rewards from burned NFTs."
+      },
+      "wrongNetwork": {
+        "title": "Switch Network",
+        "description": "Claiming rewards is only available on the Monad. Switch your wallet to continue.",
+        "button": "Switch to Monad",
+        "switching": "Switching..."
+      },
+      "loading": "Loading claimable rewards...",
+      "empty": {
+        "title": "No rewards yet",
+        "description": "Burn NFTs to start accumulating OCTAA rewards. Eligible and pending rewards will appear here."
+      },
+      "lastUpdated": "Updated at {time}",
+      "lastUpdated.never": "Not updated yet",
+      "txPending": "Confirm the transaction in your wallet",
+      "txProcessing": "Transaction submitted. Waiting for confirmations...",
+      "successSingle": "Reward claimed successfully!",
+      "noEligible": "No rewards are ready to claim yet.",
+      "claimAllProgress": "Processing {current} of {total}",
+      "claimAllSummary": "{success} succeeded, {failed} failed",
+      "claimAllFailureItem": "NFT #{tokenId}: {reason}",
+      "claimAllInProgress": "Claim All is already running.",
+      "retry": "Try again",
+      "nftLabel": "NFT #{id}"
+    },
+    "ping": {
+      "title": "Ping NFTs",
+      "pageTitle": "Ping cada 24h para aumentar tu bono • Acumula hasta 7 días",
+      "tooltips": "Consejos",
+      "tooltipsOn": "On",
+      "tooltipsOff": "Off",
+      "ping": "Ping",
+      "balance": "Balance",
+      "Uniswap": "Uniswap",
+      "spacewalk": "Space Walk",
+      "description": "¡Haz ping a tus NFT cada 24 horas para ganar tokens OCTAA! Tu bono crece con cada ping constante.",
+      "connectWallet": "Conecta tu billetera para ver tus cubos",
+      "noNFTs": "No se encontraron NFT de CrazyOctagon.",
+      "sentFor": "Ping enviado para",
+      "error": "Error de ping",
+      "interval": "Intervalo: 24 horas",
+      "bonusGrowth": "Bono: +2.7% por cada ping exitoso. No hay crecimiento sin pings.",
+      "maxBonus": "Bono máximo: +97.2% + multiplicadores de rareza.",
+      "penaltyReset": "Límite de acumulación: 7 días. Después de 7 días, las recompensas dejan de crecer hasta que hagas ping.",
+      "activate": "Activar",
+      "pingNow": "Ping ahora",
+      "cooldown": "Enfriamiento",
+      "ready": "Listo",
+      "button": "Ping",
+      "waitingForWallet": "Esperando confirmación de la billetera...",
+      "processingPing": "Procesando ping...",
+      "nextPing": "Próximo ping",
+      "live": "En vivo",
+      "basePerHour": "Base/h",
+      "readyToPing": "Listo para ping",
+      "accumulated": "Acumulado",
+      "rarity": "Rareza",
+      "streak": "Racha",
+      "penalty": "Penalización",
+      "totalBonus": "Bono",
+      "pending": "Pend.",
+      "lockedOcta": "Bloqueado",
+      "status": "Estado",
+      "active": "Activo",
+      "gender": "Género",
+      "male": "Macho",
+      "female": "Hembra",
+      "unknown": "Desconocido",
+      "24h": "24h",
+      "lockedCRAA": "Locked OCTAA"
+    },
+    "graveyard": {
+      "title": "Graveyard",
+      "description": "Look at your burned cubes, mourn them, and claim OCTAA.",
+      "button": "Go to Graveyard",
+      "phrases": [
+        "Why is it so dark here… ☠️",
+        "I'm cold… 🥶",
+        "Is that the light? 💀",
+        "I regret nothing! 🔥",
+        "Ashes to ashes…",
+        "Tell mom I'm okay!",
+        "It's cozy here… maybe?"
+      ]
+    },
+    "game": {
+      "title": "3D Cube Game",
+      "description": "Interactive Minecraft-style game with an open crazy world, insane amazing physics and gameplay! COMING SOON!",
+      "button": "Play Game"
+    },
+    "breed": {
+      "title": "Genetic Synthesis Laboratory 🧬",
+      "description": "Combine two specimens to create a new one from the cryogenic chamber! Science works miracles! ⚗️",
+      "button": "Synthesize Specimens",
+      "feeNotice": "Coste de investigación: 45% (5% CRAA + 15% LP + 25% Pool) del precio Floor",
+      "cooldown": "⏳ Stabilization period:",
+      "needTwoNfts": "Need to select exactly 2 specimens for genetic synthesis",
+      "selectGender": "Select specimen type",
+      "male": "Alpha specimen",
+      "female": "Beta specimen",
+      "genderRequired": "Different specimen types required for synthesis",
+      "waitingForWallet": "Waiting for laboratory access...",
+      "processingBreeding": "Processing genetic synthesis...",
+      "graveyardCooldown": "Cryogenic chamber in stabilization process",
+      "graveyardCooldownDesc": "Wait until at least one frozen specimen completes stabilization",
+      "graveyardReady": "Cryogenic chamber ready for genetic synthesis",
+      "graveyardEmpty": "No available specimens in cryogenic chamber",
+      "graveyardEmptyDesc": "Cryogenic chamber is empty. First freeze some specimens to enable synthesis.",
+      "timeUntilReady": "Time until experiment ready:",
+      "selectNft": "Select specimen",
+      "selectedNft": "Selected specimen",
+      "breeding": "Genetic synthesis...",
+      "breedNfts": "Synthesize specimens",
+      "returnToHome": "Return to main laboratory",
+      "connectWallet": "Connect Lab Access",
+      "connectWalletDesc": "Please connect your wallet to access the laboratory and view test subjects",
+      "connectWalletButton": "Access Laboratory",
+      "errorLoadingNfts": "Error Loading Test Subjects",
+      "loadingNfts": "Loading specimens...",
+      "loadingNftsDesc": "Scanning your CrazyOctagon research collection",
+      "noNftsFound": "No specimens found",
+      "noNftsFoundDesc": "You don't have any CrazyOctagon specimens for experimentation",
+      "goToCollection": "Visit specimen vault",
+      "selectNftsForBreeding": "Select 2 specimens for genetic synthesis",
+      "loadingGraveyardStatus": "Scanning cryogenic chamber status...",
+      "insufficientCra": "Insufficient research funding (OCTAA)",
+      "needCraToBreed": "Need {amount} OCTAA for experiment funding",
+      "approveCra": "Authorize research budget",
+      "approveCraDesc": "First transaction: grant laboratory permission to use research funds",
+      "approvalConfirmed": "Research authorization confirmed",
+      "craAllowanceSet": "Laboratory budget approved",
+      "confirmBreeding": "Confirm genetic experiment",
+      "signBreedingTransaction": "Sign experiment authorization",
+      "breedingCanceled": "Experiment canceled",
+      "transactionRejected": "Laboratory access denied",
+      "breedingSuccessful": "Genetic mutation successful! 🧬⚡",
+      "txConfirmed": "Experiment confirmed: {hash}...",
+      "transactionError": "Experiment error",
+      "inactiveNftSelected": "Inactive specimen selected",
+      "nftNoStarsLeft": "Specimen #{id} has no energy left and cannot be used for genetic synthesis.",
+      "maximumSelectionReached": "Maximum specimens selected",
+      "canOnlySelectTwoNfts": "You can only select 2 specimens for genetic synthesis",
+      "invalidSelection": "Invalid specimen selection",
+      "mustSelectExactlyTwoNfts": "You must select exactly 2 specimens for experimentation",
+      "walletNotConnected": "Laboratory access denied",
+      "pleaseConnectWalletFirst": "Please connect to laboratory systems first",
+      "selectedNftsNoStars": "Selected specimens have no genetic material left! Choose active subjects with DNA samples.",
+      "cannotBreedSelectedNfts": "Cannot synthesize selected specimens. Check laboratory requirements.",
+      "breedYourCubes": "Experiment on your specimens",
+      "select2NftsToCreate": "Select 2 specimens to create a new mutant from the cryogenic chamber",
+      "breedingCost": "Coste de investigación",
+      "costs": {
+        "craaBurn": "CRAA quemado",
+        "octa": "OCTA pool",
+        "sponsor": "Sponsor fee",
+        "lp": "Asig. LP"
+      },
+      "graveyardSize": "Tamaño del cementerio",
+      "selectedParents": "Selected specimens",
+      "breedSelectedNfts": "Synthesize selected specimens",
+      "guide": {
+        "title": "🧬 ✨ Guía de Cría",
+        "intro": "El juego está construido completamente sobre Monad. Todas las acciones se manejan con contratos inteligentes; el sitio es solo interfaz. Para criar un nuevo octágono se paga el 40% (10% CRAA + 30% OCTAA) del precio mínimo de mercado. Cada padre pierde 1 ⭐ y entra en un enfriamiento de 48 horas.",
+        "fee": "La comisión se calcula automáticamente desde el precio mínimo (floor) de la colección y se paga en CRAA + OCTAA. Distribución: 10% CRAA se quema permanentemente; del 30% OCTAA, 10% va al LP OCTAA–WMON en Uniswap (vinculado al NFT nuevo) y 20% se quema para siempre.",
+        "requirement": "Select 1 Male and 1 Female active NFTs (not in graveyard) with at least 1 ⭐ for breeding.",
+        "rarity": "Star ratings: 1 ⭐ — Common, 2 ⭐ — Uncommon, 3 ⭐ — Rare, 4 ⭐ — Epic, 5 ⭐ — Legendary, 6 ⭐ — Mythic.",
+        "penalty": "Each parent loses 1 ⭐ after breeding.",
+        "step1": "1. Allow OCTAA spending for fees (get OCTAA on <a href='https://uniswap.org/swap?outputCurrency=0xBB848dAC056e385d2f7c750eC839157dccf4cfF3' target='_blank'>Uniswap</a> — Monad if needed). Token fees: 0% on purchase, 10% on sale, 3% on transfer.",
+        "step2": "2. Confirm breeding — a new cube is created; 10% CRAA is burned; 10% OCTAA goes to Uniswap LP (OCTAA–WMON) and binds to the new NFT; 20% OCTAA is burned; both parents enter a 48-hour cooldown.",
+        "note": "Collection limited to 9,700 cubes; fee uses marketplace floor price. Random chance to obtain a cube of higher rarity than both parents. OCTAA burns to the dead-wallet with no recovery.",
+        "buyNFT": "Buy NFTs: <a>Monad marketplace (coming soon)</a>",
+        "contractAddress": "🔗 Contrato de OCTAA: 0xBB848dAC056e385d2f7c750eC839157dccf4cfF3"
+      },
+      "quickLinks": {
+        "octaaTitle": "Intercambiar OCTAA en Uniswap",
+        "craa": "Abrir Uniswap — Swap CRAA",
+        "craaTitle": "Intercambiar CRAA en Uniswap",
+        "octaa": "Abrir Uniswap — Swap OCTAA"
+      },
+      "yourCraaBalance": "Your CRAA Balance",
+      "yourOctaaBalance": "Research budget",
+      "refreshPrice": "Actualizar precio",
+      "refreshing": "Actualizando..."
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 CrazyOctagon — Where octagons cry and joke!",
+    "crashMessage": "If the site crashed, the cube went for pizza"
+  },
+  "construction": {
+    "title": "UNDER CONSTRUCTION",
+    "message": "This section is still in development. Soon there will be lots of interesting things here!",
+    "returnHome": "Return Home",
+    "phrases": [
+      "I'm working here! Don't disturb!",
+      "Coming soon, I'm wearing a hard hat!",
+      "Construction in progress!",
+      "Cube at construction site, come back later!",
+      "It'll be beautiful here, I promise!",
+      "Oops, you're early! We're not finished!",
+      "Cube builds, paints, tired..."
+    ]
+  },
+  "wallet": {
+    "gameGuideContent": "🎮 Guía del Juego CrazyOctagon\n\n🔹 Primeros Pasos\n• Consigue tokens OCTAA — para comisiones de gas y acciones del juego\n• Compra NFTs de CrazyOctagon en el mercado\n• Antes de comprar, revisa el NFT en \"Información\" → \"Inspector de NFT\" — introduce el número del NFT y obtén información completa: cantidad de monedas bloqueadas, estrellas restantes, estado de enfriamiento y otros parámetros\n\n🔹 Cómo Empezar a Jugar\n• Ve a la pestaña Ping — verás tus NFTs\n• Para un octágono nuevo, pulса Activar — es el primer Ping, no da OCTAA pero inicia el temporizador\n• Tras activar, puedes hacer ping (clic en Ping). Por defecto una vez cada 24 horas; las recompensas empiezan a acumularse\n• Puedes saltarte pings hasta 7 días — las recompensas y bonificaciones se acumulan automáticamente\n• Tras 7 días sin ping, la acumulación se detiene hasta que vuelvas a hacer ping\n• Cada Ping exitoso aporta OCTAA — depende de:\n  - Rareza del octágono (Common, Rare, Mystic, etc.)\n  - Tu bono de experiencia — crece cada 24 horas\n  - Tiempo entre pings (si pasan más periodos, más OCTAA)\n\n🔹 ¿Qué es el Bono de Experiencia?\n• Inicialmente todos los octágonos tienen una penalización de -50%\n• Cada 24 horas tu bono crece +2.7%\n• Máximo alcanzable +97.2% + también cuentan los bonos por rareza\n• Puedes saltarte pings hasta 7 días — el bono sigue creciendo automáticamente\n• No hay penalizaciones por perder pings dentro de 7 días\n• Tras 7 días sin ping, el bono deja de crecer hasta que vuelvas a hacer ping\n\n🔹 Cómo Obtener OCTAA\n• OCTAA no llega al monedero de inmediato; se acumula dentro del octágono (así cada NFT tiene valor real)\n• Para cobrar — debes quemar el octágono (Burn) (tu octágono pasa al cementerio y deja de pertenecerte; recibes OCTAA en la sección de reclamo)\n\n🔹 Cómo Quemar\n• Ve a la sección Burn\n• Elige el octágono y el tiempo de espera:\n  - 30 minutos → 50% para el jugador\n  - 120 minutos → 70%\n  - 480 minutos → 80%\n• El resto se reparte entre el pool y la quema permanente (va a la dead wallet oficial)\n• Tras el tiempo elegido, pulsa Claim — OCTAA llegará a tu monedero\n\n🔹 Cómo Revivir un Octágono (Breed)\n• Ve a la sección Breed\n• Elige 2 octágonos vivos (con al menos 1 estrella y sin cooldown)\n• Selecciona el género para cada octágono: macho y hembra (ambos requeridos)\n• Paga la comisión: 40% (10% CRAA + 30% OCTAA) del precio mínimo de mercado\n• Un NFT aleatorio del cementerio vuelve como nuevo, con todas las estrellas pero sin monedas:\n  - El bono se reinicia (vuelve a -50%)\n  - Las estrellas se restauran\n  - Empieza un cooldown de 48 horas\n  - Tras el cooldown puedes hacer ping desde cero\n\n🔹 Dónde está OCTAA en el Sistema\n• El OCTAA de Ping proviene del pool mensual de recompensas\n• El OCTAA gastado en Breed regresa a ese pool\n• El OCTAA de Burn se quema para siempre\n• Todo lo quemado va a la billetera especial 0x...dead y desaparece\n\n🔹 Comisiones del Token OCTAA\n• 3% en transferencias — va al contrato del juego\n• 10% en ventas en DEX — va al contrato del juego\n• 0% en compras en DEX — sin comisión al comprar\n• Todas las comisiones sostienen el ecosistema del juego y el pool de recompensas\n\n🔹 Estrategia de Ejemplo\nTienes tres octágonos:\n• Common (normal) — haz ping; el bono crece 2.7% cada 24 h hasta 97%, luego se detiene. Puedes vender/transferir; el bono y las monedas bloqueadas se conservan\n• Rare — úsalo para Breed o acumula OCTAA\n• Mystic — raro, da más OCTAA; mejor no quemarlo\n\nJuega con calma:\n• Haz ping cuando te convenga — puedes saltarte hasta 7 días sin penalización\n• Las recompensas y bonificaciones se acumulan automáticamente en ese tiempo\n• Quema periódicamente los octágonos débiles → obtén tokens\n• O revive los muertos — oportunidad de conseguir uno más raro\n\n💡 Consejos\nMáximo beneficio: haz ping con regularidad y no quemes pronto los octágonos raros.\n💥 Los tokens quemados no regresan — aumenta el valor del OCTAA restante.\n\n🚀 Nuestra Visión\nEn 1–2 meses planeamos ajustar el gameplay y renunciar a privilegios de admin en los contratos de NFT y token. Queremos un experimento social con jugabilidad totalmente social, donde nada pueda cambiarse — sólo deciden el mercado y la comunidad.\n\nEl equipo no tiene bonos en el contrato en forma de monedas OCTAA. Puedes crear una cartera (por ejemplo, Rabby) en 1 minuto y jugar.\nPronto el juego será 100% descentralizado con autorregulación de mercado."
+  },
+  "swap": {
+    "modal": {
+      "title": "Comprar tokens en Monad"
+    },
+    "instructions": {
+      "title": "Instrucciones de compra:",
+      "step1": "Haz clic en el enlace de intercambio preferido abajo",
+      "step2": "Confirma el cambio de red a Monad Mainnet",
+      "step3": "Ajusta el deslizamiento (slippage): compra 3-5%, venta 10-15%",
+      "step4": "Confirma la transacción en tu billetera"
+    },
+    "fees": {
+      "title": "💰 IMPUESTOS: COMPRA 0% | VENTA 10%",
+      "buy": {
+        "title": "🟢 COMPRAR OCTAA (IMPUESTO: 0%):"
+      },
+      "sell": {
+        "title": "🔴 VENDER OCTAA (IMPUESTO: 10%):"
+      },
+      "camelot": "Comisión de Uniswap:",
+      "free": "0% (Gratis)",
+      "slippage": "Deslizamiento (Slippage):",
+      "buy.slippage": "3-5%",
+      "token.tax": "Impuesto del token:",
+      "buy.tax": "0%",
+      "sell.slippage": "12-15%",
+      "sell.tax": "10% (Se descuenta del total)"
+    },
+    "burn": {
+      "auto": {
+        "title": "� CRECIMIENTO DEL JUEGO: 10% IMPUESTO",
+        "desc": "¿A dónde va el 10%? El 3% se añade automáticamente a la liquidez y se QUEMA para siempre para elevar el precio mínimo, mientras que el 7% va al fondo de recompensas para los jugadores. Esto asegura una economía sostenible y el valor del token a largo plazo."
+      }
+    },
+    "slippage": {
+      "note": "¿Qué es el deslizamiento (slippage)?",
+      "desc": "El cambio de precio máximo que estás dispuesto a aceptar. En momentos de alta volatilidad o baja liquidez, el precio puede variar entre el envío y la ejecución de la transacción."
+    },
+    "links": {
+      "title": "ENLACES DE UNISWAP (MONAD)",
+      "buyOctaaUsdc": "Comprar OCTAA / USDC",
+      "buyOctaaWmon": "Comprar OCTAA / MON",
+      "buyCraaMonad": "Comprar CRAA (Monad)",
+      "buyCRAApe": "Comprar CRAA (ApeChain)"
+    },
+    "dexscreener": {
+      "btn": "Ver OCTAA en DexScreener"
+    },
+    "footer": {
+      "secure": "Opera de forma segura bajo tu propio riesgo. La red Monad está en su primera fase."
+    }
+  },
+  "userNFTs": {
+    "title": "Your NFTs",
+    "connectToView": "Connect your wallet to view your CrazyOctagon NFTs",
+    "errorLoading": "Error loading NFTs",
+    "noNFTs": "You don't own any CrazyOctagon NFTs yet",
+    "yourCrazyOctagonNFTs": "Your CrazyOctagon NFTs",
+    "showing": "Showing {{count}} of {{total}} NFTs"
+  },
+  "cubeAnimation": {
+    "loading": "Loading...",
+    "loadingMessage": "Oh no, the site is stuck! Wait, we're just lazy 🦥",
+    "speechBubbles": [
+      "¡Cansado de girar en el mismo lugar! 🥱",
+      "¡Oye, ¿a dónde se fueron todos los octágonos?! 😱",
+      "¡Yo también me largo de aquí! 👋",
+      "¡Voy por una pizza poligonal! 🍕",
+      "¡Hora de pulir mis bordes! 💅"
+    ],
+    "partyBubble": "¡Yujuu! ¡La pista de octágonos es mía! ¡Fiesta! 🎵🎉",
+    "whereIsEveryone": "¡Oye, ¿a dónde se fueron todos?! 😱",
+    "waitingForMusicPhrases": [
+      "¡Oye, pon la música! 🎵",
+      "Es aburrido sin música... 😴",
+      "¡Quiero bailar! ¡Necesito música! 💃",
+      "¡Alguien, presione el botón! 👆"
+    ],
+    "partyPhrases": [
+      "¡Bailando toda la noche en mis ocho lados! 🕺",
+      "¡La fiesta octagonal acaba de empezar! 🎉",
+      "¿Quién dijo que los octágonos no saben divertirse? 🎵",
+      "¡Sube esos ritmos poligonales! 🔊",
+      "¡Soy el rey de esta fiesta de ocho lados! 👑",
+      "¡Ningún octágono se mueve mejor que yo! 💃",
+      "¡Este es mi tema favorito para girar! 🎧",
+      "¡DJ, sube el octa-volumen! 🎚️",
+      "¡Octágonos en la casa! 🏠",
+      "¡Fiesta hasta el amanecer con mis ocho bordes! 🌅"
+    ],
+    "musicOn": "Apagar música",
+    "musicOff": "Encender música",
+    "newCubePhrases": {
+      "turnOnMusic": "Turn on the octa-jams",
+      "wantToParty": "Ready for an octagon party",
+      "settingUpMainnet": "We're wiring up Monad",
+      "mainnetLikeDraft": "Mainnet is live and syncing.",
+      "settingUpWithLove": "Configuring every edge crooked, but with love!",
+      "mainnetBugsFeatures": "Mainnet status: stable and live.",
+      "mainnetIsLive": "Mainnet is live - no drafts",
+      "mainnetStable": "Mainnet status: stable and live",
+      "everythingReady": "¡Todo listo para la acción!",
+      "startingEngines": "Arrancando los motores octagonales",
+      "loadingAssets": "Cargando activos premium",
+      "connectingNodes": "Conectando nodos de Monad",
+      "finalTouch": "Dando el toque final",
+      "optimizingPixels": "Optimizando cada píxel",
+      "securityAudit": "Pasando auditoría de seguridad"
+    },
+    "oldDialog": [
+      "¿Por qué el azul se volvió púrpura?",
+      "¿Quién me repintó?",
+      "¿Es este realmente nuestro mundo?",
+      "¡Era amarillo, sinceramente!",
+      "Espera, ¿qué está pasando?"
+    ],
+    "panicText": [
+      "¡Ahhh!",
+      "¡Corre!",
+      "¡No es nuestro mundo!",
+      "¡Sálvense!",
+      "¡Ayuda!"
+    ],
+    "trollPhrases": {
+      "monad": [
+        [
+          "La comunidad primero... jaja es broma",
+          "¿3 años de testnet? ¡Toma 0 tokens!"
+        ],
+        [
+          "¡230,000 billeteras recompensadas!",
+          "...la mitad de ellas son aleatorias 😎"
+        ],
+        [
+          "Gracias por las pruebas gratuitas, idiotas",
+          "Vuestra lealtad no significó nada"
+        ],
+        [
+          "Recaudamos $225M, por cierto",
+          "Pero para vosotros tenemos el dedo medio"
+        ],
+        [
+          "Los KOLs se llevan la bolsa",
+          "Los testers se llevan el rug"
+        ],
+        [
+          "Airdrop solo para influencers",
+          "¿Usuarios reales? Nunca he oído hablar de ellos"
+        ],
+        [
+          "¿#MonadScam es tendencia? ¡Genial!",
+          "No nos importa, somos ricos"
+        ],
+        [
+          "3% del suministro para la comunidad",
+          "Y el 97% para nuestros bolsillos"
+        ],
+        [
+          "¿Descentralizado? Tío, el secuenciador es nuestro.",
+          "Descentralizado... excepto por nuestra multifirma."
+        ],
+        [
+          "¡Escalando a 10k TPS!",
+          "Los benchmarks internos no cuentan, anon."
+        ],
+        [
+          "¡Construyendo para los builders!",
+          "Cobrando $500k por una 'colaboración'."
+        ],
+        [
+          "¿Lanzamiento justo? JAJA.",
+          "90% para el equipo y VCs es 'justo' ahora."
+        ],
+        [
+          "Próximamente en el Q1 de 2024",
+          "Perdón, quisimos decir Q1 2025... o 2026."
+        ],
+        [
+          "¡Velocidad de Ethereum, seguridad de Monad!",
+          "El RPC centralizado hace BRRRRRR."
+        ],
+        [
+          "WAGMI! (Vamos A Ganar Más Inversores)",
+          "Gmoon! (Adiós Luna, hola Dump)"
+        ]
+      ],
+      "octaa": [
+        [
+          "Recompensamos a TODOS",
+          "A diferencia de esos otros"
+        ],
+        [
+          "Comunidad real, juego real",
+          "Sin barreras de VCs aquí"
+        ],
+        [
+          "Tokenomics transparentes",
+          "Revisa el contrato tú mismo"
+        ],
+        [
+          "Juego limpio para cada octágono",
+          "Que gane el mejor cubo"
+        ],
+        [
+          "Construyendo a largo plazo",
+          "Estabilidad sobre hype"
+        ],
+        [
+          "Descentralización real",
+          "Tus tokens, tu poder"
+        ],
+        [
+          "Únete a la revolución",
+          "No dejes que los VCs te ignoren"
+        ],
+        [
+          "Crazy Octagon está aquí",
+          "El juego que Monad desearía tener"
+        ]
+      ]
+    }
+  },
+  "tabs": {
+    "ready": "Ready"
+  },
+  "market": {
+    "loading": "Cargando datos de mercado...",
+    "failed": "Error al cargar datos de mercado",
+    "header": "Precios de Mercado",
+    "subtitle": "NFT y tokens en tiempo real",
+    "error": "Error",
+    "live": "En vivo",
+    "floorPrice": "Precio Base (Floor)",
+    "buyNft": "Comprar NFT en MagicEden",
+    "gameToken": "Token del Juego",
+    "baseCurrency": "Moneda Base",
+    "tradeDex": "Intercambiar en Uniswap",
+    "additional": "Información Adicional",
+    "change1h": "Cambio 1h",
+    "change24h": "Cambio 24h",
+    "volume24h": "Volumen 24h",
+    "marketCap": "Cap. de Mercado"
+  },
+  "rewards": {
+    "loading": "Buscando tus recompensas...",
+    "accumulated": "Acumulado:",
+    "toPool": "Al Pool",
+    "burned": "Quemado",
+    "toClaim": "Por cobrar",
+    "availableIn": "Disponible en:",
+    "processing": "PROCESANDO...",
+    "claim": "COBRAR",
+    "claimed": "RECOMPENSA COBRADA"
+  },
+  "distribution": {
+    "activeVsGraveyard": "Active vs In graveyard by rarity",
+    "rarity": "Rarity",
+    "byRarity": "By Rarity",
+    "byStatus": "By Status",
+    "nfts": "NFTs"
+  },
+  "status": {
+    "ready": "Listo",
+    "readyToClaim": "Listo para cobrar",
+    "waiting": "No listo",
+    "processing": "Procesando",
+    "success": "Éxito",
+    "failed": "Falló",
+    "claim": "Cobrar",
+    "claimed": "Cobrado",
+    "alreadyBurned": "Ya quemado",
+    "alreadyInGraveyard": "Ya en el cementerio",
+    "noStarsLeft": "Sin estrellas",
+    "activated": "Activado",
+    "notActivated": "No activado",
+    "cantPing": "No puede hacer ping",
+    "rewardReady": "Recompensa lista",
+    "readyForBreeding": "Listo para cría",
+    "claimReady": "Listo para cobrar",
+    "locked": "Bloqueado",
+    "claimable": "Cobrable",
+    "burnable": "Quemable",
+    "done": "¡Hecho!",
+    "graveyard": "Cementerio",
+    "alive": "Vivo",
+    "dying": "Muriendo",
+    "notClaimed": "No",
+    "confirming": "Confirmando..."
+  },
+  "pages": {
+    "breed": {
+      "title": "Cube Breeding",
+      "subtitle": "Create a new cube from two parents",
+      "selectParents": "Select two parents",
+      "noNftsAvailable": "No NFTs available for breeding",
+      "needTwoParents": "Need to select two parents",
+      "breedingFee": "Breeding fee",
+      "breedingSuccess": "Breeding successful!",
+      "breedingFailed": "Breeding failed",
+      "howItWorks": "How it works",
+      "breedingGuide": "Breeding guide",
+      "selectTwoNfts": "Select 1 Male and 1 Female NFT with at least 1 ⭐",
+      "payFee": "Pay 40% fee based on marketplace floor (10% CRAA → burn; 10% OCTAA → LP; 20% OCTAA → burn)",
+      "getNewCube": "Get a new cube in your collection (chance of higher rarity)",
+      "yourCraaBalance": "Your CRAA Balance",
+      "yourOctaaBalance": "Your OCTAA Balance"
+    },
+    "burn": {
+      "title": "Cube Burning",
+      "subtitle": "Burn NFT to get locked OCTAA",
+      "selectToBurn": "Select NFT to burn",
+      "burnFee": "Burn fee",
+      "burnSuccess": "Burn successful!",
+      "burnFailed": "Burn failed",
+      "confirmBurn": "Confirm burn",
+      "burnWarning": "Warning: burning is irreversible!",
+      "nftWillBeDestroyed": "NFT will be destroyed forever",
+      "craWillBeTransferred": "OCTAA will be transferred to your wallet",
+      "description": "Burn the cube — get OCTAA. Easy money! 💰",
+      "noNFTsDescription": "You don't have any CrazyOctagon NFTs to burn"
+    },
+    "ping": {
+      "title": "Cube Ping",
+      "subtitle": "Ping cubes every 24 hours to earn OCTAA",
+      "pingYourCubes": "Ping your cubes",
+      "howPingWorks": "How ping works",
+      "pingInterval": "Ping interval",
+      "betweenPings": "Between pings",
+      "pingableNfts": "NFTs ready to ping",
+      "noPingableNfts": "No NFTs ready to ping",
+      "nftsNeedActivation": "Your NFTs must be activated and not in graveyard to ping",
+      "pingInitiated": "Ping initiated!",
+      "pingTransaction": "Ping transaction sent for NFT",
+      "earnCraBasedOnRarity": "You'll earn OCTAA based on rarity!",
+      "pingSuccessful": "Ping successful!",
+      "nftPinged": "Your NFT was pinged and OCTAA earned!"
+    },
+    "claim": {
+      "title": "Claim",
+      "subtitle": "Claim your earned OCTAA tokens",
+      "searchingRewards": "Searching for your rewards",
+      "scanningBlockchain": "Scanning blockchain and graveyard, this may take a few seconds",
+      "noRewards": "No rewards found",
+      "noRewardsDescription": "You don't have any available rewards to claim yet"
+    },
+    "graveyard": {
+      "title": "Cube Graveyard",
+      "subtitle": "Resting place of burned NFTs",
+      "burnedCubes": "Burned cubes",
+      "restInPeace": "Rest in peace",
+      "someStillWhisper": "Some still whisper from the ashes",
+      "totalBurned": "Total burned",
+      "viewBurnedNft": "View burned NFT",
+      "loading": "Loading your NFTs from the graveyard...",
+      "empty": {
+        "title": "GRAVEYARD IS EMPTY",
+        "description": "No burned cubes found."
+      },
+      "showingFirst": "Showing first 20 octagons. Total: {count}"
+    },
+    "stats": {
+      "title": "Game Statistics",
+      "subtitle": "Real-time game state data",
+      "totalNfts": "Total NFTs",
+      "activeNfts": "Active NFTs",
+      "burnedNfts": "Burned NFTs",
+      "totalCra": "Total OCTAA",
+      "lockedCra": "Locked OCTAA",
+      "burnedCra": "Burned OCTAA",
+      "gameActivity": "Game Activity",
+      "recentTransactions": "Recent Transactions",
+      "analytics": "Analytics",
+      "yourNFTs": "Your NFTs",
+      "bridgeNFT": "Bridge NFT"
+    },
+    "info": {
+      "title": "Information",
+      "subtitle": "Detailed information about your NFTs and the game",
+      "overview": "Overview",
+      "yourCollection": "Your Collection",
+      "gameRules": "Game Rules",
+      "tokenomics": "Tokenomics",
+      "connectWalletNfts": "Connect your wallet to see your NFTs.",
+      "noNfts": "You don't own any CrazyOctagon NFTs.",
+      "yourNfts": "Your NFTs",
+      "live": "live",
+      "inGraveyard": "in graveyard",
+      "activeNfts": "Active NFTs",
+      "nftsInGraveyard": "NFTs in Graveyard",
+      "noStars": "No stars",
+      "lockedCra": "Locked OCTAA",
+      "totalCraLocked": "Total OCTAA locked in your NFTs",
+      "craLockedWarning": "OCTAA locked inside an NFT are not burned and travel with the NFT when it is transferred, sold or moved in any way. They permanently belong to the NFT itself. You can obtain these tokens only by burning the NFT.",
+      "craLockedWarningBurn": "burning"
+    }
+  },
+  "components": {
+    "buttons": {
+      "connect": "Connect",
+      "disconnect": "Disconnect",
+      "approve": "Approve",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "retry": "Retry",
+      "close": "Close",
+      "back": "Back",
+      "next": "Next",
+      "save": "Save",
+      "load": "Load",
+      "refresh": "Refresh"
+    },
+    "messages": {
+      "loading": "Loading...",
+      "connecting": "Connecting...",
+      "processing": "Processing...",
+      "success": "Success!",
+      "error": "Error",
+      "warning": "Warning",
+      "info": "Information",
+      "noData": "No data",
+      "noResults": "No results found",
+      "tryAgain": "Try again",
+      "somethingWentWrong": "Something went wrong",
+      "pleaseWait": "Please wait",
+      "transactionPending": "Transaction pending",
+      "transactionConfirmed": "Transaction confirmed",
+      "transactionFailed": "Transaction failed"
+    },
+    "forms": {
+      "required": "Required field",
+      "invalid": "Invalid value",
+      "tooShort": "Too short",
+      "tooLong": "Too long",
+      "enterAmount": "Enter amount",
+      "selectOption": "Select option",
+      "searchPlaceholder": "Search...",
+      "noOptionsAvailable": "No options available"
+    },
+    "navigation": {
+      "home": "Home",
+      "back": "Back",
+      "forward": "Forward",
+      "menu": "Menu",
+      "settings": "Settings",
+      "help": "Help",
+      "about": "About"
+    }
+  },
+  "rarity": {
+    "common": "Común",
+    "uncommon": "Poco común",
+    "rare": "Raro",
+    "epic": "Épico",
+    "legendary": "Legendario",
+    "mythic": "Mítico",
+    "unknown": "Desconocido"
+  },
+  "cube": "Octágono",
+  "glueCube": {
+    "phrases": [
+      "¡Apaguemos este fuego! 🧯",
+      "¡Fuego, fuego, detente ahí! 🔥",
+      "¡No entren en pánico, tengo un extintor! 💨",
+      "¡Pshh-pshh! ¡Todo bajo control! 🚒",
+      "¿Dónde está el fuego? ¡Yo lo apago todo! 🧯"
+    ]
+  },
+  "cubeObservers": {
+    "idlePhrases": [
+      "¡Shhh! Estamos calibrando el generador de risas cuánticas.",
+      "¿Quién volvió a perder mi vaso de cafeína?",
+      "Según los datos, hay un 83% de probabilidad de caos adorable.",
+      "Aquí no hay romance—¡solo experimentos controlados!",
+      "¡Gafas de seguridad puestas, hipótesis fuera!"
+    ],
+    "successPhrases": [
+      "¡Eureka! ¡Otro octágono se acaba de unir al laboratorio!",
+      "Perfección revisada por pares: bebé octágono confirmado.",
+      "Registra este descubrimiento—¡es científicamente adorable!"
+    ]
+  },
+  "shyCubes": {
+    "bubbles": [
+      "¡Oh-oh-oh!",
+      "¿Qué está pasando aquí?",
+      "¿Quién está haciendo ruido?",
+      "¡No vimos nada!",
+      "¡No mires!"
+    ]
+  },
+  "contractInteraction": {
+    "error": "Error",
+    "enterTokenId": "Por favor, introduce un ID de token",
+    "enterTokenIdAndHours": "Por favor, introduce el ID del token y las horas de espera",
+    "enterBothParents": "Por favor, introduce los IDs de ambos padres"
+  },
+  "actions": {
+    "title": "📊 Acciones y Tiempos del Juego",
+    "timeLabel": "Tiempo:",
+    "burn": {
+      "title": "Quemar NFT",
+      "time": "30/120/480 minutos",
+      "desc": "Quema el NFT y bloquea tokens OCTAA para ganar recompensas"
+    },
+    "graveyard": {
+      "title": "Cementerio",
+      "desc": "Los NFT quemados aterrizan en el cementerio con 24h de cooldown"
+    },
+    "breed": {
+      "title": "Crianza (Breed)",
+      "desc": "Crea nuevos NFT desde el cementerio",
+      "note": "Después de criar, el NFT no puede participar en acciones por 48h"
+    },
+    "ping": {
+      "title": "Ping",
+      "desc": "Activa el NFT para ganar recompensas",
+      "time": "Intervalo de 24h",
+      "note": "¡Los NFT acumulan y no se queman!"
+    },
+    "rewards": {
+      "title": "Recompensas del Pool",
+      "desc": "Obtén tokens OCTAA del pool de recompensas",
+      "time": "Intervalo de 30 días"
+    },
+    "other": {
+      "title": "Otras Acciones",
+      "desc": "Varios mecanismos de juego",
+      "time": "24h de cooldown"
+    },
+    "cooldown48": "24h cooldown"
+  },
+  "nftInspector": {
+    "title": "NFT Cooldown Inspector",
+    "description": "NFT Inspector works without wallet connection - enter any NFT ID to view public stats.",
+    "enterNftId": "Enter NFT ID",
+    "inspect": "Inspect",
+    "loading": "Loading NFT data...",
+    "error": "Error fetching NFT data",
+    "notFound": "NFT not found or not activated",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "lockedCRAA": "Locked OCTAA",
+    "pendingCRAA": "Pending OCTAA",
+    "periods": "Periods",
+    "ping": "Ping",
+    "breed": "Breed",
+    "ready": "Ready"
+  }
+}

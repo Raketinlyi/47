@@ -1,0 +1,1083 @@
+{
+  "home": {
+    "title": "CrazyOctagon",
+    "subtitle": "方块哭泣和开玩笑的地方！",
+    "balance": "余额：",
+    "connectWallet": "连接 MetaMask",
+    "walletNotDetected": "未检测到 MetaMask。请安装 MetaMask"
+  },
+  "sections": {
+    "bridge": {
+      "title": "跨链桥接 🌉",
+      "description": "在 Monad 和 ApeChain 之间无缝转移您的 CRAA 代币",
+      "connectWallet": "连接钱包",
+      "connectWalletDesc": "请连接钱包以访问跨链桥",
+      "guide": {
+        "title": "如何使用跨链桥",
+        "intro": "在 Monad 和 ApeChain 网络之间安全高效地桥接您的 CRAA 资产。",
+        "step1": "选择要桥接的资产类型（OCTAA 代币或 NFT）",
+        "step2": "选择源网络和目标网络",
+        "step3": "输入金额或选择要传输的 NFT",
+        "step4": "确认交易并等待完成",
+        "note": "桥接过程通常需要 30-60 秒。资产在传输过程中由智能合约保护。"
+      },
+      "interface": {
+        "title": "桥接界面",
+        "amountLabel": "桥接金额",
+        "amountPlaceholder": "0.00",
+        "available": "可用：1,234.56 OCTAA",
+        "useMax": "使用最大",
+        "selectNftLabel": "选择要桥接的 NFT",
+        "selectNftPlaceholder": "选择您的 CrazyOctagon NFT",
+        "bridgeButton": "桥接 {type}",
+        "bridgeAgain": "再次桥接",
+        "preparing": "准备中...",
+        "processing": "处理中...",
+        "confirming": "确认中...",
+        "insufficientOCTA": "OCTAA 不足",
+        "insufficientOCTADesc": "桥接需要 {required} OCTAA。您的余额：{balance} OCTAA",
+        "balanceDetails": {
+          "you": "👤 您",
+          "pool": "🏦 池",
+          "burn": "🔥 销毁",
+          "split": "60% / 30% / 10%"
+        }
+      },
+      "status": {
+        "ready": "准备桥接",
+        "preparing": "准备交易",
+        "processing": "处理桥接",
+        "confirming": "在目标网络确认",
+        "success": "桥接完成",
+        "error": "桥接失败",
+        "remaining": "~{time}秒剩余"
+      },
+      "success": {
+        "title": "桥接成功！",
+        "description": "您的 {type} 已成功桥接到 {network}。",
+        "transaction": "交易：{hash}"
+      },
+      "info": {
+        "title": "桥接信息",
+        "security": {
+          "title": "安全性",
+          "description": "资产在桥接过程中由智能合约保护"
+        },
+        "speed": {
+          "title": "速度",
+          "description": "桥接完成通常需要 30-60 秒"
+        },
+        "fees": {
+          "title": "费用",
+          "description": "跨链传输的最低桥接费用"
+        }
+      },
+      "comingSoon": {
+        "title": "🚀 即将推出的功能",
+        "features": [
+          "在 Monad 和 ApeChain 之间桥接 CRAA 代币",
+          "跨网络传输 CrazyOctagon NFT",
+          "保持 NFT 元数据和稀有度",
+          "低成本跨链交易",
+          "实时桥接状态跟踪",
+          "自动余额同步"
+        ]
+      }
+    },
+    "burn": {
+      "title": "烧毁 NFT（烤八角！）",
+      "description": "烧掉 NFT，领取 OCTAA 代币！想象一台烈焰烤架，八角形们尖叫着：\"告诉妈妈我爱她！\"",
+      "button": "烧毁 NFT",
+      "feeBox": {
+        "title": "🔥 烧毁费用与步骤",
+        "line1": "• 烧毁费用：锁定 OCTAA 的 <1>10%</1>。",
+        "line2": "• 需要 <1>3 次确认</1>。",
+        "step1": "1. 授权合约可以转移您的 NFT。",
+        "step2": "2. 授权花费相当于锁定金额 10% 的 OCTAA。",
+        "step3": "3. 确认最终交易——八角形被烧毁，OCTAA 在等待结束后归您。",
+        "note": "操作前请确认钱包内有足够的 OCTAA 支付费用。",
+        "guide": {
+          "title": "🔥 烧毁指南",
+          "intro": "在最近 7 天内 ping NFT 可解锁累积的 OCTAA——烧毁完成后，这些代币会在你选择的等待时间结束时释放。",
+          "loss": "被烧毁的 NFT 将永久留在墓地。计时结束后 OCTAA 会进入你的钱包——记得在「Claim」部分领取。如果该 NFT 来自 Breed，你还会获得锁在其 LP 份额中的 MON，让八角形更有价值。",
+          "step1": "1. 授权游戏合约可以转移你的 NFT。",
+          "step2": "2. 授权烧毁费用（锁定 OCTAA 的 10%）。",
+          "step3": "3. 确认烧毁交易。完成后八角形被烧掉，OCTAA 会在等待时间结束后解锁。",
+          "timing": "OCTAA 会在所选延迟（30 分 / 120 分 / 480 分）后解锁。等待期间八角形会在「Claim」中以灰色显示（冷却期）。",
+          "note": "示例：锁定 10,000 OCTAA → 费用 1,000 OCTAA（10%）。更长的等待仅影响池子分配，不改变费用金额。",
+          "pingLock": "Ping 只会累积奖励——OCTAA 在烧毁前始终锁定在 NFT 内。",
+          "bridgeNote": "想从墓地复活 NFT，请前往「桥接」部分。收藏总量约为 9,700 个八角形，游戏中烧毁的 OCTAA 永远进入死钱包。",
+          "sellOCTA": "打开 Uniswap — 交换 OCTAA",
+          "fees": "🔘 OCTAA 代币费用：转账 4%（进入游戏合约） • DEX 卖出 10%（进入游戏合约） • DEX 买入 0%。这些费用维持游戏经济。",
+          "contractAddress": "OCTAA 代币合约：0xBB848dAC056e385d2f7c750eC839157dccf4cfF3"
+        },
+        "confirmDialog": {
+          "title": "烧毁 NFT #{tokenId}",
+          "warning": "⚠️ 重要：此操作不可逆！",
+          "description": "您的 NFT 将被永久烧毁并送往八角形墓地。",
+          "waitPeriod": "等待时间：",
+          "minutes": "分钟",
+          "lockedOCTAA": "锁定 OCTAA：",
+          "fee": "费用：",
+          "afterBurn": "烧毁后您获得",
+          "poolReceives": "池子获得：",
+          "burnedForever": "永久烧毁：",
+          "transactions": "您将签署 3 笔交易：",
+          "transaction1": "1️⃣ 批准 OCTAA 费用",
+          "transaction2": "2️⃣ 批准 NFT",
+          "transaction3": "3️⃣ 烧毁 NFT",
+          "yourBalance": "您的 OCTAA 余额：",
+          "cancel": "取消",
+          "confirm": "确认烧毁",
+          "nftEarnings": "🎉 NFT 收益",
+          "totalLockedAmount": "总锁定 OCTAA"
+        }
+      },
+      "noNFTsDescription": "您没有可燃烧的 CrazyOctagon NFT"
+    },
+    "claim": {
+      "title": "领取奖励",
+      "description": "领取您的奖励：您将获得 LP 代币 (Monad + OCTAA) 和 OCTAA 币本身。通过销毁 NFT 来累积代币并获得每日奖金！",
+      "button": "领取",
+      "processing": "处理中...",
+      "claimReward": "领取",
+      "waitingForWallet": "等待钱包确认...",
+      "processingClaim": "处理领取中...",
+      "noRewardsTitle": "没有可领取的奖励",
+      "noRewardsDescription": "先燃烧一些NFT来赚取奖励!",
+      "delayInfoTitle": "💡 奖励可能会出现延迟:",
+      "delayReason1": "区块链确认 (3-5分钟)",
+      "delayReason2": "网络拥堵",
+      "delayReason3": "索引延迟",
+      "delayNote": "如果您最近燃烧了NFT，请等待几分钟并刷新页面。",
+      "blockedTitle": "与合约同步中",
+      "blockedDescription": "请等待4分钟进行区块链同步。这确保奖励数据的准确性。",
+      "timeRemaining": "剩余时间",
+      "blockedNote": "等待期间您可以使用其他部分。"
+    },
+    "stats": {
+      "title": "统计（眼泪与痛苦计数器）",
+      "description": "显示有多少 NFT 被销毁、从墓地返回以及池中有多少 OCTAA",
+      "button": "查看统计",
+      "analytics": "分析",
+      "yourNFTs": "您的 NFT",
+      "bridgeNFT": "桥接 NFT"
+    },
+    "ping": {
+      "title": "Ping NFT",
+      "description": "每24小时ping一次你的NFT来赚取OCTAA代币！激活你的方块并累积奖励，最多可累积7天。",
+      "connectWallet": "连接钱包查看你的方块",
+      "noNFTs": "未找到CrazyOctagon NFT。",
+      "sentFor": "Ping已发送",
+      "error": "Ping错误",
+      "interval": "间隔：24 小时",
+      "bonusGrowth": "奖励：每次成功 Ping 增长 +2.7%。如果漏掉一天，奖励停止增长。",
+      "maxBonus": "最大奖励：+97.2% + 稀有度奖励。",
+      "penaltyReset": "累积限制：7天。之后，在下一次 Ping 之前，奖励停止增长。无罚分！",
+      "activate": "激活",
+      "pingNow": "现在Ping",
+      "cooldown": "冷却",
+      "ready": "就绪",
+      "button": "Ping",
+      "readyToPing": "准备Ping",
+      "waitingForWallet": "等待钱包确认...",
+      "processingPing": "处理ping中...",
+      "accumulated": "已累积",
+      "nextPing": "下次Ping",
+      "live": "实时",
+      "basePerHour": "基础/小时",
+      "rarity": "稀有度",
+      "streak": "连击",
+      "penalty": "惩罚",
+      "totalBonus": "总奖励",
+      "pending": "待处理",
+      "lockedOcta": "锁定OCTAA",
+      "status": "状态",
+      "active": "活跃",
+      "gender": "性别",
+      "male": "雄性",
+      "female": "雌性",
+      "unknown": "未知",
+      "24h": "24小时",
+      "balance": "余额",
+      "Uniswap": "Uniswap",
+      "spacewalk": "Space Walk",
+      "lockedCRAA": "锁定OCTAA"
+    },
+    "graveyard": {
+      "title": "墓地",
+      "description": "看看您被销毁的方块，哀悼它们并领取 OCTAA。",
+      "button": "前往墓地",
+      "phrases": [
+        "这里为什么这么黑… ☠️",
+        "我很冷… 🥶",
+        "那是光吗？ 💀",
+        "我不后悔！ 🔥",
+        "尘归尘…",
+        "告诉妈妈我很好！",
+        "这里很舒适… 也许？"
+      ],
+      "loading": "从墓地加载您的 NFT...",
+      "empty": {
+        "title": "墓地是空的",
+        "description": "未找到被燃烧的方块。"
+      },
+      "showingFirst": "显示前 20 个方块。总计：{count}"
+    },
+    "game": {
+      "title": "3D 立方体游戏",
+      "description": "具有开放疯狂世界、疯狂惊人物理和游戏玩法的我的世界风格互动游戏！即将推出！",
+      "button": "开始游戏"
+    },
+    "breed": {
+      "title": "基因融合实验室 🧬",
+      "description": "通过先进的基因工程技术融合两个标本，从冷冻库中复活新的生命体！科学的力量！ ⚗️",
+      "button": "开始基因融合",
+      "feeNotice": "研究成本：45%（5% CRAA + 15% LP + 25% Rewards）地板价格",
+      "cooldown": "⏳ 实验冷却期：",
+      "needTwoNfts": "需要选择恰好 2 个标本进行基因融合",
+      "selectGender": "选择基因型",
+      "male": "Alpha型",
+      "female": "Beta型",
+      "genderRequired": "基因融合需要不同的基因型",
+      "waitingForWallet": "等待实验室访问权限...",
+      "processingBreeding": "基因融合进行中...",
+      "graveyardCooldown": "冷冻库稳定化进行中",
+      "graveyardCooldownDesc": "等待至少一个冷冻标本完成稳定化过程",
+      "graveyardReady": "冷冻库已准备好进行基因融合",
+      "graveyardEmpty": "冷冻库中没有可用标本",
+      "graveyardEmptyDesc": "冷冻库是空的。先分解一些标本以启用基因融合实验。",
+      "timeUntilReady": "实验准备时间：",
+      "selectNft": "选择标本",
+      "selectedNft": "已选择的标本",
+      "breeding": "基因融合中...",
+      "breedNfts": "融合标本",
+      "returnToHome": "返回实验室主页",
+      "connectWallet": "连接实验室",
+      "connectWalletDesc": "请连接实验室以查看和融合您的标本",
+      "connectWalletButton": "连接实验室",
+      "errorLoadingNfts": "标本加载错误",
+      "loadingNfts": "正在加载标本...",
+      "loadingNftsDesc": "获取您的 CrazyOctagon 标本收藏",
+      "noNftsFound": "未找到标本",
+      "noNftsFoundDesc": "您没有任何 CrazyOctagon 标本可以进行基因融合",
+      "goToCollection": "前往标本库",
+      "selectNftsForBreeding": "选择 2 个标本进行基因融合",
+      "loadingGraveyardStatus": "正在加载冷冻库状态...",
+      "insufficientCra": "研究资金不足",
+      "needCraToBreed": "需要 {amount} OCTAA 进行基因融合实验",
+      "approveCra": "批准 OCTAA",
+      "approveCraDesc": "第一笔交易：给合约权限花费 OCTAA",
+      "approvalConfirmed": "批准已确认",
+      "craAllowanceSet": "OCTAA 限额已设置",
+      "confirmBreeding": "确认繁殖",
+      "signBreedingTransaction": "签署繁殖交易",
+      "breedingCanceled": "繁殖已取消",
+      "transactionRejected": "交易被拒绝",
+      "breedingSuccessful": "基因突变成功！🧬⚡",
+      "txConfirmed": "实验确认：{hash}...",
+      "transactionError": "实验错误",
+      "inactiveNftSelected": "选择了非活跃的标本",
+      "nftNoStarsLeft": "标本 #{id} 没有剩余能量，无法用于基因融合。",
+      "maximumSelectionReached": "已达到最大选择数量",
+      "canOnlySelectTwoNfts": "您只能选择 2 个 NFT 进行繁殖",
+      "invalidSelection": "选择无效",
+      "mustSelectExactlyTwoNfts": "您必须恰好选择 2 个 NFT 进行繁殖",
+      "walletNotConnected": "钱包未连接",
+      "pleaseConnectWalletFirst": "请先连接钱包",
+      "selectedNftsNoStars": "选中的 NFT 没有剩余星级！选择有星级的活跃 NFT。",
+      "cannotBreedSelectedNfts": "无法繁殖选中的 NFT。检查要求。",
+      "breedYourCubes": "繁殖您的方块",
+      "select2NftsToCreate": "选择 2 个 NFT 从墓地创建新的",
+      "breedingCost": "实验成本",
+      "costs": {
+        "craaBurn": "CRAA 销毁",
+        "octa": "OCTA 池",
+        "sponsor": "赞助商费用",
+        "lp": "LP 分配"
+      },
+      "graveyardSize": "墓地大小",
+      "selectedParents": "选中的父母",
+      "breedSelectedNfts": "繁殖选中的 NFT",
+      "guide": {
+        "title": "🪄 繁殖指南 点击这里",
+        "intro": "<div class='text-lg font-bold text-cyan-400 mb-2'>此游戏完全建立在 Monad 区块链上。所有游戏操作都通过智能合约处理，网站仅作为信息显示。</div>您可以通过支付等于 Floor 价格 45% 的费用（5% CRAA + 15% LP + 25% 奖励池）来繁殖新的方块。父母双方将在繁殖后失去 1 ⭐ 并进入 48 小时冷却期。",
+        "fee": "费用根据 Floor 价格自动计算。分配：5% CRAA 永久销毁；15% OCTAA 加入新 NFT 的 LP 之中；25% OCTAA 进入奖励池。",
+        "requirement": "选择任何 2 个至少有 1 ⭐ 的活跃 NFT 进行繁殖。",
+        "rarity": "星级评定：1 ⭐ 普通 | 2 ⭐ 罕见 | 3 ⭐ 稀有 | 4 ⭐ 史诗 | 5 ⭐ 传奇 | 6 ⭐ 神话。",
+        "penalty": "两个父母都将失去 1 DNA 星级，并进入 48 小时冷却期。",
+        "step1": "1. 允许支出 45% 费用。",
+        "step2": "2. 确认繁殖交易 — 从墓地复活新方块，OCTAA/CRAA 被支付。",
+        "note": "收藏限制为 9,700 个八角形；OCTAA 销毁到死钱包，无法恢复。",
+        "buyNFT": "购买 NFT：<a>Magic Eden</a>",
+        "contractAddress": "OCTAA 代币合约：0xBB848dAC056e385d2f7c750eC839157dccf4cfF3"
+      },
+      "yourCraaBalance": "Your CRAA Balance",
+      "yourOctaaBalance": "您的余额",
+      "refreshPrice": "更新价格",
+      "refreshing": "正在更新..."
+    },
+    "info": {
+      "title": "信息中心",
+      "description": "了解关于 CrazyOctagon 的一切：代币经济学、路线图、常见问题解答和社区链接。随时了解 LP 支出和奖励池信息。",
+      "button": "阅读更多",
+      "subtitle": "关于您的 NFT 和游戏的详细信息"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 CrazyOctagon — 方块的欢笑与眼泪!",
+    "crashMessage": "如果网站崩溃，方块去买披萨了"
+  },
+  "construction": {
+    "title": "建设中",
+    "message": "该部分仍在开发中。很快这里会有很多有趣的东西！",
+    "returnHome": "返回首页",
+    "phrases": [
+      "我在这里工作！别打扰！",
+      "即将推出，我戴着安全帽！",
+      "施工进行中！",
+      "方块在施工现场，稍后回来！",
+      "这里会很美，我保证！",
+      "哎呀，你来早了！我们还没完成！",
+      "方块建造，油漆，累了..."
+    ]
+  },
+  "wallet": {
+    "connect": "连接钱包",
+    "connecting": "连接中…",
+    "copyAddress": "复制地址",
+    "copied": "已复制！",
+    "openExplorer": "在浏览器中打开",
+    "disconnect": "断开钱包",
+    "balance": "余额：",
+    "notConnected": "钱包未连接",
+    "connectFirst": "请先连接钱包",
+    "connected": "已连接",
+    "instruction": "说明",
+    "nftInspectorButton": "前往NFT检查器",
+    "gameGuide": "CrazyOctagon游戏指南",
+    "gameGuideContent": "🎮 CrazyOctagon 游戏指南\n\n🔹 开始\n• 获取 OCTAA 代币 — 用于 Gas 费和游戏内操作\n• 在市场上购买 CrazyOctagon NFT\n\n🔹 如何开始游戏\n• 前往 Ping 标签 — 查看您的 NFT\n• 新方块点击 Activate — 这是第一次 Ping，虽然不产生代币，但启动计时器\n• 激活后即可进行 Ping。每 24 小时一次，奖励开始累积\n• 您最多可以跳过 7 天的 Ping —— 奖励和加成将自动累积\n• 7 天不 Ping 后，累积将停止，直到下次 Ping\n• 每次成功的 Ping 都会带来 OCTAA —— 数量取决于稀有度和经验加成\n\n🔹 什么是经验加成？\n• 每 24 小时 Ping 一次，可获得 +2.7% 加成\n• 最高 +97.2% + 稀有度加成\n• 最多可跳过 7 天 —— 加成会自动增长\n• 7 天后增长停止，但没有罚分！下次 Ping 后继续增长\n\n🔹 如何获得 OCTAA？\n• OCTAA 累积在方块内部\n• 想要领取 —— 需在 Burn 页面烧毁方块\n\n🔹 如何烧毁？ (Burn)\n• 选择方块和等待时间：\n  - 30 分钟 → 50% 归玩家\n  - 120 分钟 → 70%\n  - 480 分钟 → 80%\n• 剩余部分分配给池子和销毁。时间结束后，从 Claim 页面领取奖励\n\n🔹 如何复活方块？ (Breed)\n• 选择 2 个活着的方块（带星星）并支付地板价的 45%（5% CRAA + 15% LP + 25% 奖励池）\n• 墓地的一个随机 NFT 将复活：星星恢复，开始 48 小时冷却期\n\n🔹 OCTAA 代币费用\n• 转账收取 4% 费用\n• DEX (Uniswap) 出售收取 10% 费用\n• 买入无费用\n\n💡 提示\n想要利润最大化 —— 请定期 Ping，不要过早烧毁稀有方块。收藏限额约为 9,700 个。\n\n🚀 我们的愿景\n游戏 100% 去中心化。我们的目标是创建一个只有市场和玩家决定 OCTAA 和 CRAA 未来的环境。"
+  },
+  "userNFTs": {
+    "title": "您的 NFT",
+    "connectToView": "连接钱包查看您的 CrazyOctagon NFT",
+    "errorLoading": "加载 NFT 错误",
+    "noNFTs": "您还没有 CrazyOctagon NFT",
+    "yourCrazyOctagonNFTs": "您的 CrazyOctagon NFT",
+    "showing": "显示 {{count}} / {{total}} 个 NFT"
+  },
+  "cubeAnimation": {
+    "loading": "加载中...",
+    "loadingMessage": "哦不，网站卡住了！等等，我们只是有点懒 🦥",
+    "speechBubbles": [
+      "原地转圈太累了！ 🥱",
+      "嘿，其他八角都去哪了？！ 😱",
+      "我也滚出去啦！ 👋",
+      "去买多边形披萨！ 🍕",
+      "该给边缘抛光啦！ 💅"
+    ],
+    "partyBubble": "耶！八角舞池归我了！派对时间！ 🎵🎉",
+    "whereIsEveryone": "嘿，大家去哪了？！ 😱",
+    "waitingForMusicPhrases": [
+      "嘿，开音乐！ 🎵",
+      "没音乐好无聊... 😴",
+      "想跳舞！需要音乐！ 💃",
+      "谁来按按钮！ 👆"
+    ],
+    "partyPhrases": [
+      "八条边跳到天亮！ 🕺",
+      "八角派对才刚开始！ 🎉",
+      "谁说八角不能嗨？ 🎵",
+      "把多边形节奏开大！ 🔊",
+      "我是这场八角派对的王！ 👑",
+      "没有八角比我更会舞！ 💃",
+      "这是我最爱的旋转曲！ 🎧",
+      "DJ，把八角音量拉满！ 🎚️",
+      "八角登场！ 🏠",
+      "八条边一路嗨到天亮！ 🌅"
+    ],
+    "musicOn": "关闭音乐",
+    "musicOff": "开启音乐",
+    "newCubePhrases": {
+      "turnOnMusic": "开一下八角音乐",
+      "wantToParty": "准备好开八角派对",
+      "settingUpMainnet": "我们正在连接 Monad 测试网",
+      "mainnetLikeDraft": "测试网就像草稿，但它真的会转动！",
+      "settingUpWithLove": "把每一条边都歪歪扭扭地设置好，但充满爱！",
+      "mainnetBugsFeatures": "测试网生活：错误就是荣誉功能！",
+      "mainnetIsLive": "Mainnet is live - no drafts",
+      "mainnetStable": "Mainnet status: stable and live"
+    },
+    "oldDialog": [
+      "为什么蓝色变成了紫色？！",
+      "是谁重新粉刷了我？",
+      "这真的是我们的世界吗？",
+      "老实说，我以前是黄色的！",
+      "等等，发生了什么？"
+    ],
+    "panicText": [
+      "啊啊啊！",
+      "快跑！",
+      "这不是我们的世界！",
+      "救救你自己！",
+      "救命！"
+    ],
+    "trollPhrases": {
+      "monad": [
+        [
+          "社区优先... 哈哈 开玩笑的",
+          "3年测试网？给你0个代币！"
+        ],
+        [
+          "23万个钱包获得奖励！",
+          "...其中一半是路人 😎"
+        ],
+        [
+          "谢谢你们帮我们免费测试，白痴们",
+          "你们的忠诚一文不值"
+        ],
+        [
+          "顺便说一下，我们融资了2.25亿美元",
+          "但你们得到的是中指"
+        ],
+        [
+          "KOL们拿到了钱袋子",
+          "测试者们被割了韭菜"
+        ],
+        [
+          "空投只给网红",
+          "真实用户？没听说过"
+        ],
+        [
+          "#MonadScam 正在流行？酷！",
+          "我们不在乎，我们有钱"
+        ],
+        [
+          "3% 供应量给社区",
+          "剩下 97% 进我们口袋"
+        ],
+        [
+          "去中心化？兄弟，排序器都是我们的。",
+          "去中心化... 除了我们的多签。"
+        ],
+        [
+          "扩张到1万TPS！",
+          "匿名者，内部基准测试不算数。"
+        ],
+        [
+          "为开发者而建！",
+          "收费50万美元的“合作伙伴”费。"
+        ],
+        [
+          "公平发射？笑死。",
+          "90% 团队和 VC 分配现在叫“公平”。"
+        ],
+        [
+          "2024年第一季度即将推出",
+          "抱歉，我们说的是2025年第一季度... 或者2026年。"
+        ],
+        [
+          "以太坊的速度，Monad的安全性！",
+          "中心化 RPC 正在运行：BRRRRRR。"
+        ],
+        [
+          "WAGMI! (我们要割更多投资者)",
+          "Gmoon! (再见月球，你好暴跌)"
+        ]
+      ],
+      "octaa": [
+        [
+          "我们奖励每一个人",
+          "不像那些家伙"
+        ],
+        [
+          "真实的社区，真实的游戏",
+          "这里没有 VC 的门槛"
+        ],
+        [
+          "透明的代币经济学",
+          "自己去查合约"
+        ],
+        [
+          "每个八角形都公平竞争",
+          "愿最强的方块获胜"
+        ],
+        [
+          "长期建设",
+          "稳定胜于炒作"
+        ],
+        [
+          "真正的去中心化",
+          "你的代币，你的力量"
+        ],
+        [
+          "加入革命",
+          "不要被 VC 放鸽子"
+        ],
+        [
+          "Crazy Octagon 在这里",
+          "Monad 梦寐以求的游戏"
+        ]
+      ]
+    }
+  },
+  "social": {
+    "telegram": "Telegram",
+    "discord": "Discord",
+    "followUs": "关注我们",
+    "megaGiveaway": "超级抽奖！",
+    "supportAndWin": "支持我们并赢取NFT + OCTAA代币！",
+    "prizePool": "奖池：",
+    "exclusiveNFTs": "独家NFT",
+    "craTokens": "OCTAA代币（各种数量）",
+    "discordRoles": "特殊Discord角色",
+    "bonusSurprises": "奖金和惊喜",
+    "joinTelegram": "加入Telegram",
+    "joinDiscord": "加入Discord",
+    "twitterActions": "Twitter操作：",
+    "followTwitter": "关注@crazy___cube",
+    "viewPost": "查看帖子",
+    "like": "点赞",
+    "retweet": "转发",
+    "allDone": "我全做完了！",
+    "later": "稍后",
+    "participateNow": "现在参与！",
+    "weeklyGiveaway": "每周在活跃参与者中抽奖！",
+    "github": "GitHub",
+    "share": "分享",
+    "shareTitle": "CrazyOctagon - 方块们的欢笑与眼泪!"
+  },
+  "tabs": {
+    "breed": "繁殖",
+    "bridge": "桥接",
+    "burn": "销毁",
+    "claim": "奖励",
+    "graveyard": "墓地",
+    "ping": "Ping",
+    "rewards": "奖励",
+    "info": "信息"
+  },
+  "navigation": {
+    "home": "首页",
+    "returnHome": "返回首页"
+  },
+  "bridge": {
+    "intro": "在 ApeChain 与 Monad 之间安全高效地桥接 CRAA。",
+    "howto": {
+      "title": "如何桥接资产",
+      "ctaHint": "• 点击展开",
+      "step1": "在 ApeChain 购买 CRAA（使用下方 Uniswap 或 Uniswap 链接）。",
+      "step2": "选择方向 MON → Monad，并在 ApeChain 网络连接钱包。",
+      "step3": "输入 CRAA 数量并点击 \"Lock & Bridge\"。",
+      "step4": "等待完成（状态 Success），然后在 Monad 使用 CRAA。",
+      "note": "桥接通常需要 30–60 秒。资金在转移过程中由经过审计的智能合约托管。",
+      "buyUniswap": "在 Uniswap 购买 CRAA",
+      "buyCRAAOnPancake": "在 Uniswap 购买 CRAA",
+      "buyOCTAAOnPancake": "在 Uniswap 购买 OCTAA"
+    }
+  },
+  "ping": {
+    "description": "每24小时ping一次你的NFT来赚取OCTAA代币！激活你的方块并累积奖励，最多可累积7天。",
+    "connectWallet": "连接钱包查看你的方块",
+    "noNFTs": "未找到CrazyOctagon NFT。"
+  },
+  "tokenInfo": {
+    "priceUSD": "美元价格",
+    "marketCap": "市值",
+    "volume24h": "24小时成交量",
+    "totalBurns": "总销毁量",
+    "avg": "平均",
+    "totalSupply": "总供应量",
+    "circulating": "流通量",
+    "burned": "已销毁",
+    "overview": "OCTAA代币概览",
+    "holders": "持有者",
+    "comingSoon": "指标即将推出"
+  },
+  "common": {
+    "retry": "重试",
+    "loading": "加载中...",
+    "loadingNFTs": "加载 NFT 中...",
+    "total": "总计",
+    "fetchingCollection": "获取您的 CrazyOctagon 收藏",
+    "noNFTsFound": "未找到 NFT",
+    "goToCollection": "前往收藏"
+  },
+  "market": {
+    "loading": "加载市场数据...",
+    "failed": "加载市场数据失败",
+    "header": "市场价格",
+    "subtitle": "实时 NFT 和代币",
+    "error": "错误",
+    "live": "实时",
+    "floorPrice": "地板价",
+    "buyNft": "在 MagicEden 购买 NFT",
+    "gameToken": "游戏代币",
+    "baseCurrency": "基础货币",
+    "tradeDex": "在 Uniswap DEX 交易",
+    "additional": "附加信息",
+    "change1h": "1小时变化",
+    "change24h": "24小时变化",
+    "volume24h": "24小时成交量",
+    "marketCap": "市值"
+  },
+  "rewards": {
+    "loading": {
+      "title": "搜索您的奖励…"
+    },
+    "accumulated": "累积：",
+    "toPool": "到池子",
+    "burned": "已销毁",
+    "toClaim": "待领取",
+    "availableIn": "可用时间：",
+    "processing": "处理中...",
+    "claim": "领取",
+    "claimed": "奖励已领取"
+  },
+  "info": {
+    "nftInspector": {
+      "title": "NFT冷却检查器",
+      "description": "NFT检查器无需钱包连接即可工作 - 输入任何NFT ID查看公共统计信息。",
+      "enterNftId": "输入NFT ID",
+      "inspect": "检查",
+      "loading": "加载NFT数据...",
+      "error": "获取NFT数据时出错",
+      "notFound": "未找到NFT或未激活",
+      "status": {
+        "active": "活跃",
+        "inactive": "非活跃"
+      },
+      "lockedCRAA": "锁定OCTAA",
+      "pendingCRAA": "待处理OCTAA",
+      "periods": "周期",
+      "ping": "Ping",
+      "breed": "繁殖",
+      "ready": "就绪"
+    },
+    "lockedCra": "锁定的 OCTAA",
+    "enterNftId": "输入 NFT ID 进行检查",
+    "connectWallet": "连接钱包以检查 NFT",
+    "connectWalletNfts": "连接钱包查看您的 NFT",
+    "noNfts": "您没有 CrazyOctagon NFT",
+    "yourNfts": "您的 NFT",
+    "live": "活着",
+    "inGraveyard": "在墓地",
+    "activeNfts": "活跃 NFT",
+    "nftsInGraveyard": "墓地中的 NFT",
+    "noStars": "无星级",
+    "totalCraLocked": "您的 NFT 中锁定的总 OCTAA",
+    "nftCollection": "NFT 收藏",
+    "totalNfts": "总 NFT 数",
+    "craSupply": "OCTAA 供应量",
+    "rarity": "稀有度",
+    "stars": "星级",
+    "status": "状态",
+    "graveyard": "墓地",
+    "active": "活跃",
+    "locked": "锁定",
+    "timeLeft": "剩余时间",
+    "guide": {
+      "title": "如何玩 CrazyOctagon",
+      "subtitle": "游戏机制完整指南"
+    },
+    "tabs": {
+      "overview": "概览",
+      "craToken": "OCTAA 代币",
+      "contract": "合约",
+      "contractData": "合约数据",
+      "liveAnalytics": "实时分析"
+    },
+    "features": {
+      "title": "⚡ 独特游戏特性",
+      "accumulate": {
+        "title": "累积的币不会销毁",
+        "desc": "您的 OCTAA 代币被锁定并累积，它们不会永远销毁！"
+      },
+      "future": {
+        "title": "去中心化未来",
+        "desc": "调试后（1-2个月）团队将禁用管理员权限并将控制权转移给自主代理"
+      },
+      "autonomy": {
+        "title": "完全自治",
+        "desc": "NFT 收藏将过渡到完全去中心化的市场治理"
+      }
+    },
+    "actions": {
+      "title": "📊 游戏动作和计时器",
+      "timeLabel": "时间：",
+      "burn": {
+        "title": "销毁 NFT",
+        "time": "30/120/480 分钟",
+        "desc": "销毁 NFT 并锁定 OCTAA 代币获得奖励"
+      },
+      "graveyard": {
+        "title": "墓地",
+        "desc": "被销毁的 NFT 进入墓地，24小时冷却"
+      },
+      "breed": {
+        "title": "繁殖",
+        "desc": "从墓地创建新的 NFT",
+        "note": "繁殖后 NFT 无法参与行动"
+      },
+      "ping": {
+        "title": "Ping",
+        "desc": "激活 NFT 获得奖励",
+        "time": "24小时间隔",
+        "note": "NFT 累积而不销毁！"
+      },
+      "rewards": {
+        "title": "池奖励",
+        "desc": "从奖励池获得 OCTAA 代币",
+        "time": "30天间隔",
+        "note": "只有 9,700 个八角形可用，数量永不改变。销毁的 OCTAA 进入死钱包；无人可恢复。"
+      },
+      "other": {
+        "title": "其他动作",
+        "desc": "各种游戏机制",
+        "time": "24小时冷却"
+      },
+      "cooldown48": "24小时冷却"
+    },
+    "roadmap": {
+      "title": "🛣️ 去中心化之路",
+      "phase1": {
+        "title": "阶段1：调试",
+        "desc": "1-2个月测试和优化所有游戏机制"
+      },
+      "phase2": {
+        "title": "阶段2：自治",
+        "desc": "连接自主代理并移除管理员权限"
+      },
+      "phase3": {
+        "title": "阶段3：自由",
+        "desc": "NFT 收藏和游戏合约将完全去中心化，OCTAA 代币变为自治"
+      },
+      "callout": "🚀 CrazyOctagon - 第一个有完整去中心化计划的 NFT 收藏！"
+    },
+    "title": "信息和分析",
+    "nalaPhrases": [
+      "📊 数据稍有偏差，但我们会修复一切！给我们时间 ⏰",
+      "🔧 系统调试中，很快一切都会完美运行！ ✨",
+      "📈 数字还不匹配，但团队正在修复 🛠️",
+      "⚡ 测试新功能，请耐心等待 - 会很棒的！ 🚀",
+      "🎯 调整算法以获得最大数据准确性 📊",
+      "🌟 所有临时差异将很快修复！ 💫",
+      "🔄 系统正在更新，很快一切都会像钟表一样工作！ ⏰"
+    ]
+  },
+  "status": {
+    "ready": "准备就绪",
+    "readyToClaim": "准备领取",
+    "waiting": "未准备",
+    "processing": "处理中",
+    "success": "成功",
+    "failed": "失败",
+    "claim": "领取",
+    "claimed": "已领取",
+    "alreadyBurned": "已销毁",
+    "alreadyInGraveyard": "已在墓地",
+    "noStarsLeft": "无星级",
+    "activated": "已激活",
+    "notActivated": "未激活",
+    "cantPing": "无法Ping",
+    "rewardReady": "奖励准备就绪",
+    "readyForBreeding": "准备繁殖",
+    "claimReady": "准备领取",
+    "locked": "已锁定",
+    "claimable": "可领取",
+    "burnable": "可销毁",
+    "done": "完成！",
+    "graveyard": "墓地",
+    "alive": "活着",
+    "dying": "濒死",
+    "notClaimed": "否",
+    "confirming": "确认中..."
+  },
+  "pages": {
+    "breed": {
+      "title": "方块繁殖",
+      "subtitle": "从两个父母创建新方块",
+      "selectParents": "选择两个父母",
+      "noNftsAvailable": "没有可用于繁殖的 NFT",
+      "needTwoParents": "需要选择两个父母",
+      "breedingFee": "繁殖费用",
+      "breedingSuccess": "繁殖成功！",
+      "breedingFailed": "繁殖失败",
+      "howItWorks": "如何运作",
+      "breedingGuide": "繁殖指南",
+      "selectTwoNfts": "选择 2 个至少有 1 颗星的 NFT",
+      "payFee": "支付市场价格 20% 的费用",
+      "getNewCube": "在您的收藏中获得新方块",
+      "yourCraaBalance": "Your CRAA Balance",
+      "yourOctaaBalance": "Your OCTAA Balance"
+    },
+    "burn": {
+      "title": "方块销毁",
+      "subtitle": "销毁 NFT 获得锁定的 OCTAA",
+      "selectToBurn": "选择要销毁的 NFT",
+      "burnFee": "销毁费用",
+      "burnSuccess": "销毁成功！",
+      "burnFailed": "销毁失败",
+      "confirmBurn": "确认销毁",
+      "burnWarning": "警告：销毁不可逆！",
+      "nftWillBeDestroyed": "NFT 将永远被销毁",
+      "craWillBeTransferred": "OCTAA 将转移到您的钱包"
+    },
+    "ping": {
+      "title": "方块 Ping",
+      "subtitle": "每 24 小时 ping 方块以赚取 OCTAA",
+      "pingYourCubes": "Ping 您的方块",
+      "howPingWorks": "Ping 如何工作",
+      "pingInterval": "Ping 间隔",
+      "betweenPings": "Ping 之间",
+      "pingableNfts": "准备 Ping 的 NFT",
+      "noPingableNfts": "没有准备 Ping 的 NFT",
+      "nftsNeedActivation": "您的 NFT 必须被激活且不在墓地才能 ping",
+      "pingInitiated": "Ping 已启动！",
+      "pingTransaction": "NFT 的 Ping 交易已发送",
+      "earnCraBasedOnRarity": "您将根据稀有度赚取 OCTAA！",
+      "pingSuccessful": "Ping 成功！",
+      "nftPinged": "您的 NFT 已被 ping，OCTAA 已赚取！"
+    },
+    "claim": {
+      "title": "领取奖励",
+      "subtitle": "领取您赚取的 OCTAA 代币",
+      "searchingRewards": "搜索您的奖励",
+      "scanningBlockchain": "扫描区块链和墓地，这可能需要几秒钟",
+      "noRewards": "未找到奖励",
+      "noRewardsDescription": "您还没有可领取的奖励"
+    },
+    "graveyard": {
+      "title": "方块墓地",
+      "subtitle": "被销毁的 NFT 的安息之地",
+      "burnedCubes": "被销毁的方块",
+      "restInPeace": "安息",
+      "someStillWhisper": "有些仍在灰烬中低语",
+      "totalBurned": "总销毁量",
+      "viewBurnedNft": "查看被销毁的 NFT"
+    },
+    "stats": {
+      "title": "游戏统计",
+      "subtitle": "实时游戏状态数据",
+      "totalNfts": "总 NFT 数",
+      "activeNfts": "活跃 NFT",
+      "burnedNfts": "被销毁的 NFT",
+      "totalCra": "总 OCTAA",
+      "lockedCra": "锁定的 OCTAA",
+      "burnedCra": "被销毁的 OCTAA",
+      "gameActivity": "游戏活动",
+      "recentTransactions": "最近交易"
+    },
+    "info": {
+      "title": "信息",
+      "nalaPhrases": [
+        "📊 数据可能略有出入，但我们会修复一切！请给我们一点时间 ⏰",
+        "🔧 系统调试中，一切很快就会完美运行！ ✨",
+        "📈 数字尚未完全匹配，但团队正在修复中 🛠️",
+        "⚡ 新功能测试中，请保持耐心 - 会很棒的！ 🚀",
+        "🎯 为了最大化数据准确性，我们正在调整算法 📊",
+        "🌟 所有临时差异很快都会被修正！ 💫",
+        "🔄 系统更新中，很快一切都会像时钟一样精准运行！ ⏰"
+      ],
+      "subtitle": "关于您的 NFT 和游戏的详细信息",
+      "overview": "概览",
+      "yourCollection": "您的收藏",
+      "gameRules": "游戏规则",
+      "tokenomics": "代币经济学",
+      "connectWalletNfts": "连接您的钱包以查看您的NFT。",
+      "noNfts": "您没有拥有任何CrazyOctagon NFT。",
+      "yourNfts": "您的NFT",
+      "live": "活跃",
+      "inGraveyard": "在墓地",
+      "activeNfts": "活跃NFT",
+      "nftsInGraveyard": "墓地中的NFT",
+      "noStars": "无星级",
+      "lockedCra": "锁定的OCTAA",
+      "totalCraLocked": "您的NFT中锁定的OCTAA总数",
+      "craLockedWarning": "锁定在 NFT 内的 OCTAA 不会被销毁，并且在转移、出售或以任何方式移动 NFT 时会随之移动。它们永久属于 NFT 本身。你只能通过销毁 NFT 来获得这些代币。",
+      "craLockedWarningBurn": "销毁"
+    }
+  },
+  "components": {
+    "buttons": {
+      "connect": "连接",
+      "disconnect": "断开",
+      "approve": "批准",
+      "confirm": "确认",
+      "cancel": "取消",
+      "retry": "重试",
+      "close": "关闭",
+      "back": "返回",
+      "next": "下一步",
+      "save": "保存",
+      "load": "加载",
+      "refresh": "刷新"
+    },
+    "messages": {
+      "loading": "加载中...",
+      "connecting": "连接中...",
+      "processing": "处理中...",
+      "success": "成功！",
+      "error": "错误",
+      "warning": "警告",
+      "info": "信息",
+      "noData": "无数据",
+      "noResults": "未找到结果",
+      "tryAgain": "重试",
+      "somethingWentWrong": "出了点问题",
+      "pleaseWait": "请稍候",
+      "transactionPending": "交易待处理",
+      "transactionConfirmed": "交易已确认",
+      "transactionFailed": "交易失败"
+    },
+    "forms": {
+      "required": "必填字段",
+      "invalid": "无效值",
+      "tooShort": "太短",
+      "tooLong": "太长",
+      "enterAmount": "输入数量",
+      "selectOption": "选择选项",
+      "searchPlaceholder": "搜索...",
+      "noOptionsAvailable": "无可用选项"
+    },
+    "navigation": {
+      "home": "首页",
+      "back": "返回",
+      "forward": "前进",
+      "menu": "菜单",
+      "settings": "设置",
+      "help": "帮助",
+      "about": "关于"
+    }
+  },
+  "rarity": {
+    "common": "普通",
+    "uncommon": "罕见",
+    "rare": "稀有",
+    "epic": "史诗",
+    "legendary": "传奇",
+    "mythic": "神话",
+    "unknown": "未知"
+  },
+  "cube": "方块",
+  "glueCube": {
+    "phrases": [
+      "我们来灭火吧！🧯",
+      "火火火，停下！🔥",
+      "别慌，我有灭火器！💨",
+      "嘶嘶嘶！一切都在控制中！🚒",
+      "火在哪里？我来灭掉它！🧯"
+    ]
+  },
+  "cubeObservers": {
+    "idlePhrases": [
+      "你们在这里做什么？",
+      "是谁在吵闹？",
+      "哦哦哦……",
+      "我没看！",
+      "别打扰我睡觉！"
+    ],
+    "successPhrases": [
+      "恭喜你获得新方块！",
+      "万岁，新方块宝宝！",
+      "欢迎，小家伙！"
+    ]
+  },
+  "shyCubes": {
+    "bubbles": [
+      "哦哦哦！",
+      "这里发生了什么？",
+      "是谁在吵闹？",
+      "我们什么都没看到！",
+      "别看！"
+    ]
+  },
+  "graveyard": {
+    "claimedReward": "Claimed reward",
+    "claimError": "Claim error"
+  },
+  "burn": {
+    "interface": {
+      "burnButton": "销毁",
+      "insufficientOCTA": "OCTAA不足",
+      "balanceDetails": {
+        "you": "👤 你",
+        "pool": "🏦 池",
+        "burn": "🔥 销毁",
+        "split12h": "60% / 30% / 10%",
+        "split24h": "70% / 20% / 10%",
+        "split48h": "80% / 10% / 10%"
+      }
+    }
+  },
+  "stats": {
+    "analytics": "Analytics",
+    "yourNFTs": "Your NFTs",
+    "bridgeNFT": "Bridge NFT"
+  },
+  "distribution": {
+    "activeVsGraveyard": "Active vs In graveyard by rarity",
+    "rarity": "Rarity",
+    "byRarity": "By Rarity",
+    "byStatus": "By Status",
+    "nfts": "NFTs"
+  },
+  "contractInteraction": {
+    "error": "Error",
+    "enterTokenId": "Please enter a token ID",
+    "enterTokenIdAndHours": "Please enter token ID and wait hours",
+    "enterBothParents": "Please enter both parent token IDs"
+  },
+  "swap": {
+    "modal": {
+      "title": "在 Monad 网络购买代币"
+    },
+    "instructions": {
+      "title": "购买代币说明：",
+      "step1": "点击下方的交易链接进行交换",
+      "step2": "确认切换网络至 Monad 主网",
+      "step3": "设置滑点 (Slippage)：买入 3-5%，卖出 10-15%",
+      "step4": "在钱包中确认交易"
+    },
+    "fees": {
+      "title": "💰 税费：买入 0% | 卖出 10%",
+      "buy": {
+        "title": "🟢 买入 OCTAA (税费：0%)："
+      },
+      "sell": {
+        "title": "🔴 卖出 OCTAA (税费：10%)："
+      },
+      "camelot": "Uniswap 手续费：",
+      "free": "0% (免费)",
+      "slippage": "滑点 (Slippage)：",
+      "buy.slippage": "3-5%",
+      "token.tax": "代币税：",
+      "buy.tax": "0%",
+      "sell.slippage": "12-15%",
+      "sell.tax": "10% (从总额中扣除)"
+    },
+    "burn": {
+      "auto": {
+        "title": "🚀 游戏发展：10% 税费",
+        "desc": "这 10% 的费用去哪了？3% 会自动添加到流动性池并永久销毁 (Burn)，以提升价格底线；7% 会进入奖励池发放给活跃玩家。这确保了经济系统的可持续性及代币的长期价值。"
+      }
+    },
+    "slippage": {
+      "note": "什么是滑点？",
+      "desc": "您愿意接受的最大价格变动。在高波动或低流动性环境下，交易发送与执行之间的价格可能会发生变化。"
+    },
+    "links": {
+      "title": "UNISWAP 交易链接 (MONAD)",
+      "buyOctaaUsdc": "买入 OCTAA / USDC",
+      "buyOctaaWmon": "买入 OCTAA / MON",
+      "buyCraaMonad": "买入 CRAA (Monad)",
+      "buyCRAApe": "买入 CRAA (ApeChain)"
+    },
+    "dexscreener": {
+      "btn": "在 DexScreener 查看 OCTAA 详情"
+    },
+    "footer": {
+      "secure": "交易存在风险，请自行承担。Monad 网络目前处于第一阶段。"
+    }
+  }
+}

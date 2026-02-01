@@ -1,0 +1,77 @@
+:root {
+  --global-animation-speed: 1; /* Default speed */
+}
+
+.animation-speed-ultra-slow {
+  --global-animation-speed: 0.25;
+}
+
+.animation-speed-slow {
+  --global-animation-speed: 0.5;
+}
+
+.animation-speed-normal {
+  --global-animation-speed: 1;
+}
+
+.animation-speed-fast {
+  --global-animation-speed: 1.5;
+}
+
+.animation-speed-ultra-fast {
+  --global-animation-speed: 2;
+}
+
+:root {
+  --ultra-slow-animation-duration-clamped: clamp(
+    1000ms,
+    calc(4000ms / var(--global-animation-speed)),
+    20000ms
+  );
+  --slow-animation-duration-clamped: clamp(
+    500ms,
+    calc(2000ms / var(--global-animation-speed)),
+    10000ms
+  );
+  --medium-animation-duration-clamped: clamp(
+    250ms,
+    calc(1000ms / var(--global-animation-speed)),
+    5000ms
+  );
+  --fast-animation-duration-clamped: clamp(
+    125ms,
+    calc(500ms / var(--global-animation-speed)),
+    2500ms
+  );
+  --ultra-fast-animation-duration-clamped: clamp(
+    50ms,
+    calc(200ms / var(--global-animation-speed)),
+    1000ms
+  );
+
+  --ultra-slow-animation-delay-clamped: clamp(
+    250ms,
+    calc(1000ms / var(--global-animation-speed)),
+    5000ms
+  );
+  --slow-animation-delay-clamped: clamp(
+    125ms,
+    calc(500ms / var(--global-animation-speed)),
+    2500ms
+  );
+  --medium-animation-delay-clamped: clamp(
+    75ms,
+    calc(300ms / var(--global-animation-speed)),
+    1500ms
+  );
+  --fast-animation-delay-clamped: clamp(
+    50ms,
+    calc(200ms / var(--global-animation-speed)),
+    1000ms
+  );
+  --ultra-fast-animation-delay-clamped: clamp(
+    25ms,
+    calc(100ms / var(--global-animation-speed)),
+    500ms
+  );
+}

@@ -1,0 +1,127 @@
+/* Темная тема (по умолчанию) */
+:root,
+.dark-theme {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-card: rgba(0, 0, 0, 0.4);
+  --bg-card-hover: rgba(0, 0, 0, 0.6);
+
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #64748b;
+  --text-accent: #a855f7;
+
+  --border-primary: rgba(139, 92, 246, 0.2);
+  --border-secondary: rgba(255, 255, 255, 0.1);
+
+  --shadow-glow: rgba(129, 140, 248, 0.12);
+  --shadow-card: 0 0 30px var(--shadow-glow);
+
+  --accent-violet: #8b5cf6;
+  --accent-violet-light: #a78bfa;
+  --accent-violet-dark: #7c3aed;
+}
+
+/* Светлая тема */
+.light-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+
+  --text-primary: #1e293b;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-accent: #7c3aed;
+
+  --border-primary: rgba(139, 92, 246, 0.3);
+  --border-secondary: rgba(0, 0, 0, 0.1);
+
+  --shadow-glow: rgba(139, 92, 246, 0.15);
+  --shadow-card: 0 0 20px var(--shadow-glow);
+
+  --accent-violet: #7c3aed;
+  --accent-violet-light: #8b5cf6;
+  --accent-violet-dark: #6d28d9;
+}
+
+/* Применение переменных к основным элементам */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Обновление карточек */
+.theme-card {
+  background-color: var(--bg-card);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+}
+
+.theme-card:hover {
+  background-color: var(--bg-card-hover);
+}
+
+/* Обновление текста */
+.theme-text-primary {
+  color: var(--text-primary);
+}
+
+.theme-text-secondary {
+  color: var(--text-secondary);
+}
+
+.theme-text-muted {
+  color: var(--text-muted);
+}
+
+.theme-text-accent {
+  color: var(--text-accent);
+}
+
+/* Обновление границ */
+.theme-border {
+  border-color: var(--border-primary);
+}
+
+.theme-border-secondary {
+  border-color: var(--border-secondary);
+}
+
+/* Специальные стили для светлой темы */
+.light-theme .bg-black\/40 {
+  background-color: var(--bg-card) !important;
+}
+
+.light-theme .bg-black\/20 {
+  background-color: rgba(248, 250, 252, 0.8) !important;
+}
+
+.light-theme .text-white {
+  color: var(--text-primary) !important;
+}
+
+.light-theme .text-slate-100 {
+  color: var(--text-secondary) !important;
+}
+
+.light-theme .text-slate-300 {
+  color: var(--text-muted) !important;
+}
+
+.light-theme .text-slate-400 {
+  color: var(--text-muted) !important;
+}
+
+.light-theme .border-violet-500\/20 {
+  border-color: var(--border-primary) !important;
+}
+
+.light-theme .border-white\/10 {
+  border-color: var(--border-secondary) !important;
+}

@@ -1,0 +1,222 @@
+/* 🎯 Стабильные анимации кнопок для всех устройств */
+/* Оптимизированы для производительности и совместимости */
+
+/* ===== БАЗОВЫЕ СТАБИЛЬНЫЕ КНОПКИ ===== */
+
+/* Стабильная версия neon-button без мерцания */
+.stable-neon-button {
+  @apply bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 
+         text-slate-900 font-semibold rounded-xl 
+         transition-all duration-300 ease-out
+         shadow-lg shadow-amber-500/25
+         border border-amber-300/20;
+
+  /* Простой hover без сложных анимаций */
+  &:hover {
+    @apply from-amber-300 via-amber-400 to-amber-500 
+           shadow-xl shadow-amber-400/35 
+           border-amber-200/30;
+    transform: translateY(-1px);
+  }
+
+  /* Активное состояние */
+  &:active {
+    transform: translateY(0);
+    transition-duration: 150ms;
+  }
+
+  /* Отключенное состояние */
+  &:disabled {
+    @apply opacity-50 cursor-not-allowed;
+    transform: none;
+  }
+}
+
+/* Минималистичная кнопка с тонким свечением */
+.minimal-glow-button {
+  @apply bg-slate-800 text-white font-medium rounded-lg
+         transition-all duration-300 ease-out
+         border border-slate-600/50;
+
+  /* Тонкое свечение при hover */
+  &:hover {
+    @apply bg-slate-700 border-slate-500/70;
+    box-shadow: 0 0 12px rgba(148, 163, 184, 0.15);
+  }
+
+  &:active {
+    @apply bg-slate-900;
+    transition-duration: 100ms;
+  }
+}
+
+/* Градиентная кнопка без анимации фона */
+.stable-gradient-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  @apply text-white font-semibold rounded-xl
+         transition-all duration-300 ease-out
+         shadow-lg;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+/* ===== СПЕЦИАЛЬНЫЕ ЭФФЕКТЫ (СТАБИЛЬНЫЕ) ===== */
+
+/* Стабильный пульс без мерцания */
+.stable-pulse {
+  animation: stable-pulse-animation 3s ease-in-out infinite;
+}
+
+@keyframes stable-pulse-animation {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+/* Мягкое свечение без агрессивного мерцания */
+.soft-glow {
+  animation: soft-glow-animation 4s ease-in-out infinite;
+}
+
+@keyframes soft-glow-animation {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.35);
+  }
+}
+
+/* Тонкий shimmer эффект */
+.stable-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.stable-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  animation: stable-shimmer-animation 3s ease-in-out infinite;
+}
+
+@keyframes stable-shimmer-animation {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* ===== АДАПТИВНЫЕ ВАРИАНТЫ ===== */
+
+/* Упрощенная версия для мобильных */
+@media (max-width: 768px) {
+  .stable-neon-button,
+  .minimal-glow-button,
+  .stable-gradient-button {
+    /* Убираем сложные эффекты на мобильных */
+    transition-duration: 200ms;
+  }
+
+  .stable-neon-button:hover {
+    transform: none; /* Убираем transform на touch устройствах */
+  }
+
+  .stable-pulse {
+    animation-duration: 4s; /* Замедляем анимации */
+  }
+
+  .soft-glow {
+    animation-duration: 5s;
+  }
+}
+
+/* Поддержка prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .stable-pulse,
+  .soft-glow,
+  .stable-shimmer::before {
+    animation: none;
+  }
+
+  .stable-neon-button,
+  .minimal-glow-button,
+  .stable-gradient-button {
+    transition: none;
+  }
+}
+
+/* ===== ЦВЕТОВЫЕ ВАРИАНТЫ ===== */
+
+/* Синяя версия */
+.stable-button-blue {
+  @apply bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700
+         hover:from-blue-400 hover:via-blue-500 hover:to-blue-600
+         text-white shadow-lg shadow-blue-500/25
+         hover:shadow-blue-400/35;
+}
+
+/* Зеленая версия */
+.stable-button-green {
+  @apply bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700
+         hover:from-emerald-400 hover:via-emerald-500 hover:to-emerald-600
+         text-white shadow-lg shadow-emerald-500/25
+         hover:shadow-emerald-400/35;
+}
+
+/* Красная версия */
+.stable-button-red {
+  @apply bg-gradient-to-r from-red-500 via-red-600 to-red-700
+         hover:from-red-400 hover:via-red-500 hover:to-red-600
+         text-white shadow-lg shadow-red-500/25
+         hover:shadow-red-400/35;
+}
+
+/* Фиолетовая версия */
+.stable-button-purple {
+  @apply bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700
+         hover:from-purple-400 hover:via-purple-500 hover:to-purple-600
+         text-white shadow-lg shadow-purple-500/25
+         hover:shadow-purple-400/35;
+}
+
+/* ===== УТИЛИТЫ ===== */
+
+/* Базовые переходы для всех кнопок */
+.button-base-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+}
+
+/* Отключение анимаций для слабых устройств */
+@media (max-width: 480px), (prefers-reduced-motion: reduce) {
+  .button-base-transition {
+    transition: none;
+    will-change: auto;
+  }
+}

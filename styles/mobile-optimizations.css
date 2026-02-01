@@ -1,0 +1,177 @@
+/* 📱 Мобильные оптимизации для анимаций */
+/* Исправления для существующих проблемных анимаций */
+
+/* ===== ОПТИМИЗАЦИЯ СУЩЕСТВУЮЩИХ АНИМАЦИЙ ===== */
+
+/* Исправление neon-button для мобильных */
+@media (max-width: 768px) {
+  .neon-button {
+    /* Упрощаем градиент на мобильных */
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+    animation: none !important; /* Отключаем gradient-shift */
+    transition: all 0.2s ease-out !important;
+  }
+
+  .neon-button::before,
+  .neon-button::after {
+    display: none !important; /* Убираем псевдоэлементы */
+  }
+
+  .neon-button:hover {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+    transform: none !important; /* Убираем transform на touch */
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3) !important;
+  }
+}
+
+/* Оптимизация animate-pulse */
+@media (max-width: 768px) {
+  .animate-pulse {
+    animation-duration: 3s !important; /* Замедляем */
+    animation-timing-function: ease-in-out !important;
+  }
+}
+
+/* Исправление neonFlicker */
+@media (max-width: 768px) {
+  .neonFlicker {
+    animation: none !important; /* Полностью отключаем на мобильных */
+  }
+}
+
+/* Оптимизация pulse-glow */
+@media (max-width: 768px) {
+  .animate-pulse-glow {
+    animation-duration: 4s !important;
+    animation-iteration-count: 3 !important; /* Ограничиваем повторения */
+  }
+}
+
+/* ===== ОБЩИЕ МОБИЛЬНЫЕ ПРАВИЛА ===== */
+
+/* Отключение сложных анимаций на слабых устройствах */
+@media (max-width: 480px), (max-height: 600px) {
+  .animate-twinkle,
+  .animate-shimmer,
+  .animate-float-0,
+  .animate-float-1,
+  .neonFlicker {
+    animation: none !important;
+  }
+
+  /* Упрощаем все hover эффекты */
+  *:hover {
+    transform: none !important;
+  }
+}
+
+/* Оптимизация для touch устройств */
+@media (hover: none) and (pointer: coarse) {
+  /* Убираем hover эффекты на touch устройствах */
+  .neon-button:hover,
+  .button:hover,
+  [class*='hover:']:hover {
+    transform: none !important;
+  }
+
+  /* Заменяем hover на active для touch */
+  .neon-button:active {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4) !important;
+    transition: all 0.1s ease-out !important;
+  }
+}
+
+/* ===== ПРОИЗВОДИТЕЛЬНОСТЬ ===== */
+
+/* Принудительное использование GPU для критических элементов */
+@media (max-width: 768px) {
+  .neon-button,
+  .stable-neon-button,
+  .minimal-glow-button {
+    will-change: transform, opacity !important;
+    transform: translateZ(0) !important; /* Принудительный GPU слой */
+  }
+}
+
+/* Отключение анимаций при низком заряде батареи */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .neon-button,
+  .animate-pulse,
+  .animate-twinkle,
+  .animate-shimmer,
+  .neonFlicker {
+    animation: none !important;
+  }
+}
+
+/* ===== АДАПТИВНЫЕ РАЗМЕРЫ ===== */
+
+/* Увеличиваем размеры кнопок для touch */
+@media (max-width: 768px) {
+  .neon-button,
+  .stable-neon-button,
+  button {
+    min-height: 44px !important; /* Apple рекомендует минимум 44px */
+    min-width: 44px !important;
+    padding: 12px 16px !important;
+  }
+
+  /* Увеличиваем отступы между кнопками */
+  .neon-button + .neon-button,
+  .stable-neon-button + .stable-neon-button {
+    margin-left: 12px !important;
+  }
+}
+
+/* ===== ЭНЕРГОСБЕРЕЖЕНИЕ ===== */
+
+/* Отключение анимаций в фоновом режиме */
+@media (max-width: 768px) {
+  /* Когда страница не в фокусе */
+  :root:not(:focus-within) .animate-pulse,
+  :root:not(:focus-within) .animate-twinkle,
+  :root:not(:focus-within) .neonFlicker {
+    animation-play-state: paused !important;
+  }
+}
+
+/* Упрощение для старых мобильных браузеров */
+@supports not (backdrop-filter: blur(10px)) {
+  .neon-button {
+    background: #fbbf24 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .neon-button::before,
+  .neon-button::after {
+    display: none !important;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+/* Высокий контраст для слабовидящих */
+@media (prefers-contrast: high) {
+  .neon-button {
+    background: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Уменьшенная прозрачность */
+@media (prefers-reduced-transparency: reduce) {
+  .neon-button,
+  .stable-neon-button {
+    background: solid !important;
+    backdrop-filter: none !important;
+  }
+}

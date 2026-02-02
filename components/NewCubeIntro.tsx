@@ -8,6 +8,7 @@ import { getGlobalAudioElement } from '@/lib/globalAudio';
 import { useTranslation } from 'react-i18next';
 import { Button } from './ui/button';
 import { Russo_One } from 'next/font/google';
+import { useRouter } from 'next/navigation';
 
 const russo = Russo_One({ subsets: ['latin', 'cyrillic'], weight: '400' });
 
@@ -75,6 +76,7 @@ export function NewCubeIntro({
     typeof window !== 'undefined' ? window.innerWidth : 1024
   );
   const { t } = useTranslation();
+  const router = useRouter();
   const beatTimerRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
@@ -111,11 +113,16 @@ export function NewCubeIntro({
     Math.min(60, Math.round(viewportWidth * 0.152))
   );
   const mobileNewGridY = isCompactMobile ? 34 : 40;
+  // Mobile centering offset: shift left 5px and up 5px (user request)
+  const mobileCenterOffsetX = -5;
+  const mobileCenterOffsetY = -5;
   const clampedCover = Math.min(1, Math.max(0, coverProgress));
   const bubbleOpacity = isDestroying
     ? Math.max(0, 1 - Math.pow(Math.max(0, (clampedCover - 0.82) / 0.18), 1.1))
     : 1;
   const bubbleStyle = { opacity: bubbleOpacity, transition: 'opacity 0.6s ease' };
+  // ALWAYS show speech bubbles on mobile now
+  const showSpeechBubbles = true;
   const isLiteVisual = performanceMode === 'lite' || isMobile;
   const partyBeamCount = isMobile ? 3 : performanceMode === 'lite' ? 5 : 8;
   const strobeCount = isLiteVisual ? 3 : 8;
@@ -208,11 +215,17 @@ export function NewCubeIntro({
       }, 7500),
     ];
 
-    // Poopification of title DISABLED - keeping original letter styling
-    // const poopTimer = null; // Removed as per user request
+    // Redirect to /ping after 25 seconds on mobile
+    let redirectTimer: number | undefined;
+    if (isMobile) {
+      redirectTimer = window.setTimeout(() => {
+        router.push('/ping');
+      }, 25000);
+    }
 
     return () => {
       timers.forEach(clearTimeout);
+      if (redirectTimer) clearTimeout(redirectTimer);
     };
   }, []);
 
@@ -281,15 +294,19 @@ export function NewCubeIntro({
       return s ?? '/images/mon1.png';
     });
 
-  // Adaptive number of cubes - on mobile exactly 4 old and 4 new
-  const leftCount = isMobile ? 2 : 6;
-  const rightCount = isMobile ? 2 : 5;
+  // MOBILE: 5 old cubes, 6 new cubes in a row (small)
+  // DESKTOP: 6 left + 5 right = 11 new cubes
+  const mobileOldCount = 5;
+  const mobileNewCount = 6;
+  const leftCount = isMobile ? 3 : 6;
+  const rightCount = isMobile ? 3 : 5; // Back to 3 for 6 total cubes
+  const totalNewCubes = leftCount + rightCount;
   const leftImages = buildSources(leftSrcs, leftCount);
   const rightImages = buildSources(rightSrcs, rightCount);
   const oldCubeImages = oldSrcs && oldSrcs.length ? oldSrcs : defaultOld;
-  // For mobile, reduce the number of old cubes even more
+  // MOBILE: 5 old cubes in a horizontal row
   const displayedOldCubeImages = isMobile
-    ? oldCubeImages.slice(0, 4) // only 4 cubes on mobile
+    ? oldCubeImages.slice(0, mobileOldCount) // 5 cubes on mobile
     : oldCubeImages.length > 2
       ? oldCubeImages.slice(1, -1)
       : oldCubeImages;
@@ -319,6 +336,51 @@ export function NewCubeIntro({
     ],
     [t]
   );
+
+  // Generate sticky poop positions for mobile
+  // State for sticky poops to avoid hydration mismatch
+  const [stickyPoops, setStickyPoops] = React.useState<Array<{
+    id: number;
+    left: number;
+    top: number;
+    delay: number;
+    rotate: number;
+    scale: number;
+  }>>([]);
+
+  // Generate sticky poop positions strictly on client side
+  React.useEffect(() => {
+    // INCREASED to 100 poops for "faster" feel/density
+    const poops = Array.from({ length: 100 }).map((_, i) => {
+      // Random position 0-100%
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+
+      // Calculate distance from center (50, 50)
+      const dx = x - 50;
+      const dy = y - 50;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const maxDist = 71;
+
+      // Norm dist: 1 at center, 0 at corners
+      const normDist = Math.max(0, 1 - dist / maxDist);
+
+      // Time delay: ACCELERATED (multiplied by 12 instead of 20)
+      const baseDelay = Math.pow(normDist, 2) * 12;
+      const randomDelay = Math.random() * 2;
+
+      return {
+        id: i,
+        left: x,
+        top: y,
+        delay: baseDelay + randomDelay,
+        rotate: (Math.random() - 0.5) * 60,
+        scale: 0.8 + Math.random() * 0.6
+      };
+    }).sort((a, b) => a.delay - b.delay);
+
+    setStickyPoops(poops);
+  }, []);
 
   // Monad troll phrases - NOT USED for cubes, kept for potential future use
 
@@ -765,39 +827,28 @@ export function NewCubeIntro({
       {/* Old Cubes */}
       {phase !== 'settled' && phase !== 'dance' && (
         <div className='absolute inset-0 z-20 pointer-events-none'>
-          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2' style={isMobile ? { marginLeft: mobileCenterOffsetX, marginTop: mobileCenterOffsetY } : {}}>
             {displayedOldCubeImages.map((src, i) => {
               const total = displayedOldCubeImages.length;
-              const cubeWidth = isMobile ? 48 : 80;
-              const gap = isMobile ? 30 : 60;
+              // MOBILE: small cubes in horizontal row
+              const cubeWidth = isMobile ? 36 : 80;
+              const gap = isMobile ? 8 : 60;
               const itemWidth = cubeWidth + gap;
 
               let clusterX: number;
               let clusterY: number;
 
-              if (isMobile && total === 4) {
-                const cornerPositions = [
-                  { x: -mobileOldGridX, y: -mobileOldGridY }, // Top left
-                  { x: mobileOldGridX, y: -mobileOldGridY }, // Top right
-                  { x: -mobileOldGridX, y: mobileOldGridY }, // Bottom left
-                  { x: mobileOldGridX, y: mobileOldGridY }, // Bottom right
-                ];
-                const pos = cornerPositions[i % cornerPositions.length] as {
-                  x: number;
-                  y: number;
-                };
-                clusterX = pos.x;
-                clusterY = pos.y;
-              } else if (isMobile && total > 2) {
-                const row = Math.floor(i / 2);
-                const col = i % 2;
-                clusterX = (col - 0.5) * (cubeWidth + gap / 2);
-                clusterY = (row - 0.5) * (cubeWidth + gap / 2) - 20;
+              if (isMobile) {
+                // Mobile: horizontal row centered
+                const totalWidth = total * itemWidth - gap;
+                const startX = -totalWidth / 2 + cubeWidth / 2;
+                clusterX = startX + i * itemWidth;
+                clusterY = -80; // Shifted up further (total ~2cm)
               } else {
                 const totalWidth = total * itemWidth;
                 const startX = -totalWidth / 2 + cubeWidth / 2;
                 clusterX = startX + i * itemWidth;
-                clusterY = isMobile ? -30 : -50;
+                clusterY = -50;
               }
 
               const margin = 64;
@@ -893,7 +944,7 @@ export function NewCubeIntro({
                   }}
                 >
                   <div
-                    className={`relative ${isMobile ? 'w-20 h-20' : 'w-20 h-20 md:w-24 md:h-24'}`}
+                    className={`relative ${isMobile ? 'w-9 h-9' : 'w-20 h-20 md:w-24 md:h-24'}`}
                   >
                     <Image
                       src={src}
@@ -902,55 +953,57 @@ export function NewCubeIntro({
                       className='object-contain'
                       priority
                     />
-                    <div className='absolute inset-0' style={bubbleStyle}>
-                      <AnimatePresence>
-                        {showLabel &&
-                          (() => {
-                            const edgePad = 140;
-                            const nearLeft = clusterX < -halfW + edgePad;
-                            const nearRight = clusterX > halfW - edgePad;
-                            const bubblePosClass = isMobile
-                              ? i % 2 === 0
-                                ? 'left-full ml-6'
-                                : 'right-full mr-6'
-                              : nearLeft
-                                ? 'left-0 translate-x-0 ml-2'
-                                : nearRight
-                                  ? 'right-0 translate-x-0 mr-2'
-                                  : 'left-1/2 -translate-x-1/2';
-                            const arrowPosClass = isMobile
-                              ? 'left-1/2 -translate-x-1/2'
-                              : nearLeft
-                                ? 'left-3 -translate-x-0'
-                                : nearRight
-                                  ? 'right-3'
-                                  : 'left-1/2 -translate-x-1/2';
-                            return (
-                              <motion.div
-                                custom={i}
-                                variants={dialogContainerVariants}
-                                initial='hidden'
-                                animate='visible'
-                                exit='exit'
-                                className={`absolute ${i % 2 === 0 ? '-top-20' : '-bottom-20'} ${bubblePosClass} max-w-[200px] ${isMobile ? 'text-[8px] px-1.5 py-0.5' : 'text-[10px] md:text-xs px-2.5 py-1.5'} text-rose-100 bg-gray-950/95 ${isMobile ? 'backdrop-blur-none' : 'backdrop-blur-sm'} rounded-lg border border-rose-400/60 shadow-[0_0_20px_rgba(244,63,94,.35)] z-[90]`}
-                              >
-                                <motion.span
-                                  variants={dialogTextVariants}
-                                  animate={
-                                    phase === 'takeover' ? 'shake' : 'calm'
-                                  }
-                                  style={{ display: 'inline-block' }}
+                    {showSpeechBubbles && (
+                      <div className='absolute inset-0' style={bubbleStyle}>
+                        <AnimatePresence>
+                          {showLabel &&
+                            (() => {
+                              const edgePad = 140;
+                              const nearLeft = clusterX < -halfW + edgePad;
+                              const nearRight = clusterX > halfW - edgePad;
+                              const bubblePosClass = isMobile
+                                ? i % 2 === 0
+                                  ? 'left-full ml-6'
+                                  : 'right-full mr-6'
+                                : nearLeft
+                                  ? 'left-0 translate-x-0 ml-2'
+                                  : nearRight
+                                    ? 'right-0 translate-x-0 mr-2'
+                                    : 'left-1/2 -translate-x-1/2';
+                              const arrowPosClass = isMobile
+                                ? 'left-1/2 -translate-x-1/2'
+                                : nearLeft
+                                  ? 'left-3 -translate-x-0'
+                                  : nearRight
+                                    ? 'right-3'
+                                    : 'left-1/2 -translate-x-1/2';
+                              return (
+                                <motion.div
+                                  custom={i}
+                                  variants={dialogContainerVariants}
+                                  initial='hidden'
+                                  animate='visible'
+                                  exit='exit'
+                                  className={`absolute ${i % 2 === 0 ? '-top-20' : '-bottom-20'} ${bubblePosClass} max-w-[200px] ${isMobile ? 'text-[8px] px-1.5 py-0.5' : 'text-[10px] md:text-xs px-2.5 py-1.5'} text-rose-100 bg-gray-950/95 ${isMobile ? 'backdrop-blur-none' : 'backdrop-blur-sm'} rounded-lg border border-rose-400/60 shadow-[0_0_20px_rgba(244,63,94,.35)] z-[300]`}
                                 >
-                                  {labelText}
-                                </motion.span>
-                                <span
-                                  className={`absolute ${arrowPosClass} block w-2 h-2 rotate-45 bg-gray-950/95 border-l border-t border-rose-400/60 ${i % 2 === 0 ? '-bottom-1' : '-top-1'} ${isMobile ? 'hidden' : ''}`}
-                                />
-                              </motion.div>
-                            );
-                          })()}
-                      </AnimatePresence>
-                    </div>
+                                  <motion.span
+                                    variants={dialogTextVariants}
+                                    animate={
+                                      phase === 'takeover' ? 'shake' : 'calm'
+                                    }
+                                    style={{ display: 'inline-block' }}
+                                  >
+                                    {labelText}
+                                  </motion.span>
+                                  <span
+                                    className={`absolute ${arrowPosClass} block w-2 h-2 rotate-45 bg-gray-950/95 border-l border-t border-rose-400/60 ${i % 2 === 0 ? '-bottom-1' : '-top-1'} ${isMobile ? 'hidden' : ''}`}
+                                  />
+                                </motion.div>
+                              );
+                            })()}
+                        </AnimatePresence>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               );
@@ -961,24 +1014,21 @@ export function NewCubeIntro({
 
       {/* New Cubes */}
       <div className='absolute inset-0 z-10 pointer-events-none'>
-        <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-end gap-2'>
+        <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2' style={isMobile ? { marginLeft: mobileCenterOffsetX, marginTop: mobileCenterOffsetY } : {}}>
           {[...leftImages, ...rightImages].map((src, i) => {
             const fromTop = i % 2 === 0;
             let xFinal: number, settleY: number;
 
-            if (isMobile && newcomerCount === 4) {
-              const cornerPositions = [
-                { x: -mobileNewGridX, y: -mobileNewGridY },
-                { x: mobileNewGridX, y: -mobileNewGridY },
-                { x: -mobileNewGridX, y: mobileNewGridY },
-                { x: mobileNewGridX, y: mobileNewGridY },
-              ];
-              const pos = cornerPositions[i % cornerPositions.length] as {
-                x: number;
-                y: number;
-              };
-              xFinal = pos.x;
-              settleY = pos.y;
+            if (isMobile) {
+              // MOBILE: 6 cubes, even larger (+20% from previous), shifted up further
+              const mobileTotal = leftImages.length + rightImages.length;
+              const mobileCubeWidth = 48; // Increased from 40
+              const mobileGap = 6; // Slightly tighter gap for large cubes
+              const mobileItemWidth = mobileCubeWidth + mobileGap;
+              const mobileTotalWidth = mobileTotal * mobileItemWidth - mobileGap;
+              const mobileStartX = -mobileTotalWidth / 2 + mobileCubeWidth / 2;
+              xFinal = mobileStartX + i * mobileItemWidth;
+              settleY = -80; // Shifted up further (total ~2cm)
             } else {
               const targetX = lineOffsets[i] ?? 0;
               const arcAmplitude = Math.min(120, Math.max(45, sceneSize.h * 0.18));
@@ -994,8 +1044,9 @@ export function NewCubeIntro({
               settleY = 96 + Math.round(Math.sin((i / Math.max(1, newcomerCount - 1)) * Math.PI) * arcAmplitude) - arcAmplitude / 2;
             }
 
-            const scaleFinal = 1.55;
-            const offY = isMobile ? Math.max(80, sceneSize.h * 0.3) : Math.max(140, sceneSize.h * 0.35);
+            // Mobile: match scale of old cubes (1.2)
+            const scaleFinal = isMobile ? 1.2 : 1.55;
+            const offY = isMobile ? Math.max(60, sceneSize.h * 0.25) : Math.max(140, sceneSize.h * 0.35);
             const initialY = fromTop ? -offY : offY;
             const arriveDelay = 0.05 * i;
             const danceDuration = 2.6 + (i % 4) * 0.2;
@@ -1023,7 +1074,7 @@ export function NewCubeIntro({
             return (
               <motion.div
                 key={`new-${i}`}
-                className={`relative ${isMobile ? 'w-20 h-20' : 'w-20 h-20 md:w-24 md:h-24'}`}
+                className={`absolute ${isMobile ? 'w-12 h-12' : 'w-20 h-20 md:w-24 md:h-24'}`}
                 initial={{ opacity: 0, x: xFinal, y: initialY, scale: 0.5 }}
                 animate={
                   phase === 'intro'
@@ -1065,58 +1116,91 @@ export function NewCubeIntro({
                 >
                   <Image src={src} alt='' fill className='object-contain' aria-hidden='true' priority />
 
-                  <div className='absolute inset-0' style={bubbleStyle}>
-                    <AnimatePresence>
-                      {(() => {
-                        let labelText = '';
-                        let shouldShow = false;
+                  {showSpeechBubbles && (
+                    <div className='absolute inset-0' style={bubbleStyle}>
+                      <AnimatePresence>
+                        {(() => {
+                          let labelText = '';
+                          let shouldShow = false;
 
-                        if (i < monadTrollPairs.length) {
-                          const pair = monadTrollPairs[i];
-                          if (pair) {
-                            labelText = phraseIndex === 0 ? (pair[0] ?? '...') : (pair[1] ?? pair[0] ?? '...');
-                            shouldShow = true;
+                          if (i < monadTrollPairs.length) {
+                            const pair = monadTrollPairs[i];
+                            if (pair) {
+                              labelText = phraseIndex === 0 ? (pair[0] ?? '...') : (pair[1] ?? pair[0] ?? '...');
+                              shouldShow = true;
+                            }
                           }
-                        }
 
-                        const show = (phase === 'takeover' || phase === 'settled') && shouldShow;
-                        const edgePad = 140;
-                        const nearLeft = xFinal < -sceneSize.w / 2 + edgePad;
-                        const nearRight = xFinal > sceneSize.w / 2 - edgePad;
-                        const bubblePosClass = isMobile
-                          ? i % 2 === 0 ? 'left-full ml-6' : 'right-full mr-6'
-                          : nearLeft ? 'left-0 translate-x-0 ml-2' : nearRight ? 'right-0 translate-x-0 mr-2' : 'left-1/2 -translate-x-1/2';
-                        const arrowPosClass = isMobile
-                          ? 'left-1/2 -translate-x-1/2'
-                          : nearLeft ? 'left-3 -translate-x-0' : nearRight ? 'right-3' : 'left-1/2 -translate-x-1/2';
+                          const show = (phase === 'takeover' || phase === 'settled') && shouldShow;
+                          const edgePad = 140;
+                          const nearLeft = xFinal < -sceneSize.w / 2 + edgePad;
+                          const nearRight = xFinal > sceneSize.w / 2 - edgePad;
+                          const bubblePosClass = isMobile
+                            ? i % 2 === 0 ? 'left-full ml-6' : 'right-full mr-6'
+                            : nearLeft ? 'left-0 translate-x-0 ml-2' : nearRight ? 'right-0 translate-x-0 mr-2' : 'left-1/2 -translate-x-1/2';
+                          const arrowPosClass = isMobile
+                            ? 'left-1/2 -translate-x-1/2'
+                            : nearLeft ? 'left-3 -translate-x-0' : nearRight ? 'right-3' : 'left-1/2 -translate-x-1/2';
 
-                        return show ? (
-                          <motion.div
-                            key={`bubble-${i}`}
-                            custom={i}
-                            variants={dialogContainerVariants}
-                            initial='hidden'
-                            animate='visible'
-                            exit='exit'
-                            className={`absolute ${i % 2 === 0 ? '-top-20' : '-bottom-20'} ${bubblePosClass} max-w-[200px] ${isMobile ? 'text-[8px] px-1.5 py-0.5' : 'text-[10px] md:text-xs px-2.5 py-1.5'} text-rose-100 bg-gray-950/95 ${isMobile ? 'backdrop-blur-none' : 'backdrop-blur-sm'} rounded-lg border border-rose-400/60 shadow-[0_0_20px_rgba(244,63,94,.35)] z-[90]`}
-                          >
-                            <motion.span variants={dialogTextVariants} animate='calm' style={{ display: 'inline-block' }}>
-                              {labelText}
-                            </motion.span>
-                            {!isMobile && (
-                              <span className={`absolute ${arrowPosClass} block w-2 h-2 rotate-45 bg-gray-950/95 border-l border-t border-rose-400/60 ${i % 2 === 0 ? '-bottom-1' : '-top-1'}`} />
-                            )}
-                          </motion.div>
-                        ) : null;
-                      })()}
-                    </AnimatePresence>
-                  </div>
+                          return show ? (
+                            <motion.div
+                              key={`bubble-${i}`}
+                              custom={i}
+                              variants={dialogContainerVariants}
+                              initial='hidden'
+                              animate='visible'
+                              exit='exit'
+                              className={`absolute ${i % 2 === 0 ? '-top-20' : '-bottom-20'} ${bubblePosClass} max-w-[200px] ${isMobile ? 'text-[8px] px-1.5 py-0.5' : 'text-[10px] md:text-xs px-2.5 py-1.5'} text-rose-100 bg-gray-950/95 ${isMobile ? 'backdrop-blur-none' : 'backdrop-blur-sm'} rounded-lg border border-rose-400/60 shadow-[0_0_20px_rgba(244,63,94,.35)] z-[300]`}
+                            >
+                              <motion.span variants={dialogTextVariants} animate='calm' style={{ display: 'inline-block' }}>
+                                {labelText}
+                              </motion.span>
+                              {!isMobile && (
+                                <span className={`absolute ${arrowPosClass} block w-2 h-2 rotate-45 bg-gray-950/95 border-l border-t border-rose-400/60 ${i % 2 === 0 ? '-bottom-1' : '-top-1'}`} />
+                              )}
+                            </motion.div>
+                          ) : null;
+                        })()}
+                      </AnimatePresence>
+                    </div>
+                  )}
                 </motion.div>
               </motion.div>
             );
           })}
         </div>
       </div>
+
+      {/* Sticky Poop Effect - MOBILE ONLY (per user request) */}
+      {isMobile && (phase === 'settled' || phase === 'dance') && (
+        <div className='absolute inset-0 z-[250] pointer-events-none overflow-hidden'>
+          {stickyPoops.map((poop) => (
+            <motion.div
+              key={`sticky-poop-${poop.id}`}
+              className='absolute'
+              style={{
+                left: `${poop.left}%`,
+                top: `${poop.top}%`,
+                fontSize: '28px',
+                zIndex: 150,
+                transform: `rotate(${poop.rotate}deg)`,
+              }}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{
+                scale: [0, poop.scale * 1.2, poop.scale],
+                opacity: 1,
+              }}
+              transition={{
+                duration: 0.3, // Accelerated from 0.5s
+                delay: poop.delay,
+                ease: 'easeOut',
+              }}
+            >
+              💩
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       {(phase === 'settled' || phase === 'dance') && (
         <motion.div

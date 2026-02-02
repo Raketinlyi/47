@@ -561,18 +561,20 @@ export default function PingPage() {
             <p className='text-white mb-4 drop-shadow-sm'>
               {t('ping.connectWallet', 'Connect wallet to view your cubes')}
             </p>
-            <Button
-              onClick={handleConnect}
-              className='relative overflow-hidden bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-slate-900 font-bold shadow-[0_0_25px_rgba(251,191,36,0.5)] hover:from-amber-400 hover:via-yellow-300 hover:to-amber-400 hover:shadow-[0_0_35px_rgba(251,191,36,0.7)] transition-all duration-300 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700 after:absolute after:inset-0 after:bg-gradient-to-r after:from-amber-300/20 after:via-yellow-200/20 after:to-amber-300/20 after:animate-pulse'
-            >
-              <motion.span
-                animate={{ opacity: [0.8, 1, 0.8] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className='relative z-10 drop-shadow-sm'
+            {!isMobile && (
+              <Button
+                onClick={handleConnect}
+                className='relative overflow-hidden bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-slate-900 font-bold shadow-[0_0_25px_rgba(251,191,36,0.5)] hover:from-amber-400 hover:via-yellow-300 hover:to-amber-400 hover:shadow-[0_0_35px_rgba(251,191,36,0.7)] transition-all duration-300 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700 after:absolute after:inset-0 after:bg-gradient-to-r after:from-amber-300/20 after:via-yellow-200/20 after:to-amber-300/20 after:animate-pulse'
               >
-                {t('wallet.connect', 'Connect Wallet')}
-              </motion.span>
-            </Button>
+                <motion.span
+                  animate={{ opacity: [0.8, 1, 0.8] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className='relative z-10 drop-shadow-sm'
+                >
+                  {t('wallet.connect', 'Connect Wallet')}
+                </motion.span>
+              </Button>
+            )}
           </div>
         ) : Number(chainId) !== monadChain.id ? (
           <div className='text-center py-12'>

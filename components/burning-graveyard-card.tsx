@@ -127,7 +127,7 @@ export const BurningGraveyardCard = memo(function BurningGraveyardCard({
     >
       <Card
         ref={cardRef}
-        className='w-[220px] h-[360px] bg-white border border-gray-300 hover:border-purple-300 flex flex-col relative overflow-hidden shadow-lg'
+        className='w-full max-w-[220px] md:w-[220px] h-[360px] bg-white border border-gray-300 hover:border-purple-300 flex flex-col relative overflow-hidden shadow-lg mx-auto'
       >
         <CardHeader className='p-0 relative'>
           <div className='aspect-square relative overflow-hidden rounded-lg bg-gray-50'>

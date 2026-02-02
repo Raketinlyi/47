@@ -21,6 +21,7 @@ import { ParticleEffect } from '@/components/particle-effect';
 import { useTranslation } from 'react-i18next';
 import { monadChain } from '@/config/chains';
 import { useMobile } from '@/hooks/use-mobile';
+import { useAccount } from 'wagmi';
 import { ContractInfo } from '@/components/web3/contract-info';
 import MarketTicker from '@/components/MarketTicker';
 import { motion } from 'framer-motion';
@@ -137,6 +138,7 @@ function _InfoMetric({ icon: Icon, label, value, hint }: InfoMetricProps) {
 export default function InfoPage() {
   const { t } = useTranslation();
   const { isMobile } = useMobile();
+  const { isConnected } = useAccount();
   const [selectedTab, setSelectedTab] = useState('nft-inspector');
   const {
     graveyardSize,
@@ -308,7 +310,7 @@ export default function InfoPage() {
             {!isMobile && <TabNavigation />}
           </div>
           <div className='flex items-center flex-shrink-0'>
-            <WalletConnect />
+            {(!isMobile || isConnected) && <WalletConnect />}
           </div>
         </header>
 

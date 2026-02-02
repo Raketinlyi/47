@@ -135,6 +135,9 @@ export function UserNFTsPreview() {
   }, []);
 
   if (!connected) {
+    if (isMobile) {
+      return null;
+    }
     // Compact "connect wallet" state - just a slim bar with button
     return (
       <div className='w-full max-w-sm mx-auto bg-slate-900/40 border border-cyan-500/20 backdrop-blur-sm rounded-lg px-4 py-3 flex items-center justify-between gap-3'>

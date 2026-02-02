@@ -15,6 +15,7 @@ import { GlueCube } from '@/components/GlueCube';
 import { useTranslation } from 'react-i18next';
 import { GraveyardFog } from '@/components/graveyard-fog';
 import { GhostWisps } from '@/components/ghost-wisps';
+import { useAccount } from 'wagmi';
 
 // Lightweight ash rain (CSS-only)
 const AshRain = dynamic(() => import('@/components/ash-rain'), {
@@ -24,6 +25,7 @@ const AshRain = dynamic(() => import('@/components/ash-rain'), {
 
 export default function GraveyardPage() {
   const { isMobile } = useMobile();
+  const { isConnected } = useAccount();
   const { t } = useTranslation();
   const { tokens: tokenIds, loading: isLoadingNFTs } = useGraveyardTokens();
   const [mounted, setMounted] = useState(false);
@@ -87,7 +89,7 @@ export default function GraveyardPage() {
         }}
       />
 
-      <div className='container mx-auto relative z-10 px-4 py-4 md:py-6 pb-24'>
+      <div className='container mx-auto relative z-10 px-4 pt-16 md:pt-6 pb-24'>
         {/* Quick cube disintegration animation on page entry */}
         {showCubeAnimation && (
           <motion.div
@@ -163,14 +165,14 @@ export default function GraveyardPage() {
               {!isMobile && <TabNavigation />}
             </div>
             <div className='flex items-center flex-shrink-0'>
-              <WalletConnect />
+              {(!isMobile || isConnected) && <WalletConnect />}
             </div>
           </header>
 
           {/* Updated title with white/gray theme */}
           <div className='text-center mb-6'>
             <motion.h1
-              className='text-3xl md:text-4xl font-bold text-gray-800 mb-2 drop-shadow-sm'
+              className='text-2xl md:text-4xl font-bold text-gray-800 mb-2 drop-shadow-sm'
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: showTitle ? 1 : 0, y: showTitle ? 0 : -20 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}

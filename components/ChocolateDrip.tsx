@@ -23,9 +23,10 @@ export function ChocolateDrip({
     intensity = 1,
     fillProgress = 0,
 }: ChocolateDripProps) {
-    const { isLiteMode, effectiveMode } = useGraphicsSettings();
+    // Use effectiveMode for correct tier detection (standard/laptop/lite)
+    const { effectiveMode, isLiteMode, isLaptopMode } = useGraphicsSettings();
 
-    // Mobile detection for additional optimizations
+    // Mobile detection - separate simple animation for mobile
     const [isMobile, setIsMobile] = React.useState(false);
     React.useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768);
@@ -39,13 +40,11 @@ export function ChocolateDrip({
     // Bottom pool starts immediately (small), then grows smoother.
     const fillRise = Math.min(1, Math.max(0, Math.pow(clampedFill, 1.15)));
 
-    // Mobile: 4 drips, Lite: 6, Laptop: 10, Standard: 18
-    const MAX_DRIPS = isMobile ? 4 : effectiveMode === 'lite' ? 6 : effectiveMode === 'laptop' ? 10 : 18;
-    // Disable expensive gooey filter on laptop, lite, and mobile
-    const useGooeyFilter = effectiveMode === 'standard' && !isMobile;
-    // Skip right-edge drips on mobile (they overflow)
-    const showRightEdgeDrips = !isMobile;
-
+    // Optimize based on effective graphics mode (detect-gpu + GPU name analysis)
+    // STANDARD: 18 drips, full effects (discrete GPU like NVIDIA/AMD RX)
+    // LAPTOP: 12 drips, no gooey filter (integrated GPU like Ryzen, Intel UHD)
+    // LITE: 8 drips, minimal effects (weak devices or user preference)
+    const MAX_DRIPS = isLiteMode ? 8 : isLaptopMode ? 12 : 18;
     const visibleDripCount = Math.max(
         1,
         Math.round(1 + (MAX_DRIPS - 1) * clampedIntensity)
@@ -82,7 +81,8 @@ export function ChocolateDrip({
 
     const floaters = useMemo(
         () =>
-            Array.from({ length: isLiteMode ? 3 : 6 }, (_, i) => ({
+            // STANDARD: 6, LAPTOP: 4, LITE: 3
+            Array.from({ length: isLiteMode ? 3 : isLaptopMode ? 4 : 6 }, (_, i) => ({
                 id: i,
                 left: 6 + Math.random() * 88,
                 size: 28 + Math.random() * 38,
@@ -90,31 +90,158 @@ export function ChocolateDrip({
                 delay: Math.random() * 2.5,
                 duration: 8 + Math.random() * 6,
             })),
-        [isLiteMode]
+        [isLiteMode, isLaptopMode]
     );
 
+    // STANDARD: 8 poops, LAPTOP: 5 poops, LITE: 3 poops
+    const poopCount = isLiteMode ? 3 : isLaptopMode ? 5 : 8;
     const trollPoops = useMemo(() =>
-        Array.from({ length: 8 }, (_, i) => ({  // 20% less (10 -> 8)
+        Array.from({ length: poopCount }, (_, i) => ({
             id: i,
             left: `${5 + Math.random() * 90}%`,
-            fontSize: `${7 + Math.random() * 9}px`,  // +20% bigger (6-13 -> 7-16)
+            fontSize: `${7 + Math.random() * 9}px`,
             duration: 2.5 + Math.random() * 1.5,
             delay: i * 0.4 + Math.random(),
             repeatDelay: Math.random() * 2,
             xTarget: (Math.random() - 0.5) * 200,
             xMid: (Math.random() - 0.5) * 100,
         })),
-        []);
+        [poopCount]);
 
     // Early return AFTER all hooks
     if (!isActive) return null;
 
+    // === MOBILE: Light version with minimal drips + 2 poops for hint ===
+    if (isMobile) {
+        // Light mobile drips (only 4, simple CSS animation)
+        const mobileDrips = [
+            { left: '10%', delay: 0, duration: 4 },
+            { left: '35%', delay: 0.5, duration: 5 },
+            { left: '65%', delay: 0.3, duration: 4.5 },
+            { left: '90%', delay: 0.8, duration: 5.5 },
+        ];
+
+        // 2 poops for mobile (hint at desktop)
+        const mobilePoops = [
+            { left: '25%', delay: 0.5, duration: 2.5 },
+            { left: '70%', delay: 1.5, duration: 3 },
+        ];
+
+        return (
+            <>
+                {/* Mobile top drips - light CSS-based animation */}
+                <div className="fixed inset-0 pointer-events-none z-[40] overflow-hidden">
+                    {mobileDrips.map((drip, i) => (
+                        <motion.div
+                            key={`mobile-drip-${i}`}
+                            className="absolute"
+                            style={{
+                                left: drip.left,
+                                top: -60,
+                                width: 12,
+                                height: '120vh',
+                                background: `linear-gradient(180deg, ${DRIP_HIGHLIGHT} 0%, ${DRIP_BASE} 50%, ${DRIP_DEEP} 100%)`,
+                                borderRadius: 999,
+                                opacity: 0.7,
+                            }}
+                            animate={{ y: ['0%', '100%'] }}
+                            transition={{
+                                duration: drip.duration,
+                                delay: drip.delay,
+                                repeat: Infinity,
+                                ease: 'linear',
+                            }}
+                        />
+                    ))}
+                </div>
+
+                {/* Mobile bottom fill - Using TOP positioning because bottom:0 is broken on mobile Safari */}
+                {/* Container covers full viewport, fill element positioned from calculated top */}
+                <div
+                    className="fixed inset-0 pointer-events-none z-[70] overflow-hidden"
+                    style={{
+                        // Full viewport container
+                        width: '100vw',
+                        height: '100vh',
+                    }}
+                >
+                    <div
+                        style={{
+                            position: 'absolute',
+                            // Position from TOP: start at (100 - fillHeight)% of viewport
+                            top: `${(1 - fillRise) * 100}vh`,
+                            left: 0,
+                            right: 0,
+                            // Height equals fill progress
+                            height: `${fillRise * 100}vh`,
+                            background: `linear-gradient(180deg, ${DRIP_HIGHLIGHT} 0%, ${DRIP_BASE} 40%, ${DRIP_DEEP} 100%)`,
+                            borderTopLeftRadius: '24px',
+                            borderTopRightRadius: '24px',
+                            boxShadow: '0 -20px 40px rgba(0,0,0,0.3)',
+                            // GPU acceleration
+                            transform: 'translateZ(0)',
+                            willChange: 'top, height',
+                        }}
+                    >
+                        {/* Simple wavy top edge */}
+                        <motion.div
+                            className="absolute -top-6 left-0 right-0 h-12"
+                            style={{
+                                background: `radial-gradient(28px 16px at 28px 32px, ${DRIP_BASE} 98%, transparent 100%)`,
+                                backgroundSize: '60px 32px',
+                                backgroundRepeat: 'repeat-x',
+                            }}
+                            animate={{
+                                backgroundPositionX: ['0px', '120px'],
+                            }}
+                            transition={{
+                                duration: 6,
+                                repeat: Infinity,
+                                ease: 'linear',
+                            }}
+                        />
+
+                        {/* 2 poop emojis for mobile */}
+                        {mobilePoops.map((poop, i) => (
+                            <motion.div
+                                key={`mobile-poop-${i}`}
+                                className="absolute -top-10"
+                                style={{
+                                    left: poop.left,
+                                    fontSize: '16px',
+                                    filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.4))',
+                                    zIndex: 150,
+                                }}
+                                animate={{
+                                    opacity: [0, 1, 1, 0],
+                                    y: [30, -60, -120],
+                                    scale: [0.4, 1.1, 0.6],
+                                    rotate: [-20, 20, -30],
+                                }}
+                                transition={{
+                                    duration: poop.duration,
+                                    delay: poop.delay,
+                                    repeat: Infinity,
+                                    repeatDelay: 2,
+                                    ease: 'easeOut',
+                                }}
+                            >
+                                💩
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    // === DESKTOP: Full animation with drips, poops, gooey filter ===
     return (
         <>
             <div className="fixed inset-0 pointer-events-none z-[40] overflow-hidden">
                 <div
                     className="absolute inset-0"
-                    style={{ filter: useGooeyFilter ? 'url(#gooey-destruction)' : 'none' }}
+                    style={{ filter: (isLiteMode || isLaptopMode) ? 'none' : 'url(#gooey-destruction)' }}
                 >
                     {/* Main drips anchored to the top edge - evenly distributed */}
                     {drips.filter((_, i) => {
@@ -167,10 +294,10 @@ export function ChocolateDrip({
                     ))}
                 </div>
 
-                {/* Right edge vertical drips - sticking to right side (hidden on mobile) */}
-                {showRightEdgeDrips && <div
+                {/* Right edge vertical drips - sticking to right side */}
+                <div
                     className="absolute"
-                    style={{ filter: useGooeyFilter ? 'url(#gooey-destruction)' : 'none' }}
+                    style={{ filter: (isLiteMode || isLaptopMode) ? 'none' : 'url(#gooey-destruction)' }}
                 >
                     {[...Array(6)].map((_, i) => (
                         <motion.div
@@ -216,7 +343,7 @@ export function ChocolateDrip({
                             />
                         </motion.div>
                     ))}
-                </div>}
+                </div>
 
             </div>
 
@@ -228,17 +355,18 @@ export function ChocolateDrip({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    height: `${Math.round(fillRise * 100 * 100) / 100}vh`,
+                    height: `${fillRise * 100}vh`,
                     background: `linear-gradient(180deg, ${DRIP_HIGHLIGHT} 0%, ${DRIP_BASE} 40%, ${DRIP_DEEP} 100%)`,
                     borderTopLeftRadius: '48px',
                     borderTopRightRadius: '48px',
                     boxShadow: '0 -30px 60px rgba(0,0,0,0.35)',
-                    transition: 'height 0.3s ease-out',
-                    willChange: useGooeyFilter ? 'height' : 'auto',
+                    // GPU acceleration + no CSS transition (React handles updates)
+                    transform: 'translateZ(0)',
+                    willChange: 'height, transform',
                     overflow: 'visible',
                 }}
             >
-                <div style={{ filter: useGooeyFilter ? 'url(#gooey-destruction)' : 'none', position: 'absolute', inset: 0, overflow: 'visible' }}>
+                <div style={{ filter: (isLiteMode || isLaptopMode) ? 'none' : 'url(#gooey-destruction)', position: 'absolute', inset: 0, overflow: 'visible' }}>
 
                     {/* Wavy surface */}
                     <motion.div
@@ -247,7 +375,7 @@ export function ChocolateDrip({
                             background: `radial-gradient(40px 24px at 40px 48px, ${DRIP_BASE} 98%, transparent 100%)`,
                             backgroundSize: '120px 60px',
                             backgroundRepeat: 'repeat-x',
-                            filter: 'blur(1px)',
+                            // blur removed for performance
                         }}
                         animate={{
                             y: [0, -8, 4, -4, 0],
@@ -266,7 +394,7 @@ export function ChocolateDrip({
                             backgroundSize: '90px 42px',
                             backgroundRepeat: 'repeat-x',
                             opacity: 0.7,
-                            filter: 'blur(0.8px)',
+                            // blur removed for performance
                         }}
                         animate={{
                             y: [0, -4, 3, 0],
@@ -336,7 +464,7 @@ export function ChocolateDrip({
                 ))}
             </div>
 
-            {useGooeyFilter && (
+            {!isLiteMode && (
                 <svg className="hidden" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <filter id="gooey-destruction">
@@ -350,3 +478,4 @@ export function ChocolateDrip({
         </>
     );
 }
+

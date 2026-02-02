@@ -21,6 +21,7 @@ import { EthereumPropertyGuard } from '@/components/web3/EthereumPropertyGuard';
 import { useWalletEvents } from '@/hooks/use-wallet-events';
 import { EthereumProviderSafe } from '@/components/ethereum-provider-safe';
 import { GlobalLanguageSwitcher } from '@/components/global-language-switcher';
+import { MobileConnectButton } from '@/components/web3/mobile-connect-button';
 
 import EthereumGuard from '@/components/EthereumGuard';
 import { getGlobalAudioElement } from '@/lib/globalAudio';
@@ -179,6 +180,7 @@ export default function ClientLayout({
                           <SwapModalProvider>
                             <AnimatedLayoutShell pathname={pathname || '/'}>
                               <GlobalLanguageSwitcher />
+                              <MobileConnectButton />
                               <SocialSidebar />
                               <SparkProjectiles />
                               <NetworkGuardBanner />

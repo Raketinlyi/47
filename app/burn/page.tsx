@@ -260,20 +260,22 @@ export default function BurnPage() {
                   'Please connect your wallet to view and burn your NFTs'
                 )}
               </p>
-              <Button
-                onClick={handleConnectWallet}
-                disabled={isConnecting}
-                className='bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed'
-              >
-                {isConnecting ? (
-                  <div className='flex items-center gap-2'>
-                    <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-white'></div>
-                    {t('wallet.connecting', 'Connecting...')}
-                  </div>
-                ) : (
-                  t('wallet.connect', 'Connect Wallet')
-                )}
-              </Button>
+              {!isMobile && (
+                <Button
+                  onClick={handleConnectWallet}
+                  disabled={isConnecting}
+                  className='bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed'
+                >
+                  {isConnecting ? (
+                    <div className='flex items-center gap-2'>
+                      <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-white'></div>
+                      {t('wallet.connecting', 'Connecting...')}
+                    </div>
+                  ) : (
+                    t('wallet.connect', 'Connect Wallet')
+                  )}
+                </Button>
+              )}
             </div>
           ) : Number(chainId) !== monadChain.id ? (
             <div className='text-center py-8'>

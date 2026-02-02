@@ -14,7 +14,7 @@ export const SocialSidebar = React.memo(function SocialSidebar() {
   const [isManuallyClosed, setIsManuallyClosed] = useState(false);
   const { isMobile } = useMobile();
   const { t } = useTranslation();
-  const [bottomOffset, setBottomOffset] = useState<string>('80px');
+  const [bottomOffset, setBottomOffset] = useState<string>('92px');
   const lastScrollYRef = React.useRef<number>(0);
   const autoHideTimerRef = React.useRef<NodeJS.Timeout | null>(null);
   const touchStartYRef = React.useRef<number | null>(null);
@@ -75,9 +75,9 @@ export const SocialSidebar = React.memo(function SocialSidebar() {
 
       // Safe bottom offset (avoid bottom nav) + iOS safe area
       try {
-        setBottomOffset('calc(76px + env(safe-area-inset-bottom))');
+        setBottomOffset('calc(92px + env(safe-area-inset-bottom))');
       } catch {
-        setBottomOffset('76px');
+        setBottomOffset('92px');
       }
 
       return () => {
@@ -142,7 +142,7 @@ export const SocialSidebar = React.memo(function SocialSidebar() {
       <div
         className={
           isMobile
-            ? 'flex items-center gap-2 mx-auto max-w-[220px] px-2 py-2 rounded-full relative pointer-events-auto bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-md border border-cyan-500/20 shadow-lg shadow-cyan-500/10'
+            ? 'flex items-center gap-2 mx-auto max-w-[180px] px-2 py-1.5 rounded-full relative pointer-events-auto bg-gradient-to-r from-slate-900/90 to-blue-900/90 backdrop-blur-md border border-cyan-500/20 shadow-lg shadow-cyan-500/10'
             : 'flex flex-col items-center gap-2 p-2 rounded-xl pointer-events-auto bg-gradient-to-b from-slate-900/90 to-blue-900/90 backdrop-blur-md border border-cyan-500/20 shadow-lg shadow-cyan-500/10'
         }
       >
@@ -153,9 +153,9 @@ export const SocialSidebar = React.memo(function SocialSidebar() {
               setIsVisible(false);
               setIsManuallyClosed(true);
             }}
-            className='absolute -top-2 -right-2 w-6 h-6 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center border border-red-300 shadow-lg'
+            className='absolute -top-1 -right-1 w-5 h-5 bg-slate-900/95 hover:bg-slate-800 rounded-full flex items-center justify-center border border-cyan-500/40 shadow-lg'
           >
-            <X className='w-3 h-3 text-white' />
+            <X className='w-3 h-3 text-cyan-200' />
           </button>
         )}
 
@@ -169,10 +169,10 @@ export const SocialSidebar = React.memo(function SocialSidebar() {
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`bg-gradient-to-r from-slate-800/80 to-slate-900/80 rounded-full border border-cyan-500/30 shadow-md shadow-cyan-500/10 ${isMobile ? 'w-9 h-9' : 'w-10 h-10'} flex items-center justify-center`}
+            className={`bg-gradient-to-r from-slate-800/80 to-slate-900/80 rounded-full border border-cyan-500/30 shadow-md shadow-cyan-500/10 ${isMobile ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center`}
           >
             <Twitter
-              className={`text-cyan-300 ${isMobile ? 'w-5 h-5' : 'w-5 h-5'}`}
+              className={`text-cyan-300 ${isMobile ? 'w-4 h-4' : 'w-5 h-5'}`}
             />
           </motion.div>
           {!isMobile && (
@@ -192,12 +192,12 @@ export const SocialSidebar = React.memo(function SocialSidebar() {
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`bg-gradient-to-r from-slate-800/80 to-slate-900/80 rounded-full border border-blue-500/30 shadow-md shadow-blue-500/10 ${isMobile ? 'w-9 h-9' : 'w-10 h-10'} flex items-center justify-center`}
+            className={`bg-gradient-to-r from-slate-800/80 to-slate-900/80 rounded-full border border-blue-500/30 shadow-md shadow-blue-500/10 ${isMobile ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center`}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              width={isMobile ? '20' : '20'}
-              height={isMobile ? '20' : '20'}
+              width={isMobile ? '17' : '20'}
+              height={isMobile ? '17' : '20'}
               viewBox='0 0 24 24'
               fill='none'
               stroke='currentColor'
@@ -226,12 +226,12 @@ export const SocialSidebar = React.memo(function SocialSidebar() {
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`bg-gradient-to-r from-slate-800/80 to-slate-900/80 rounded-full border border-indigo-500/30 shadow-md shadow-indigo-500/10 ${isMobile ? 'w-9 h-9' : 'w-10 h-10'} flex items-center justify-center`}
+            className={`bg-gradient-to-r from-slate-800/80 to-slate-900/80 rounded-full border border-indigo-500/30 shadow-md shadow-indigo-500/10 ${isMobile ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center`}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              width={isMobile ? '20' : '20'}
-              height={isMobile ? '20' : '20'}
+              width={isMobile ? '17' : '20'}
+              height={isMobile ? '17' : '20'}
               viewBox='0 0 24 24'
               fill='none'
               stroke='currentColor'

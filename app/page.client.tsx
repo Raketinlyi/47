@@ -494,18 +494,18 @@ export default function HomePage() {
         />
       )}
 
-      {/* Chocolate drip destruction effect */}
-      {shouldRenderHeavyEffects && (
+      {/* Chocolate drip destruction effect - DISABLED on mobile per user request */}
+      {shouldRenderHeavyEffects && !isMobile && (
         <ChocolateDrip
           isActive={isDestroying}
-          intensity={isMobile ? dripIntensity * 0.7 : dripIntensity}
+          intensity={dripIntensity}
           fillProgress={destructionProgress}
         />
       )}
 
       {/* Header - Разносим элементы по бокам */}
       <motion.header
-        className='relative z-10 px-4 py-2'
+        className='relative z-10 px-4 pt-2 pb-1 md:py-2'
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -518,14 +518,14 @@ export default function HomePage() {
 
           {/* Правая часть - Кошелек и балансы */}
           <div className='flex items-center gap-4'>
-            <WalletConnect />
+            {(!isMobile || isConnected) && <WalletConnect />}
           </div>
         </div>
       </motion.header>
 
       {/* Main content - Центрированный логотип и навигация */}
       <motion.main
-        className='relative z-10 container mx-auto px-4 py-8 md:py-16'
+        className='relative z-10 container mx-auto px-4 py-4 md:py-16'
         animate={{ rotate: 0 }}
       >
         {/* Top-center big brand overlay */}

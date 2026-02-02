@@ -1,7 +1,6 @@
 ﻿'use client';
 
 import { CheckCircle2, Monitor, Settings, Zap } from 'lucide-react';
-import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -152,6 +151,22 @@ export function SystemInfoSection() {
               className="bg-slate-800/70 border-slate-600 text-slate-200 justify-center py-2"
             >
               {t('userNFTs.systemPerf', 'Performance')}: {perfValue.toFixed(2)}x
+            </Badge>
+            {/* GPU Detection Results */}
+            <Badge
+              variant="outline"
+              className="bg-slate-800/70 border-slate-600 text-slate-200 justify-center py-2"
+            >
+              GPU Tier: {deviceInfo.gpuTier}
+            </Badge>
+            <Badge
+              variant="outline"
+              className="bg-slate-800/70 border-slate-600 text-slate-200 justify-center py-2 col-span-2 md:col-span-3"
+              title={deviceInfo.gpuName}
+            >
+              GPU: {deviceInfo.gpuName.length > 30 ? deviceInfo.gpuName.slice(0, 30) + '...' : deviceInfo.gpuName}
+              {deviceInfo.isDiscreteGPU && ' (Discrete)'}
+              {deviceInfo.isIntegratedGPU && ' (Integrated)'}
             </Badge>
           </div>
         </div>

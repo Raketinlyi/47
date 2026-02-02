@@ -1218,12 +1218,14 @@ export default function BreedPage() {
               {/* Actions Area */}
               <div className='flex flex-col items-center gap-4 mb-6'>
                 {!connected ? (
-                  <Button
-                    onClick={handleConnectWallet}
-                    className='h-12 px-8 bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-bold uppercase tracking-wider rounded-xl shadow-[0_0_20px_rgba(245,158,11,0.3)]'
-                  >
-                    {t('wallet.connect', 'Connect Wallet')}
-                  </Button>
+                  !isMobile && (
+                    <Button
+                      onClick={handleConnectWallet}
+                      className='h-12 px-8 bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-bold uppercase tracking-wider rounded-xl shadow-[0_0_20px_rgba(245,158,11,0.3)]'
+                    >
+                      {t('wallet.connect', 'Connect Wallet')}
+                    </Button>
+                  )
                 ) : Number(chainId) !== monadChain.id ? (
                   <div className='flex flex-col items-center gap-3'>
                     <p className='text-red-400 text-sm font-medium'>

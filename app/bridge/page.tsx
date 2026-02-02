@@ -491,7 +491,9 @@ export default function BridgePage() {
 
               {/* Action */}
               {!isConnected ? (
-                <Button onClick={handleConnectWallet} className="w-full bg-purple-600 hover:bg-purple-500 h-12 text-lg font-bold rounded-xl shadow-lg">Connect Wallet</Button>
+                !isMobile && (
+                  <Button onClick={handleConnectWallet} className="w-full bg-purple-600 hover:bg-purple-500 h-12 text-lg font-bold rounded-xl shadow-lg">Connect Wallet</Button>
+                )
               ) : (
                 <Button onClick={handleBridge} disabled={status === 'preparing' || status === 'processing'} className={cn("w-full h-12 text-lg font-bold rounded-xl", status === 'processing' ? "bg-gray-700" : "bg-gradient-to-r from-blue-600 to-purple-600")}>
                   {status === 'processing' ? 'Bridging...' : 'Bridge CRAA'}

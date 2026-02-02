@@ -75,7 +75,7 @@ export default function RewardsPage() {
             {!isMobile && <TabNavigation />}
           </div>
           <div className='flex items-center flex-shrink-0'>
-            <WalletConnect />
+            {(!isMobile || isConnected) && <WalletConnect />}
           </div>
         </header>
 

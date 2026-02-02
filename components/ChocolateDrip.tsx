@@ -23,12 +23,29 @@ export function ChocolateDrip({
     intensity = 1,
     fillProgress = 0,
 }: ChocolateDripProps) {
-    const { isLiteMode } = useGraphicsSettings();
+    const { isLiteMode, effectiveMode } = useGraphicsSettings();
+
+    // Mobile detection for additional optimizations
+    const [isMobile, setIsMobile] = React.useState(false);
+    React.useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
+
     const clampedIntensity = Math.min(1, Math.max(0, intensity));
     const clampedFill = Math.min(1, Math.max(0, fillProgress));
     // Bottom pool starts immediately (small), then grows smoother.
     const fillRise = Math.min(1, Math.max(0, Math.pow(clampedFill, 1.15)));
-    const MAX_DRIPS = isLiteMode ? 8 : 18;
+
+    // Mobile: 4 drips, Lite: 6, Laptop: 10, Standard: 18
+    const MAX_DRIPS = isMobile ? 4 : effectiveMode === 'lite' ? 6 : effectiveMode === 'laptop' ? 10 : 18;
+    // Disable expensive gooey filter on laptop, lite, and mobile
+    const useGooeyFilter = effectiveMode === 'standard' && !isMobile;
+    // Skip right-edge drips on mobile (they overflow)
+    const showRightEdgeDrips = !isMobile;
+
     const visibleDripCount = Math.max(
         1,
         Math.round(1 + (MAX_DRIPS - 1) * clampedIntensity)
@@ -97,7 +114,7 @@ export function ChocolateDrip({
             <div className="fixed inset-0 pointer-events-none z-[40] overflow-hidden">
                 <div
                     className="absolute inset-0"
-                    style={{ filter: isLiteMode ? 'none' : 'url(#gooey-destruction)' }}
+                    style={{ filter: useGooeyFilter ? 'url(#gooey-destruction)' : 'none' }}
                 >
                     {/* Main drips anchored to the top edge - evenly distributed */}
                     {drips.filter((_, i) => {
@@ -150,10 +167,10 @@ export function ChocolateDrip({
                     ))}
                 </div>
 
-                {/* Right edge vertical drips - sticking to right side */}
-                <div
+                {/* Right edge vertical drips - sticking to right side (hidden on mobile) */}
+                {showRightEdgeDrips && <div
                     className="absolute"
-                    style={{ filter: isLiteMode ? 'none' : 'url(#gooey-destruction)' }}
+                    style={{ filter: useGooeyFilter ? 'url(#gooey-destruction)' : 'none' }}
                 >
                     {[...Array(6)].map((_, i) => (
                         <motion.div
@@ -199,7 +216,7 @@ export function ChocolateDrip({
                             />
                         </motion.div>
                     ))}
-                </div>
+                </div>}
 
             </div>
 
@@ -217,11 +234,11 @@ export function ChocolateDrip({
                     borderTopRightRadius: '48px',
                     boxShadow: '0 -30px 60px rgba(0,0,0,0.35)',
                     transition: 'height 0.3s ease-out',
-                    willChange: isLiteMode ? 'auto' : 'height',
+                    willChange: useGooeyFilter ? 'height' : 'auto',
                     overflow: 'visible',
                 }}
             >
-                <div style={{ filter: isLiteMode ? 'none' : 'url(#gooey-destruction)', position: 'absolute', inset: 0, overflow: 'visible' }}>
+                <div style={{ filter: useGooeyFilter ? 'url(#gooey-destruction)' : 'none', position: 'absolute', inset: 0, overflow: 'visible' }}>
 
                     {/* Wavy surface */}
                     <motion.div
@@ -319,7 +336,7 @@ export function ChocolateDrip({
                 ))}
             </div>
 
-            {!isLiteMode && (
+            {useGooeyFilter && (
                 <svg className="hidden" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <filter id="gooey-destruction">
@@ -333,4 +350,3 @@ export function ChocolateDrip({
         </>
     );
 }
-

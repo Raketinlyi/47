@@ -25,8 +25,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useMobile } from '@/hooks/use-mobile';
 import { useReaderNfts } from '@/hooks/useReaderNfts';
 import NFTPingCard from '@/components/NFTPingCard';
-import { connectInjected } from '@/lib/wallet/connectInjected';
-import { openMobileWalletDeepLinks } from '@/lib/wallet/deepLinks';
+import { connectWalletWithFallback } from '@/lib/wallet/connectFlow';
 
 import { motion } from 'framer-motion';
 import { WalletConnectNoSSR as WalletConnect } from '@/components/web3/wallet-connect.no-ssr';
@@ -167,14 +166,14 @@ export default function PingPage() {
 
   const handleConnect = async () => {
     try {
-      await connectInjected(connectors, connectAsync, disconnectAsync);
+      await connectWalletWithFallback({
+        isMobile,
+        connectors,
+        connectAsync,
+        disconnectAsync,
+      });
     } catch (error: unknown) {
-      const code = (error as { code?: number | string })?.code;
-      if (code === -32002 || code === 'CONNECTOR_NOT_READY') {
-        openMobileWalletDeepLinks();
-      } else {
-        console.warn('Wallet connect failed:', error);
-      }
+      console.warn('Wallet connect failed:', error);
     }
   };
 
@@ -528,7 +527,7 @@ export default function PingPage() {
             </Button>
           </Link>
           {!isMobile && <TabNavigation />}
-          <WalletConnect />
+          {(!isMobile || isConnected) && <WalletConnect />}
         </header>
 
         {/* Page Title, Info and Compact Tooltips Toggle (single row) */}

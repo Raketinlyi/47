@@ -12,8 +12,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ethers } from 'ethers';
 import Image from 'next/image';
-import { openMobileWalletDeepLinks } from '@/lib/wallet/deepLinks';
-import { connectInjected } from '@/lib/wallet/connectInjected';
+import { connectWalletWithFallback } from '@/lib/wallet/connectFlow';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Link from 'next/link';
 import { useMobile } from '@/hooks/use-mobile';
@@ -325,9 +324,14 @@ export default function BridgePage() {
 
   const handleConnectWallet = async () => {
     try {
-      await connectInjected(connectors, connectAsync, disconnectAsync);
-    } catch (e) {
-      openMobileWalletDeepLinks();
+      await connectWalletWithFallback({
+        isMobile,
+        connectors,
+        connectAsync,
+        disconnectAsync,
+      });
+    } catch (error) {
+      console.warn('Wallet connect failed:', error);
     }
   };
 
@@ -354,7 +358,7 @@ export default function BridgePage() {
             {!isMobile && <TabNavigation />}
           </div>
           <div className='flex items-center flex-shrink-0'>
-            <WalletConnect />
+            {(!isMobile || isConnected) && <WalletConnect />}
           </div>
         </header>
 

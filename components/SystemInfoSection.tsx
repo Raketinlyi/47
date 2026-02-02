@@ -11,15 +11,17 @@ import { useGraphicsSettings } from '@/hooks/useGraphicsSettings';
 
 export function SystemInfoSection() {
   const { t } = useTranslation();
-  const { mode, isLiteMode, deviceInfo, updateMode } = useGraphicsSettings();
+  const { mode, effectiveMode, isLiteMode, deviceInfo, updateMode } =
+    useGraphicsSettings();
 
-  const resolvedMode = isLiteMode ? 'lite' : 'standard';
-  const perfValue = isLiteMode ? 0.5 : 1.0;
+  const resolvedMode = effectiveMode;
+  const perfValue = isLiteMode ? 0.5 : effectiveMode === 'laptop' ? 0.75 : 1.0;
 
   const modeLabel = {
     standard: t('userNFTs.modeStandard', 'Standard'),
+    laptop: t('userNFTs.modeLaptop', 'Laptop'),
     lite: t('userNFTs.modeLite', 'Lite'),
-  }[resolvedMode];
+  }[resolvedMode] ?? t('userNFTs.modeStandard', 'Standard');
 
   const overrideLabel = mode !== 'auto'
     ? t('userNFTs.modeManual', 'Manual')
@@ -62,6 +64,14 @@ export function SystemInfoSection() {
               onClick={() => updateMode('standard')}
             >
               {t('userNFTs.modeStandard', 'Standard')}
+            </Button>
+            <Button
+              size="sm"
+              variant={mode === 'laptop' ? 'default' : 'outline'}
+              className="h-8 px-3"
+              onClick={() => updateMode('laptop')}
+            >
+              {t('userNFTs.modeLaptop', 'Laptop')}
             </Button>
             <Button
               size="sm"

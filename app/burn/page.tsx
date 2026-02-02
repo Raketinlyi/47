@@ -33,8 +33,7 @@ import {
   UNISWAP_OCTAA_SWAP_URL,
   DEXSCREENER_CRAA_URL,
 } from '@/lib/token-links';
-import { openMobileWalletDeepLinks } from '@/lib/wallet/deepLinks';
-import { connectInjected } from '@/lib/wallet/connectInjected';
+import { connectWalletWithFallback } from '@/lib/wallet/connectFlow';
 
 const PlasmaAnimation = dynamic(() => import('@/components/plasma-animation'), {
   ssr: false,
@@ -87,14 +86,14 @@ export default function BurnPage() {
 
     setIsConnecting(true);
     try {
-      await connectInjected(connectors, connectAsync, disconnectAsync);
+      await connectWalletWithFallback({
+        isMobile,
+        connectors,
+        connectAsync,
+        disconnectAsync,
+      });
     } catch (error: unknown) {
-      const code = (error as { code?: number | string })?.code;
-      if (code === -32002 || code === 'CONNECTOR_NOT_READY') {
-        openMobileWalletDeepLinks();
-      } else {
-        console.warn('Wallet connect failed:', error);
-      }
+      console.warn('Wallet connect failed:', error);
     } finally {
       setTimeout(() => setIsConnecting(false), 600);
     }
@@ -127,7 +126,7 @@ export default function BurnPage() {
             {!isMobile && <TabNavigation />}
           </div>
           <div className='flex items-center flex-shrink-0'>
-            <WalletConnect />
+            {(!isMobile || isConnected) && <WalletConnect />}
           </div>
         </header>
 

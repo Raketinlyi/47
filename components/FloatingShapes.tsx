@@ -2,9 +2,11 @@
 
 import React, { useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useGraphicsSettings } from '@/hooks/useGraphicsSettings';
 
 const FloatingShapes: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const { effectiveMode } = useGraphicsSettings();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -15,7 +17,12 @@ const FloatingShapes: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const count = isMobile ? 10 : 15;
+  // Adjust shape count based on graphics mode
+  const count = useMemo(() => {
+    if (effectiveMode === 'lite') return 4;
+    if (effectiveMode === 'laptop') return isMobile ? 6 : 8;
+    return isMobile ? 10 : 15; // standard
+  }, [effectiveMode, isMobile]);
 
   type ShapeSpec = {
     w: number;
@@ -35,13 +42,17 @@ const FloatingShapes: React.FC = () => {
       const h = Math.random() * 20 + 5;
       const left = `${Math.random() * 100}%`;
       const top = `${Math.random() * 100}%`;
-      const dx = (Math.random() - 0.5) * 100;
-      const dy = (Math.random() - 0.5) * 100;
-      const duration = Math.random() * 10 + 10;
+      // Reduce movement range for laptop mode
+      const movementFactor = effectiveMode === 'laptop' ? 0.7 : 1;
+      const dx = (Math.random() - 0.5) * 100 * movementFactor;
+      const dy = (Math.random() - 0.5) * 100 * movementFactor;
+      // Slower animations for laptop mode (less GPU strain)
+      const durationFactor = effectiveMode === 'laptop' ? 1.3 : 1;
+      const duration = (Math.random() * 10 + 10) * durationFactor;
       const delay = Math.random() * 3;
       return { w, h, left, top, dx, dy, duration, delay };
     });
-  }, [count]);
+  }, [count, effectiveMode]);
 
   return (
     <div className='absolute inset-0 overflow-hidden pointer-events-none'>
@@ -54,6 +65,7 @@ const FloatingShapes: React.FC = () => {
             height: s.h,
             left: s.left,
             top: s.top,
+            willChange: effectiveMode === 'standard' ? 'transform, opacity' : 'auto',
           }}
           animate={{
             y: [0, s.dy],

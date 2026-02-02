@@ -71,11 +71,21 @@ export function NewCubeIntro({
   const [musicOn, setMusicOn] = React.useState(false);
   const [titlePulse, setTitlePulse] = React.useState(true);
   const [shelfTilt, setShelfTilt] = React.useState(0); // Local state for shelf tilt
+  const [viewportWidth, setViewportWidth] = React.useState<number>(() =>
+    typeof window !== 'undefined' ? window.innerWidth : 1024
+  );
   const { t } = useTranslation();
   const beatTimerRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
     setShelfTilt(0);
+  }, []);
+
+  React.useEffect(() => {
+    const onResize = () => setViewportWidth(window.innerWidth);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, []);
 
   // Phrase rotation for Monad troll messages on NEW cubes (every 2.5 seconds)
@@ -88,8 +98,19 @@ export function NewCubeIntro({
   }, []);
 
 
-  // Determine mobile mode by height threshold
-  const isMobile = height < 300; // Increased threshold for square version
+  // Determine mobile mode by viewport width and constrained scene height.
+  const isMobile = viewportWidth < 768 || height < 400;
+  const isCompactMobile = isMobile && viewportWidth <= 390;
+  const mobileOldGridX = Math.max(
+    34,
+    Math.min(45, Math.round(viewportWidth * 0.115))
+  );
+  const mobileOldGridY = isCompactMobile ? 30 : 35;
+  const mobileNewGridX = Math.max(
+    46,
+    Math.min(60, Math.round(viewportWidth * 0.152))
+  );
+  const mobileNewGridY = isCompactMobile ? 34 : 40;
   const clampedCover = Math.min(1, Math.max(0, coverProgress));
   const bubbleOpacity = isDestroying
     ? Math.max(0, 1 - Math.pow(Math.max(0, (clampedCover - 0.82) / 0.18), 1.1))
@@ -587,14 +608,14 @@ export function NewCubeIntro({
                 ],
                 scaleY: [1, 1.3, 1],
               }}
-                transition={{
-                  duration: 1.6 + (i % 3) * 0.6,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: (i % 8) * 0.2,
-                }}
-              />
-            ))}
+              transition={{
+                duration: 1.6 + (i % 3) * 0.6,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: (i % 8) * 0.2,
+              }}
+            />
+          ))}
 
           {/* Strobes */}
           {[...Array(strobeCount)].map((_, i) => (
@@ -618,14 +639,14 @@ export function NewCubeIntro({
                 opacity: [0, 1, 0],
                 rotate: [0, 180, 360],
               }}
-                transition={{
-                  duration: 1.3,
-                  repeat: Infinity,
-                  delay: i * 0.1 + Math.random() * 2,
-                  ease: 'easeOut',
-                }}
-              />
-            ))}
+              transition={{
+                duration: 1.3,
+                repeat: Infinity,
+                delay: i * 0.1 + Math.random() * 2,
+                ease: 'easeOut',
+              }}
+            />
+          ))}
 
           {/* Disco Balls effect */}
           {[...Array(discoCount)].map((_, i) => (
@@ -666,49 +687,49 @@ export function NewCubeIntro({
                 'radial-gradient(60% 100% at 50% 100%, rgba(34,211,238,0.4) 0%, rgba(139,69,19,0.3) 30%, rgba(255,20,147,0.2) 60%, rgba(0,0,0,0) 100%)',
               filter: isLiteVisual ? 'blur(6px)' : 'blur(12px)',
             }}
-              animate={{
-                opacity: [0.4, 0.9, 0.4],
-                scaleY: [1, 1.4, 1],
-                scaleX: [1, 1.1, 1],
-              }}
-              transition={{
-                duration: 3.0,
-                repeat: Infinity,
-                ease: [0.42, 0, 0.58, 1],
-              }}
-            />
+            animate={{
+              opacity: [0.4, 0.9, 0.4],
+              scaleY: [1, 1.4, 1],
+              scaleX: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 3.0,
+              repeat: Infinity,
+              ease: [0.42, 0, 0.58, 1],
+            }}
+          />
 
-            {!isDestroying &&
-              partyParticles.map((particle, i) => (
-                <motion.div
-                  key={`particle-${i}`}
-                  className='absolute'
-                  style={{
-                    left: `${particle.left}%`,
-                    top: `${particle.top}%`,
-                    width: '3px',
-                    height: '3px',
-                    borderRadius: '50%',
-                    background: `hsla(${particle.hue},100%,80%,0.9)`,
-                    boxShadow:
-                      isLiteVisual
-                        ? `0 0 4px hsla(${particle.hue},100%,70%,0.35)`
-                        : `0 0 9px hsla(${particle.hue},100%,70%,0.55)`,
-                  }}
-                  animate={{
-                    x: [0, particle.x],
-                    y: [0, particle.y],
-                    opacity: [0, 1, 0],
-                    scale: [0, 2, 0],
-                  }}
-                  transition={{
-                    duration: particle.duration,
-                    repeat: Infinity,
-                    delay: particle.delay,
-                    ease: 'easeOut',
-                  }}
-                />
-              ))}
+          {!isDestroying &&
+            partyParticles.map((particle, i) => (
+              <motion.div
+                key={`particle-${i}`}
+                className='absolute'
+                style={{
+                  left: `${particle.left}%`,
+                  top: `${particle.top}%`,
+                  width: '3px',
+                  height: '3px',
+                  borderRadius: '50%',
+                  background: `hsla(${particle.hue},100%,80%,0.9)`,
+                  boxShadow:
+                    isLiteVisual
+                      ? `0 0 4px hsla(${particle.hue},100%,70%,0.35)`
+                      : `0 0 9px hsla(${particle.hue},100%,70%,0.55)`,
+                }}
+                animate={{
+                  x: [0, particle.x],
+                  y: [0, particle.y],
+                  opacity: [0, 1, 0],
+                  scale: [0, 2, 0],
+                }}
+                transition={{
+                  duration: particle.duration,
+                  repeat: Infinity,
+                  delay: particle.delay,
+                  ease: 'easeOut',
+                }}
+              />
+            ))}
 
           {/* Central Holographic effect */}
           <motion.div
@@ -756,10 +777,10 @@ export function NewCubeIntro({
 
               if (isMobile && total === 4) {
                 const cornerPositions = [
-                  { x: -105, y: -40 },
-                  { x: 15, y: -40 },
-                  { x: -105, y: 40 },
-                  { x: 15, y: 40 },
+                  { x: -mobileOldGridX, y: -mobileOldGridY }, // Top left
+                  { x: mobileOldGridX, y: -mobileOldGridY }, // Top right
+                  { x: -mobileOldGridX, y: mobileOldGridY }, // Bottom left
+                  { x: mobileOldGridX, y: mobileOldGridY }, // Bottom right
                 ];
                 const pos = cornerPositions[i % cornerPositions.length] as {
                   x: number;
@@ -863,14 +884,14 @@ export function NewCubeIntro({
                   key={`old-${i}`}
                   className='absolute'
                   initial={{ x: clusterX, y: clusterY, opacity: 1 }}
-                animate={animateByPhase() as TargetAndTransition}
-                style={{
-                  filter: isLiteVisual
-                    ? 'drop-shadow(0 0 8px rgba(168,85,247,0.25))'
-                    : 'drop-shadow(0 0 14px rgba(168,85,247,0.35))',
-                  zIndex: 100 + Math.round(200 + clusterY),
-                }}
-              >
+                  animate={animateByPhase() as TargetAndTransition}
+                  style={{
+                    filter: isLiteVisual
+                      ? 'drop-shadow(0 0 8px rgba(168,85,247,0.25))'
+                      : 'drop-shadow(0 0 14px rgba(168,85,247,0.35))',
+                    zIndex: 100 + Math.round(200 + clusterY),
+                  }}
+                >
                   <div
                     className={`relative ${isMobile ? 'w-20 h-20' : 'w-20 h-20 md:w-24 md:h-24'}`}
                   >
@@ -947,10 +968,10 @@ export function NewCubeIntro({
 
             if (isMobile && newcomerCount === 4) {
               const cornerPositions = [
-                { x: -60, y: -40 },
-                { x: 60, y: -40 },
-                { x: -60, y: 40 },
-                { x: 60, y: 40 },
+                { x: -mobileNewGridX, y: -mobileNewGridY },
+                { x: mobileNewGridX, y: -mobileNewGridY },
+                { x: -mobileNewGridX, y: mobileNewGridY },
+                { x: mobileNewGridX, y: mobileNewGridY },
               ];
               const pos = cornerPositions[i % cornerPositions.length] as {
                 x: number;
@@ -1009,7 +1030,7 @@ export function NewCubeIntro({
                     ? { opacity: 0, scale: 0.5 }
                     : {
                       opacity: 1,
-                      x: xFinal - 10,
+                      x: isMobile ? xFinal : xFinal - 10,
                       y: [initialY, (initialY + settleY) / 2, settleY],
                       scale: [0.5, 1.2, scaleFinal],
                       transition: {

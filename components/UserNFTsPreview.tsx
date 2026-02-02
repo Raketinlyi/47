@@ -23,8 +23,7 @@ import { useCrazyOctagonGame } from '@/hooks/useCrazyOctagonGame';
 import { useQueryClient } from '@tanstack/react-query';
 import { IpfsImage } from '@/components/IpfsImage';
 import { useMobile } from '@/hooks/use-mobile';
-import { connectInjected } from '@/lib/wallet/connectInjected';
-import { openMobileWalletDeepLinks } from '@/lib/wallet/deepLinks';
+import { connectWalletWithFallback } from '@/lib/wallet/connectFlow';
 import { useSimplePerformance } from '@/hooks/use-simple-performance';
 
 // Helper to show duration in human friendly form
@@ -38,7 +37,7 @@ const formatDuration = (seconds: number) => {
 export function UserNFTsPreview() {
   const { t } = useTranslation();
   const { isConnected: connected } = useAccount();
-  const { connect, connectAsync, connectors } = useConnect();
+  const { connectAsync, connectors } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { open } = useAppKit();
   const { isMobile } = useMobile();
@@ -147,17 +146,21 @@ export function UserNFTsPreview() {
           onClick={async () => {
             try {
               if (isMobile) {
-                await connectInjected(connectors, connectAsync, disconnectAsync);
+                await connectWalletWithFallback({
+                  isMobile: true,
+                  connectors,
+                  connectAsync,
+                  disconnectAsync,
+                });
               } else {
                 await open();
               }
             } catch (error) {
-              const code = (error as { code?: number | string })?.code;
-              if (code === 'CONNECTOR_NOT_READY') {
-                openMobileWalletDeepLinks();
-              } else {
-                const injected = connectors.find(c => (c as any).type === 'injected') || connectors[0];
-                if (injected) connect({ connector: injected });
+              const injected =
+                connectors.find(c => (c as any).type === 'injected') ||
+                connectors[0];
+              if (injected) {
+                await connectAsync({ connector: injected }).catch(() => {});
               }
             }
           }}

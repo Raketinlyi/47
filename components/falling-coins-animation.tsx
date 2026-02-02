@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { useLiteModeFlag } from '@/hooks/use-lite-mode-flag';
+import { useGraphicsSettings } from '@/hooks/useGraphicsSettings';
 import Image from 'next/image';
 
 interface FallingCoinsAnimationProps {
@@ -15,17 +15,26 @@ export function FallingCoinsAnimation({
   className = '',
 }: FallingCoinsAnimationProps) {
   const [isClient, setIsClient] = useState(false);
-  const isLiteMode = useLiteModeFlag();
+  const { effectiveMode } = useGraphicsSettings();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Simple coin count like old site (8 coins base, 4 in lite mode)
+  // Tier-based coin count: standard=8, laptop=5, lite=3
   const coinCount = useMemo(() => {
     const base = Math.floor(8 * intensity);
-    return isLiteMode ? Math.max(4, Math.floor(base * 0.5)) : base;
-  }, [intensity, isLiteMode]);
+    if (effectiveMode === 'lite') return Math.max(2, Math.floor(base * 0.4));
+    if (effectiveMode === 'laptop') return Math.max(4, Math.floor(base * 0.6));
+    return base;
+  }, [intensity, effectiveMode]);
+
+  // Simplified shadows for lower tiers
+  const shadowClass = useMemo(() => {
+    if (effectiveMode === 'lite') return ''; // No shadow
+    if (effectiveMode === 'laptop') return 'opacity-80'; // Reduced opacity
+    return 'drop-shadow-[0_0_8px_rgba(234,179,8,0.8)]'; // Full shadow
+  }, [effectiveMode]);
 
   // Pre-generate coin properties once
   const coins = useMemo(() => {
@@ -33,12 +42,15 @@ export function FallingCoinsAnimation({
       id: i,
       x: Math.random() * 100,
       delay: Math.random() * 5,
-      duration: 3 + Math.random() * 3,
+      // Slower animations for laptop mode (less GPU strain)
+      duration: effectiveMode === 'laptop'
+        ? 4 + Math.random() * 4
+        : 3 + Math.random() * 3,
       xOffset: (Math.random() - 0.5) * 80,
       rotation: 360 * (Math.random() > 0.5 ? 0.7 : -0.7),
       size: 28 + Math.random() * 8, // 28-36px
     }));
-  }, [coinCount]);
+  }, [coinCount, effectiveMode]);
 
   if (!isClient) return null;
 
@@ -54,6 +66,7 @@ export function FallingCoinsAnimation({
           style={{
             top: `-${20 + Math.random() * 10}px`,
             left: `${coin.x}%`,
+            willChange: effectiveMode === 'standard' ? 'transform' : 'auto',
           }}
           animate={{
             y: [0, 300],
@@ -68,15 +81,20 @@ export function FallingCoinsAnimation({
           }}
         >
           <div className='relative' style={{ width: coin.size, height: coin.size }}>
-            {/* Simple glow */}
-            <div className='absolute inset-0 rounded-full bg-yellow-300 opacity-70 animate-pulse' />
+            {/* Glow - simplified for laptop, removed for lite */}
+            {effectiveMode !== 'lite' && (
+              <div
+                className={`absolute inset-0 rounded-full bg-yellow-300 ${effectiveMode === 'laptop' ? 'opacity-50' : 'opacity-70 animate-pulse'
+                  }`}
+              />
+            )}
             {/* Coin image */}
             <Image
               src='/images/cra-token.png'
               alt='Falling Coin'
               width={32}
               height={32}
-              className='w-full h-full object-contain drop-shadow-[0_0_8px_rgba(234,179,8,0.8)]'
+              className={`w-full h-full object-contain ${shadowClass}`}
             />
           </div>
         </motion.div>

@@ -28,7 +28,7 @@ import {
 } from 'wagmi';
 import { parseEther, formatEther, decodeEventLog, parseAbiItem } from 'viem';
 import { CRAZY_OCTAGON_CORE_ABI } from '@/lib/abi/crazyOctagon';
-import { connectInjected } from '@/lib/wallet/connectInjected';
+import { connectWalletWithFallback } from '@/lib/wallet/connectFlow';
 
 import { BreedCard } from '@/components/BreedCard';
 // import dynamic from 'next/dynamic';
@@ -61,7 +61,6 @@ import {
   UNISWAP_OCTAA_SWAP_URL,
   DEXSCREENER_CRAA_URL,
 } from '@/lib/token-links';
-import { openMobileWalletDeepLinks } from '@/lib/wallet/deepLinks';
 import { formatSmart } from '@/utils/formatNumber';
 
 // Lazy-load HeartRain only on the client to shave ~30 KB from first load
@@ -210,14 +209,14 @@ export default function BreedPage() {
 
     setIsConnecting(true);
     try {
-      await connectInjected(connectors, connectAsync, disconnectAsync);
+      await connectWalletWithFallback({
+        isMobile,
+        connectors,
+        connectAsync,
+        disconnectAsync,
+      });
     } catch (error: unknown) {
-      const code = (error as { code?: number | string })?.code;
-      if (code === -32002 || code === 'CONNECTOR_NOT_READY') {
-        openMobileWalletDeepLinks();
-      } else {
-        console.warn('Wallet connect failed:', error);
-      }
+      console.warn('Wallet connect failed:', error);
     } finally {
       setTimeout(() => setIsConnecting(false), 600);
     }
@@ -1010,7 +1009,7 @@ export default function BreedPage() {
             </Button>
           </Link>
           {!isMobile && <TabNavigation />}
-          <WalletConnect />
+          {(!isMobile || connected) && <WalletConnect />}
         </header>
 
         <main>

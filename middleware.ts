@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 
 // In-memory sliding window rate limiter (no external services or keys required)
 const requestTimestamps = new Map<string, number[]>();
+let lastCleanupAt = 0;
 
 // Transaction-specific rate limiting
 const transactionLimits = new Map<
@@ -62,13 +63,57 @@ const getClientKey = (request: NextRequest): { ip: string; key: string } => {
 };
 
 // Rate limiting configuration
+const IS_PROD = process.env.NODE_ENV === 'production';
+const DEV_MULTIPLIER = IS_PROD ? 1 : 3;
+
 const RATE_LIMITS = {
-  GENERAL: { max: 300, window: 60000 }, // Raised to 300/min for smooth navigation
-  BOT: { max: 150, window: 60000 }, // Raised to 150/min for bots
+  PAGE: { max: 900 * DEV_MULTIPLIER, window: 60000 },
+  API: { max: 320 * DEV_MULTIPLIER, window: 60000 },
+  BOT_PAGE: { max: 220 * DEV_MULTIPLIER, window: 60000 },
+  BOT_API: { max: 120 * DEV_MULTIPLIER, window: 60000 },
   TRANSACTION: {
-    burn: { max: 600, window: 3600000 }, // 600 burns per hour (plenty for active gameplay)
-    approve: { max: 300, window: 3600000 }, // 300 approves per hour
+    burn: { max: 600 * DEV_MULTIPLIER, window: 3600000 },
+    approve: { max: 300 * DEV_MULTIPLIER, window: 3600000 },
   },
+};
+
+const CLEANUP_INTERVAL_MS = 5 * 60 * 1000;
+
+const cleanupBuckets = (now: number) => {
+  if (now - lastCleanupAt < CLEANUP_INTERVAL_MS) return;
+  lastCleanupAt = now;
+
+  const maxWindow = Math.max(
+    RATE_LIMITS.PAGE.window,
+    RATE_LIMITS.API.window,
+    RATE_LIMITS.BOT_PAGE.window,
+    RATE_LIMITS.BOT_API.window,
+    RATE_LIMITS.TRANSACTION.burn.window,
+    RATE_LIMITS.TRANSACTION.approve.window
+  );
+
+  for (const [key, timestamps] of requestTimestamps.entries()) {
+    const filtered = timestamps.filter(ts => now - ts < maxWindow);
+    if (filtered.length === 0) {
+      requestTimestamps.delete(key);
+    } else {
+      requestTimestamps.set(key, filtered);
+    }
+  }
+
+  for (const [key, limits] of transactionLimits.entries()) {
+    const burn = limits.burn.filter(
+      ts => now - ts < RATE_LIMITS.TRANSACTION.burn.window
+    );
+    const approve = limits.approve.filter(
+      ts => now - ts < RATE_LIMITS.TRANSACTION.approve.window
+    );
+    if (burn.length === 0 && approve.length === 0) {
+      transactionLimits.delete(key);
+    } else {
+      transactionLimits.set(key, { burn, approve });
+    }
+  }
 };
 
 export function middleware(request: NextRequest) {
@@ -78,10 +123,19 @@ export function middleware(request: NextRequest) {
 
   // Bot detection
   const isBot = botPatterns.some(pattern => pattern.test(userAgent));
-  const limit = isBot ? RATE_LIMITS.BOT.max : RATE_LIMITS.GENERAL.max;
-  const windowMs = isBot ? RATE_LIMITS.BOT.window : RATE_LIMITS.GENERAL.window;
+  const isApiRoute = path.startsWith('/api/');
+  const bucket = isApiRoute
+    ? isBot
+      ? RATE_LIMITS.BOT_API
+      : RATE_LIMITS.API
+    : isBot
+      ? RATE_LIMITS.BOT_PAGE
+      : RATE_LIMITS.PAGE;
+  const limit = bucket.max;
+  const windowMs = bucket.window;
 
   const now = Date.now();
+  cleanupBuckets(now);
   const timestamps = requestTimestamps.get(key) || [];
 
   // Remove timestamps older than the window

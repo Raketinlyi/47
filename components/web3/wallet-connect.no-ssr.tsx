@@ -37,9 +37,8 @@ import {
   UNISWAP_OCTAA_SWAP_URL,
   DEXSCREENER_CRAA_URL,
 } from '@/lib/token-links';
-import { openMobileWalletDeepLinks } from '@/lib/wallet/deepLinks';
 import { useMobile } from '@/hooks/use-mobile';
-import { connectInjected } from '@/lib/wallet/connectInjected';
+import { connectWalletWithFallback } from '@/lib/wallet/connectFlow';
 import { useSwapModal } from '@/contexts/SwapModalContext';
 
 function WalletConnectInner({ onOpenSwapModal: onOpenSwapModalProp }: { onOpenSwapModal?: (() => void) | undefined }) {
@@ -184,7 +183,23 @@ function WalletConnectInner({ onOpenSwapModal: onOpenSwapModalProp }: { onOpenSw
     openingRef.current = true;
     try {
       if (isMobile) {
-        await connectInjected(connectors, connectAsync, disconnectAsync);
+        const result = await connectWalletWithFallback({
+          isMobile: true,
+          connectors,
+          connectAsync,
+          disconnectAsync,
+        });
+        if (!result.ok && result.fallback === 'deeplink') {
+          window.dispatchEvent(
+            new CustomEvent('crazycube:toast', {
+              detail: {
+                title: 'Open wallet app',
+                description: 'If popup is blocked, continue in MetaMask/TrustWallet app.',
+                variant: 'default',
+              },
+            })
+          );
+        }
         openingRef.current = false;
         return;
       }

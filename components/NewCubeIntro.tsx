@@ -350,8 +350,8 @@ export function NewCubeIntro({
 
   // Generate sticky poop positions strictly on client side
   React.useEffect(() => {
-    // INCREASED to 100 poops for "faster" feel/density
-    const poops = Array.from({ length: 100 }).map((_, i) => {
+    // 50 poops - balanced for performance (100 caused frame drops)
+    const poops = Array.from({ length: 50 }).map((_, i) => {
       // Random position 0-100%
       const x = Math.random() * 100;
       const y = Math.random() * 100;
@@ -1013,7 +1013,7 @@ export function NewCubeIntro({
       )}
 
       {/* New Cubes */}
-      <div className='absolute inset-0 z-10 pointer-events-none'>
+      <div className='absolute inset-0 z-[350] pointer-events-none'>
         <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2' style={isMobile ? { marginLeft: mobileCenterOffsetX, marginTop: mobileCenterOffsetY } : {}}>
           {[...leftImages, ...rightImages].map((src, i) => {
             const fromTop = i % 2 === 0;

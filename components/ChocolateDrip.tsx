@@ -355,14 +355,14 @@ export function ChocolateDrip({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    height: `${fillRise * 100}vh`,
+                    height: `${Math.round(fillRise * 100 * 100) / 100}vh`,
                     background: `linear-gradient(180deg, ${DRIP_HIGHLIGHT} 0%, ${DRIP_BASE} 40%, ${DRIP_DEEP} 100%)`,
                     borderTopLeftRadius: '48px',
                     borderTopRightRadius: '48px',
                     boxShadow: '0 -30px 60px rgba(0,0,0,0.35)',
-                    // GPU acceleration + no CSS transition (React handles updates)
-                    transform: 'translateZ(0)',
-                    willChange: 'height, transform',
+                    // CSS transition for smooth height animation (restore from backup)
+                    transition: 'height 0.3s ease-out',
+                    willChange: 'height',
                     overflow: 'visible',
                 }}
             >

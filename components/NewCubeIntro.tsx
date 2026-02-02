@@ -392,8 +392,8 @@ export function NewCubeIntro({
   const lineSpacing =
     newcomerCount > 1
       ? Math.min(
-        isMobile ? 20 : 36,
-        Math.max(isMobile ? 12 : 26, maxSpread / (newcomerCount - 1))
+        isMobile ? 20 : 120, // Desktop: increased to 120 for proper arc spread
+        Math.max(isMobile ? 12 : 80, maxSpread / (newcomerCount - 1))
       )
       : 0;
   const lineOffsets = Array.from(
@@ -1030,17 +1030,11 @@ export function NewCubeIntro({
               xFinal = mobileStartX + i * mobileItemWidth;
               settleY = -80; // Shifted up further (total ~2cm)
             } else {
+              // DESKTOP: Simplified arc positioning - spread cubes across screen
               const targetX = lineOffsets[i] ?? 0;
               const arcAmplitude = Math.min(120, Math.max(45, sceneSize.h * 0.18));
-              const marginX = 92 * finalScaleHint;
-              const safeX = targetX * (sceneSize.w > 0 ? Math.min(1, (sceneSize.w / 2 - marginX) / (sceneSize.w / 2)) : 1);
-              const centerIndex = (newcomerCount - 1) / 2;
-              const edgeT = newcomerCount > 1 ? Math.abs(i - centerIndex) / centerIndex : 0;
-              const compress = 1 - 0.28 * Math.pow(edgeT, 0.9);
-              const xBase = safeX * compress;
-              const sign = xBase >= 0 ? -1 : 1;
-              const xAdjust = sign * (18 + 14 * edgeT);
-              xFinal = xBase + xAdjust;
+              // Use targetX directly without compression
+              xFinal = targetX;
               settleY = 96 + Math.round(Math.sin((i / Math.max(1, newcomerCount - 1)) * Math.PI) * arcAmplitude) - arcAmplitude / 2;
             }
 

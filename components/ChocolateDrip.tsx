@@ -362,7 +362,7 @@ export function ChocolateDrip({
                     boxShadow: '0 -30px 60px rgba(0,0,0,0.35)',
                     // CSS transition for smooth height animation (restore from backup)
                     transition: 'height 0.3s ease-out',
-                    willChange: 'height',
+                    willChange: isLiteMode ? 'auto' : 'height',
                     overflow: 'visible',
                 }}
             >
@@ -375,7 +375,7 @@ export function ChocolateDrip({
                             background: `radial-gradient(40px 24px at 40px 48px, ${DRIP_BASE} 98%, transparent 100%)`,
                             backgroundSize: '120px 60px',
                             backgroundRepeat: 'repeat-x',
-                            // blur removed for performance
+                            transform: 'translateZ(0)', // GPU acceleration without blur
                         }}
                         animate={{
                             y: [0, -8, 4, -4, 0],
@@ -394,7 +394,7 @@ export function ChocolateDrip({
                             backgroundSize: '90px 42px',
                             backgroundRepeat: 'repeat-x',
                             opacity: 0.7,
-                            // blur removed for performance
+                            transform: 'translateZ(0)', // GPU acceleration without blur
                         }}
                         animate={{
                             y: [0, -4, 3, 0],

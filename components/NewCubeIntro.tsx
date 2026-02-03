@@ -350,8 +350,8 @@ export function NewCubeIntro({
 
   // Generate sticky poop positions strictly on client side
   React.useEffect(() => {
-    // 50 poops - balanced for performance (100 caused frame drops)
-    const poops = Array.from({ length: 50 }).map((_, i) => {
+    // 100 poops for density effect
+    const poops = Array.from({ length: 100 }).map((_, i) => {
       // Random position 0-100%
       const x = Math.random() * 100;
       const y = Math.random() * 100;

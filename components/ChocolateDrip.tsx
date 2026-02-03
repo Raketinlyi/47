@@ -355,14 +355,18 @@ export function ChocolateDrip({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    height: `${Math.round(fillRise * 100 * 100) / 100}vh`,
+                    // PERFORMANCE: Use fixed height + scaleY transform instead of animating height
+                    // Animating height causes layout reflow, scaleY is GPU-accelerated
+                    height: '100vh',
                     background: `linear-gradient(180deg, ${DRIP_HIGHLIGHT} 0%, ${DRIP_BASE} 40%, ${DRIP_DEEP} 100%)`,
                     borderTopLeftRadius: '48px',
                     borderTopRightRadius: '48px',
                     boxShadow: '0 -30px 60px rgba(0,0,0,0.35)',
-                    // CSS transition for smooth height animation (restore from backup)
-                    transition: 'height 0.3s ease-out',
-                    willChange: isLiteMode ? 'auto' : 'height',
+                    // Transform from bottom (origin at bottom edge)
+                    transformOrigin: 'bottom',
+                    transform: `scaleY(${fillRise})`,
+                    transition: 'transform 0.3s ease-out',
+                    willChange: 'transform',
                     overflow: 'visible',
                 }}
             >

@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAccount } from 'wagmi';
 import { monadChain } from '@/config/chains';
+import { onGlobalRefresh } from '@/lib/refreshBus';
 
 export interface AlchemyNFT {
   contract: {
@@ -197,9 +198,36 @@ export function useUserNFTs(): UseUserNFTsReturn {
     }
   }, [address, isConnected]);
 
+  // Refetch on address/connection change
   useEffect(() => {
     fetchNFTs();
   }, [address, isConnected, fetchNFTs]);
+
+  // Subscribe to global refresh events (breed, burn, claim, etc.)
+  // Wait 2 seconds for blockchain to propagate the new NFT ownership
+  const pendingRefreshRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    const unsub = onGlobalRefresh((reason) => {
+      // Only refetch for events that might change NFT ownership
+      if (reason && ['breed', 'burn', 'claim', 'transfer'].includes(reason)) {
+        // Clear any pending refresh
+        if (pendingRefreshRef.current) {
+          clearTimeout(pendingRefreshRef.current);
+        }
+        // Wait 2 seconds for OpenSea to index the new NFT
+        pendingRefreshRef.current = setTimeout(() => {
+          fetchNFTs();
+          pendingRefreshRef.current = null;
+        }, 2000);
+      }
+    });
+    return () => {
+      unsub();
+      if (pendingRefreshRef.current) {
+        clearTimeout(pendingRefreshRef.current);
+      }
+    };
+  }, [fetchNFTs]);
 
   return {
     nfts,

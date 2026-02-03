@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useGraphicsSettings } from '@/hooks/useGraphicsSettings';
 
 interface ChocolateDripProps {
@@ -13,6 +13,7 @@ interface ChocolateDripProps {
 const DRIP_BASE = '#4a2716';
 const DRIP_DEEP = '#2b130a';
 const DRIP_HIGHLIGHT = '#6b3b1d';
+const POOP_EMOJI = '\uD83D\uDCA9';
 
 /**
  * ChocolateDrip - Creates a "chocolate/mess dripping from top" destruction effect
@@ -27,8 +28,8 @@ export function ChocolateDrip({
     const { effectiveMode, isLiteMode, isLaptopMode } = useGraphicsSettings();
 
     // Mobile detection - separate simple animation for mobile
-    const [isMobile, setIsMobile] = React.useState(false);
-    React.useEffect(() => {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768);
         check();
         window.addEventListener('resize', check);
@@ -37,8 +38,36 @@ export function ChocolateDrip({
 
     const clampedIntensity = Math.min(1, Math.max(0, intensity));
     const clampedFill = Math.min(1, Math.max(0, fillProgress));
+    const [smoothFill, setSmoothFill] = useState(0);
+    const targetFillRef = useRef(clampedFill);
+
+    useEffect(() => {
+        targetFillRef.current = clampedFill;
+    }, [clampedFill]);
+
+    // Smoothly interpolates fill updates so page-level progress can stay coarse without visual stepping.
+    useEffect(() => {
+        if (!isActive) {
+            setSmoothFill(0);
+            return;
+        }
+
+        let rafId = 0;
+        const animate = () => {
+            setSmoothFill((prev) => {
+                const diff = targetFillRef.current - prev;
+                if (Math.abs(diff) < 0.001) return targetFillRef.current;
+                return prev + diff * 0.14;
+            });
+            rafId = requestAnimationFrame(animate);
+        };
+
+        rafId = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(rafId);
+    }, [isActive]);
+
     // Bottom pool starts immediately (small), then grows smoother.
-    const fillRise = Math.min(1, Math.max(0, Math.pow(clampedFill, 1.15)));
+    const fillRise = Math.min(1, Math.max(0, Math.pow(smoothFill, 1.15)));
 
     // Optimize based on effective graphics mode (detect-gpu + GPU name analysis)
     // STANDARD: 18 drips, full effects (discrete GPU like NVIDIA/AMD RX)
@@ -107,6 +136,50 @@ export function ChocolateDrip({
             xMid: (Math.random() - 0.5) * 100,
         })),
         [poopCount]);
+    const rightEdgeDripCount = isLaptopMode || isLiteMode ? 0 : 2;
+    const rightEdgeDrips = useMemo(
+        () =>
+            Array.from({ length: rightEdgeDripCount }, (_, i) => ({
+                id: i,
+                top: `${5 + i * 15}%`,
+                width: 10 + Math.random() * 8,
+                opacity: 0.6 + Math.random() * 0.3,
+                duration: 4 + Math.random() * 3,
+                scaleDuration: 5 + Math.random() * 3,
+                delay: i * 0.5,
+                scaleDelay: i * 0.8,
+            })),
+        [rightEdgeDripCount]
+    );
+    const surfacePoopCount = isLiteMode ? 2 : isLaptopMode ? 4 : 6;
+    const surfacePoops = useMemo(
+        () =>
+            Array.from({ length: surfacePoopCount }, (_, i) => ({
+                id: i,
+                left: `${8 + Math.random() * 84}%`,
+                fontSize: `${10 + Math.random() * 10}px`,
+                duration: 2.2 + Math.random() * 1.1,
+                delay: i * 0.35 + Math.random() * 0.5,
+                xMid: (Math.random() - 0.5) * 70,
+                xEnd: (Math.random() - 0.5) * 140,
+                repeatDelay: 0.8 + Math.random() * 1.6,
+            })),
+        [surfacePoopCount]
+    );
+    const bubbleCount = isLiteMode ? 3 : isLaptopMode ? 5 : 8;
+    const bubbles = useMemo(
+        () =>
+            Array.from({ length: bubbleCount }, (_, i) => ({
+                id: i,
+                left: `${6 + Math.random() * 88}%`,
+                size: 8 + Math.random() * 14,
+                duration: 2.8 + Math.random() * 1.8,
+                delay: i * 0.25 + Math.random() * 0.6,
+                repeatDelay: 0.25 + Math.random() * 0.8,
+            })),
+        [bubbleCount]
+    );
+    const surfaceLevelVh = Math.max(2, fillRise * 100);
 
     // Early return AFTER all hooks
     if (!isActive) return null;
@@ -226,7 +299,7 @@ export function ChocolateDrip({
                                     ease: 'easeOut',
                                 }}
                             >
-                                💩
+                                {POOP_EMOJI}
                             </motion.div>
                         ))}
                     </div>
@@ -299,15 +372,15 @@ export function ChocolateDrip({
                     className="absolute"
                     style={{ filter: (isLiteMode || isLaptopMode) ? 'none' : 'url(#gooey-destruction)' }}
                 >
-                    {[...Array(6)].map((_, i) => (
+                    {rightEdgeDrips.map((drip) => (
                         <motion.div
-                            key={`right-drip-${i}`}
+                            key={`right-drip-${drip.id}`}
                             className="absolute"
                             style={{
                                 right: 0,
-                                top: `${5 + i * 15}%`,
-                                width: 20 + Math.random() * 25,
-                                opacity: 0.6 + Math.random() * 0.3,
+                                top: drip.top,
+                                width: drip.width,
+                                opacity: drip.opacity,
                                 willChange: 'transform, opacity',
                                 transformOrigin: 'top right',
                             }}
@@ -316,8 +389,8 @@ export function ChocolateDrip({
                             } : {}}
                             transition={{
                                 x: {
-                                    duration: 4 + Math.random() * 3,
-                                    delay: i * 0.5,
+                                    duration: drip.duration,
+                                    delay: drip.delay,
                                     repeat: Infinity,
                                     ease: 'easeInOut',
                                 }
@@ -326,7 +399,7 @@ export function ChocolateDrip({
                             <motion.div
                                 className="w-full"
                                 style={{
-                                    height: '40vh',
+                                    height: '26vh',
                                     borderRadius: 999,
                                     background: `linear-gradient(180deg, ${DRIP_HIGHLIGHT} 0%, ${DRIP_BASE} 35%, ${DRIP_DEEP} 100%)`,
                                     boxShadow: `0 0 14px rgba(0,0,0,0.2)`,
@@ -335,8 +408,8 @@ export function ChocolateDrip({
                                     scaleY: [0.3, 1, 0.6, 0.9, 0.3],
                                 }}
                                 transition={{
-                                    duration: 5 + Math.random() * 3,
-                                    delay: i * 0.8,
+                                    duration: drip.scaleDuration,
+                                    delay: drip.scaleDelay,
                                     repeat: Infinity,
                                     ease: 'easeInOut',
                                 }}
@@ -349,27 +422,22 @@ export function ChocolateDrip({
 
             {/* Bottom fill layer - "glass cup" rising from viewport bottom */}
             <div
-                className="pointer-events-none z-[70]"
-                style={{
-                    position: 'fixed',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    // Use clip-path instead of scaleY - scaleY squishes content (makes waves flat)
-                    // clip-path just crops from top without deforming content
-                    height: '100vh',
-                    background: `linear-gradient(180deg, ${DRIP_HIGHLIGHT} 0%, ${DRIP_BASE} 40%, ${DRIP_DEEP} 100%)`,
-                    borderTopLeftRadius: '48px',
-                    borderTopRightRadius: '48px',
-                    boxShadow: '0 -30px 60px rgba(0,0,0,0.35)',
-                    // Clip from top: inset(top right bottom left)
-                    // When fillRise=0.1, we clip 90% from top
-                    clipPath: `inset(${(1 - fillRise) * 100}% 0 0 0)`,
-                    transition: 'clip-path 0.3s ease-out',
-                    willChange: 'clip-path',
-                    overflow: 'visible',
-                }}
+                className="fixed inset-0 pointer-events-none z-[70] overflow-hidden"
+                style={{ willChange: 'transform' }}
             >
+                <div
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: `linear-gradient(180deg, ${DRIP_HIGHLIGHT} 0%, ${DRIP_BASE} 40%, ${DRIP_DEEP} 100%)`,
+                        borderTopLeftRadius: '48px',
+                        borderTopRightRadius: '48px',
+                        boxShadow: '0 -30px 60px rgba(0,0,0,0.35)',
+                        transform: `translate3d(0, ${(1 - fillRise) * 100}%, 0)`,
+                        willChange: 'transform',
+                        overflow: 'visible',
+                    }}
+                >
                 <div style={{ filter: (isLiteMode || isLaptopMode) ? 'none' : 'url(#gooey-destruction)', position: 'absolute', inset: 0, overflow: 'visible' }}>
 
                     {/* Wavy surface */}
@@ -437,7 +505,7 @@ export function ChocolateDrip({
                     ))}
                 </div>
 
-                {/* Occasional pop with 💩 (ULTRA-FREQUENT TROLLING) */}
+                {/* Occasional pop with poop emoji */}
                 {trollPoops.map((poop) => (
                     <motion.div
                         key={`poop-${poop.id}`}
@@ -463,8 +531,67 @@ export function ChocolateDrip({
                             ease: "easeOut"
                         }}
                     >
-                        💩
+                        {POOP_EMOJI}
                     </motion.div>
+                ))}
+            </div>
+            </div>
+
+            <div className="fixed inset-0 pointer-events-none z-[76] overflow-hidden">
+                {surfacePoops.map((poop) => (
+                    <motion.div
+                        key={`surface-poop-${poop.id}`}
+                        className="absolute"
+                        style={{
+                            left: poop.left,
+                            bottom: `${(surfaceLevelVh - 2).toFixed(2)}vh`,
+                            fontSize: poop.fontSize,
+                            filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.55))',
+                        }}
+                        animate={{
+                            opacity: [0, 1, 1, 0],
+                            y: [24, -42, -120],
+                            x: [0, poop.xMid, poop.xEnd],
+                            scale: [0.45, 1.1, 0.55],
+                            rotate: [-18, 16, -26],
+                        }}
+                        transition={{
+                            duration: poop.duration,
+                            delay: poop.delay,
+                            repeat: Infinity,
+                            repeatDelay: poop.repeatDelay,
+                            ease: 'easeOut',
+                        }}
+                    >
+                        {POOP_EMOJI}
+                    </motion.div>
+                ))}
+                {bubbles.map((bubble) => (
+                    <motion.div
+                        key={`surface-bubble-${bubble.id}`}
+                        className="absolute rounded-full"
+                        style={{
+                            left: bubble.left,
+                            bottom: `${surfaceLevelVh.toFixed(2)}vh`,
+                            width: bubble.size,
+                            height: bubble.size,
+                            background:
+                                'radial-gradient(circle at 35% 30%, rgba(255,220,180,0.8) 0%, rgba(120,70,40,0.5) 45%, rgba(60,30,18,0.35) 100%)',
+                            boxShadow: '0 0 10px rgba(80,40,20,0.35)',
+                        }}
+                        animate={{
+                            opacity: [0, 0.85, 0],
+                            y: [6, -34 - bubble.size * 1.2],
+                            scale: [0.3, 1, 0.55],
+                        }}
+                        transition={{
+                            duration: bubble.duration,
+                            delay: bubble.delay,
+                            repeat: Infinity,
+                            repeatDelay: bubble.repeatDelay,
+                            ease: 'easeOut',
+                        }}
+                    />
                 ))}
             </div>
 

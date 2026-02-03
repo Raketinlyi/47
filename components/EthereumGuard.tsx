@@ -16,11 +16,16 @@ import { apeChain, monadChain, abstractChain, berachain } from '@/config/chains'
  */
 export default function EthereumGuard() {
   useEffect(() => {
+    const strictMode = process.env.NEXT_PUBLIC_STRICT_ETH_GUARD === 'true';
     if (
       typeof window === 'undefined' ||
       !(window as { ethereum?: unknown }).ethereum
     )
       return;
+    // Passive mode by default to avoid breaking wallet providers on mobile/desktop.
+    // Enable strict interception explicitly via NEXT_PUBLIC_STRICT_ETH_GUARD=true.
+    if (!strictMode) return;
+
     const eth = (window as { ethereum?: unknown }).ethereum as {
       request?: (args: {
         method: string;

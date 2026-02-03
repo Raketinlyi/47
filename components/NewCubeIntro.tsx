@@ -294,12 +294,12 @@ export function NewCubeIntro({
       return s ?? '/images/mon1.png';
     });
 
-  // MOBILE: 5 old cubes, 6 new cubes in a row (small)
+  // MOBILE: 5 old cubes, 5 new cubes in a row (small)
   // DESKTOP: 6 left + 5 right = 11 new cubes
   const mobileOldCount = 5;
-  const mobileNewCount = 6;
+  const mobileNewCount = 5;
   const leftCount = isMobile ? 3 : 6;
-  const rightCount = isMobile ? 3 : 5; // Back to 3 for 6 total cubes
+  const rightCount = isMobile ? Math.max(0, mobileNewCount - leftCount) : 5;
   const totalNewCubes = leftCount + rightCount;
   const leftImages = buildSources(leftSrcs, leftCount);
   const rightImages = buildSources(rightSrcs, rightCount);
@@ -1020,7 +1020,7 @@ export function NewCubeIntro({
             let xFinal: number, settleY: number;
 
             if (isMobile) {
-              // MOBILE: 6 cubes, even larger (+20% from previous), shifted up further
+              // MOBILE: 5 cubes, even larger (+20% from previous), shifted up further
               const mobileTotal = leftImages.length + rightImages.length;
               const mobileCubeWidth = 48; // Increased from 40
               const mobileGap = 6; // Slightly tighter gap for large cubes
@@ -1130,8 +1130,18 @@ export function NewCubeIntro({
                           const nearLeft = xFinal < -sceneSize.w / 2 + edgePad;
                           const nearRight = xFinal > sceneSize.w / 2 - edgePad;
                           const bubblePosClass = isMobile
-                            ? i % 2 === 0 ? 'left-full ml-6' : 'right-full mr-6'
-                            : nearLeft ? 'left-0 translate-x-0 ml-2' : nearRight ? 'right-0 translate-x-0 mr-2' : 'left-1/2 -translate-x-1/2';
+                            ? nearRight
+                              ? 'right-full mr-4'
+                              : nearLeft
+                                ? 'left-full ml-4'
+                                : i % 2 === 0
+                                  ? 'left-full ml-4'
+                                  : 'right-full mr-4'
+                            : nearLeft
+                              ? 'left-0 translate-x-0 ml-2'
+                              : nearRight
+                                ? 'right-0 translate-x-0 mr-2'
+                                : 'left-1/2 -translate-x-1/2';
                           const arrowPosClass = isMobile
                             ? 'left-1/2 -translate-x-1/2'
                             : nearLeft ? 'left-3 -translate-x-0' : nearRight ? 'right-3' : 'left-1/2 -translate-x-1/2';

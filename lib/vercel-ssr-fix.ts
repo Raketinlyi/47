@@ -56,31 +56,21 @@ export const safeWindow = isBrowser ? window : undefined;
  */
 export function preventEthereumConflicts() {
   if (!isBrowser) return;
-
-  // Store original defineProperty
-  const originalDefineProperty = Object.defineProperty;
-
-  // Override defineProperty to handle ethereum conflicts
-  Object.defineProperty = function (
-    obj: any,
-    prop: string,
-    descriptor: PropertyDescriptor
+  // Never monkey-patch Object.defineProperty globally.
+  // Wallet providers rely on native semantics, and global overrides can break
+  // MetaMask/Rabby/WalletConnect initialization on desktop and mobile.
+  const descriptor = Object.getOwnPropertyDescriptor(window, 'ethereum');
+  if (
+    process.env.NODE_ENV === 'development' &&
+    descriptor &&
+    !descriptor.configurable
   ) {
-    if (obj === window && prop === 'ethereum') {
-      const existing = Object.getOwnPropertyDescriptor(window, 'ethereum');
-      if (existing && !existing.configurable) {
-        console.warn(
-          '[Vercel SSR Fix] Prevented ethereum property redefinition'
-        );
-        return obj;
-      }
-    }
-    return originalDefineProperty.call(this, obj, prop, descriptor);
-  };
+    console.info(
+      '[Vercel SSR Fix] window.ethereum is non-configurable; running in passive mode.'
+    );
+  }
 
-  return () => {
-    Object.defineProperty = originalDefineProperty;
-  };
+  return () => {};
 }
 
 /**

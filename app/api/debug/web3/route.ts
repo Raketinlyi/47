@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
+  // Keep diagnostics private in production unless explicitly enabled.
+  if (
+    process.env.NODE_ENV === 'production' &&
+    process.env.NEXT_PUBLIC_DEBUG_WEB3_API !== 'true'
+  ) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
   // Only expose PUBLIC variables
   const payload = {
     NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID:

@@ -301,6 +301,7 @@ export default function HomePage() {
   const [destructionPhase, setDestructionPhase] = useState<'idle' | 'dripping' | 'redirecting'>('idle');
   const [destructionProgress, setDestructionProgress] = useState(0);
   const destructionStartRef = useRef<number | null>(null);
+  const lastProgressRef = useRef(0);
 
   useEffect(() => {
     // RESTORED: Auto-drip/destruction effect (The famous Monad Troll)
@@ -320,14 +321,17 @@ export default function HomePage() {
     const REDIRECT_THRESHOLD = 0.98; // Redirect at the very end
     const MAX_TIME_MS = 25000; // Hard limit for the destruction phase
 
-    let timer: ReturnType<typeof setTimeout>;
+    let rafId = 0;
     const start = destructionStartRef.current ?? performance.now();
     destructionStartRef.current = start;
 
     const tick = () => {
       const elapsed = performance.now() - start;
       const progress = Math.min(1, elapsed / FILL_DURATION_MS);
-      setDestructionProgress(progress);
+      if (Math.abs(progress - lastProgressRef.current) >= 0.002 || progress >= 1) {
+        lastProgressRef.current = progress;
+        setDestructionProgress(progress);
+      }
 
       // Redirect when fill reaches 98% OR 35 seconds of destruction passed
       if (progress >= REDIRECT_THRESHOLD || elapsed >= MAX_TIME_MS) {
@@ -345,10 +349,10 @@ export default function HomePage() {
         }, 100);
         return;
       }
-      timer = setTimeout(tick, 100); // More frequent updates for smoothness
+      rafId = requestAnimationFrame(tick);
     };
-    tick();
-    return () => clearTimeout(timer);
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
   }, [destructionPhase, router]);
 
   const deviceMemory = useMemo(() => {

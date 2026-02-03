@@ -806,14 +806,19 @@ export function usePendingBurnRewards(): HookState {
             ];
             const [helper, pair, lpAmount, octaDeposited, pairDeposited] =
               tuple;
-            reward.lpInfo = {
-              helper,
-              pair,
-              lpAmount: lpAmount.toString(),
-              octaDeposited: octaDeposited.toString(),
-              pairDeposited: pairDeposited.toString(),
-            };
-            reward.hasLpPayout = lpAmount > 0n;
+            // V4 FIX: Only use nftLP if burns didn't have LP snapshot
+            // Burns LP takes priority since it's the actual snapshot at burn time
+            if (!reward.lpInfo || !reward.hasLpPayout) {
+              reward.lpInfo = {
+                helper,
+                pair,
+                lpAmount: lpAmount.toString(),
+                octaDeposited: octaDeposited.toString(),
+                pairDeposited: pairDeposited.toString(),
+              };
+              reward.hasLpPayout = lpAmount > 0n;
+            }
+
           });
         }
       } catch (err) {

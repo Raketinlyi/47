@@ -355,18 +355,18 @@ export function ChocolateDrip({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    // PERFORMANCE: Use fixed height + scaleY transform instead of animating height
-                    // Animating height causes layout reflow, scaleY is GPU-accelerated
+                    // Use clip-path instead of scaleY - scaleY squishes content (makes waves flat)
+                    // clip-path just crops from top without deforming content
                     height: '100vh',
                     background: `linear-gradient(180deg, ${DRIP_HIGHLIGHT} 0%, ${DRIP_BASE} 40%, ${DRIP_DEEP} 100%)`,
                     borderTopLeftRadius: '48px',
                     borderTopRightRadius: '48px',
                     boxShadow: '0 -30px 60px rgba(0,0,0,0.35)',
-                    // Transform from bottom (origin at bottom edge)
-                    transformOrigin: 'bottom',
-                    transform: `scaleY(${fillRise})`,
-                    transition: 'transform 0.3s ease-out',
-                    willChange: 'transform',
+                    // Clip from top: inset(top right bottom left)
+                    // When fillRise=0.1, we clip 90% from top
+                    clipPath: `inset(${(1 - fillRise) * 100}% 0 0 0)`,
+                    transition: 'clip-path 0.3s ease-out',
+                    willChange: 'clip-path',
                     overflow: 'visible',
                 }}
             >

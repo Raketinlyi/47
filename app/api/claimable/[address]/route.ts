@@ -23,6 +23,8 @@ type ClaimItem = {
   lpAmount?: string;
   lpPair?: string;
   lpHelper?: string;
+  // Estimated WMON from LP (calculated from reserves)
+  estimatedWmon?: string;
 };
 
 type ClaimResponse = {
@@ -93,6 +95,81 @@ async function getPendingBurnsFromV4(
   }
 
   return results;
+}
+
+// LP Pair ABI for reserves
+const LP_PAIR_ABI = [
+  {
+    name: 'getReserves',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [
+      { name: 'reserve0', type: 'uint112' },
+      { name: 'reserve1', type: 'uint112' },
+      { name: 'blockTimestampLast', type: 'uint32' },
+    ],
+  },
+  {
+    name: 'totalSupply',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint256' }],
+  },
+  {
+    name: 'token0',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'address' }],
+  },
+] as const;
+
+// WMON address on Monad
+const WMON_ADDRESS = '0x3bd359C1119dA7Da1D913D1C4D2B7c461115433A'.toLowerCase();
+
+// Calculate estimated WMON from LP tokens
+async function calculateEstimatedWmon(
+  client: PublicClient,
+  lpPair: `0x${string}`,
+  lpAmount: bigint
+): Promise<string> {
+  if (lpAmount === 0n || lpPair === '0x0000000000000000000000000000000000000000') {
+    return '0';
+  }
+  try {
+    const [reserves, totalSupply, token0] = await Promise.all([
+      client.readContract({
+        address: lpPair,
+        abi: LP_PAIR_ABI,
+        functionName: 'getReserves',
+      }),
+      client.readContract({
+        address: lpPair,
+        abi: LP_PAIR_ABI,
+        functionName: 'totalSupply',
+      }),
+      client.readContract({
+        address: lpPair,
+        abi: LP_PAIR_ABI,
+        functionName: 'token0',
+      }),
+    ]);
+
+    if (totalSupply === 0n) return '0';
+
+    // Determine which reserve is WMON
+    const isToken0Wmon = token0.toLowerCase() === WMON_ADDRESS;
+    const wmonReserve = isToken0Wmon ? reserves[0] : reserves[1];
+
+    // Calculate user's share of WMON: (lpAmount * wmonReserve) / totalSupply
+    const estimatedWmon = (lpAmount * wmonReserve) / totalSupply;
+    return estimatedWmon.toString();
+  } catch (err) {
+    console.error('[claimable API] Failed to calculate WMON from LP:', err);
+    return '0';
+  }
 }
 
 export async function GET(
@@ -220,6 +297,27 @@ export async function GET(
   }
 
   const data: ClaimResponse = { claimable, pending, claimed };
+
+  // Calculate estimated WMON for items with LP
+  const allItems = [...claimable, ...pending, ...claimed];
+  const itemsWithLp = allItems.filter(item =>
+    item.lpAmount && BigInt(item.lpAmount) > 0n && item.lpPair
+  );
+
+  if (itemsWithLp.length > 0) {
+    await Promise.all(
+      itemsWithLp.map(async (item) => {
+        if (item.lpPair && item.lpAmount) {
+          item.estimatedWmon = await calculateEstimatedWmon(
+            client,
+            item.lpPair as `0x${string}`,
+            BigInt(item.lpAmount)
+          );
+        }
+      })
+    );
+  }
+
   cache.set(key, { ts: Date.now(), data });
   return new Response(JSON.stringify(data), {
     headers: { 'content-type': 'application/json' },

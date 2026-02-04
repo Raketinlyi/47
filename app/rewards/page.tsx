@@ -27,7 +27,7 @@ export default function RewardsPage() {
   const { isMobile } = useMobile();
   const { isConnected } = useAccount();
   const chainId = useChainId();
-  const scanDuration = isMobile ? '4.8s' : '3.6s'; // Slowed down by 20%
+  const scanDuration = isMobile ? '5.8s' : '4.3s'; // Slowed down by 40% total
 
   return (
     <div className='min-h-screen mobile-content-wrapper relative bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 p-4'>

@@ -38,13 +38,19 @@ import {
 
 const formatRewardValue = (wei: string): string => {
   try {
-    // Проверка на undefined/null/пустую строку
     if (!wei || wei === '0') return '0';
-    // Return only the integer part, no decimals, no grouping.
     const formatted = formatEther(BigInt(wei));
     if (!formatted) return '0';
     const [whole] = formatted.split('.');
-    return whole ?? '0';
+    const num = parseInt(whole ?? '0', 10);
+    if (!isFinite(num)) return '0';
+
+    // Format with K/M/B/T suffixes
+    if (num >= 1e12) return `${(num / 1e12).toFixed(1)}T`;
+    if (num >= 1e9) return `${(num / 1e9).toFixed(1)}B`;
+    if (num >= 1e6) return `${(num / 1e6).toFixed(1)}M`;
+    if (num >= 1e3) return `${(num / 1e3).toFixed(1)}K`;
+    return String(num);
   } catch {
     return '0';
   }
@@ -183,6 +189,7 @@ const RewardCard: React.FC<RewardCardProps> = ({
                 alt={`Cube #${reward.tokenId}`}
                 width={64}
                 height={64}
+                unoptimized
                 className='w-16 h-16 object-cover rounded-lg mx-auto ring-2 ring-white/10 shadow-lg'
                 onError={(e) => {
                   (e.target as any).src = fallbackImage;
@@ -262,13 +269,21 @@ const RewardCard: React.FC<RewardCardProps> = ({
               </text>
             </svg>
             <span className='text-lg font-bold text-black -mt-2'>OCTAA</span>
-            {/* Show WMON amount if available */}
-            {reward.lpInfo && reward.lpInfo.pairDeposited && BigInt(reward.lpInfo.pairDeposited) > 0n && (
-              <div className='flex items-center gap-1 mt-2 text-sm text-blue-200'>
-                <Coins className='w-4 h-4' />
-                <span>+{(Number(reward.lpInfo.pairDeposited) / 1e18).toFixed(6)} WMON</span>
-              </div>
-            )}
+            {/* LP payout row - always shown to keep uniform card height */}
+            <div className='flex items-center justify-center gap-1 mt-2 text-sm rounded-full px-3 py-1 min-h-[28px]'>
+              {reward.hasLpPayout && reward.lpInfo && BigInt(reward.lpInfo.lpAmount || '0') > 0n ? (
+                <>
+                  <Coins className='w-4 h-4 text-blue-300' />
+                  <span className='text-blue-300'>
+                    {BigInt(reward.lpInfo.pairDeposited || '0') > 0n
+                      ? `+${(Number(reward.lpInfo.pairDeposited) / 1e18).toFixed(4)} WMON`
+                      : '+LP Bonus'}
+                  </span>
+                </>
+              ) : (
+                <span className='text-gray-500 text-xs'>No LP</span>
+              )}
+            </div>
           </div>
 
           {/* Footer with Button */}

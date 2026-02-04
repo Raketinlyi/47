@@ -234,6 +234,7 @@ type ClaimItem = {
   lpAmount?: string;
   lpPair?: string;
   lpHelper?: string;
+  estimatedWmon?: string;
 };
 
 type ClaimResponse = {
@@ -290,7 +291,7 @@ const loadRewardsFromApi = async (
           pair: (item.lpPair || ZERO_ADDRESS) as `0x${string}`,
           lpAmount: item.lpAmount,
           octaDeposited: '0',
-          pairDeposited: '0',
+          pairDeposited: item.estimatedWmon || '0',
         } : null,
         hasLpPayout: item.lpAmount ? BigInt(item.lpAmount) > 0n : false,
         // Default metadata

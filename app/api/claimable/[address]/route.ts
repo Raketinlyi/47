@@ -19,6 +19,10 @@ type ClaimItem = {
   poolAmount: string;
   burnedAmount: string;
   waitMinutes?: number;
+  // LP payout info (from burns record)
+  lpAmount?: string;
+  lpPair?: string;
+  lpHelper?: string;
 };
 
 type ClaimResponse = {
@@ -204,6 +208,10 @@ export async function GET(
       playerAmount: playerAmount.toString(),
       poolAmount: poolAmount.toString(),
       burnedAmount: burnedAmount.toString(),
+      // LP payout info
+      lpAmount: d[6].toString(),
+      lpPair: d[7],
+      lpHelper: d[8],
     };
 
     if (item.claimed) claimed.push(item);

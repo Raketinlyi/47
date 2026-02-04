@@ -230,6 +230,10 @@ type ClaimItem = {
   poolAmount: string;
   burnedAmount: string;
   waitMinutes?: number;
+  // LP payout info (from burns record)
+  lpAmount?: string;
+  lpPair?: string;
+  lpHelper?: string;
 };
 
 type ClaimResponse = {
@@ -280,8 +284,15 @@ const loadRewardsFromApi = async (
         playerBps: 0,
         poolBps: 0,
         burnBps: 0,
-        lpInfo: null,
-        hasLpPayout: false,
+        // LP info from API (from burns record)
+        lpInfo: item.lpAmount && BigInt(item.lpAmount) > 0n ? {
+          helper: (item.lpHelper || ZERO_ADDRESS) as `0x${string}`,
+          pair: (item.lpPair || ZERO_ADDRESS) as `0x${string}`,
+          lpAmount: item.lpAmount,
+          octaDeposited: '0',
+          pairDeposited: '0',
+        } : null,
+        hasLpPayout: item.lpAmount ? BigInt(item.lpAmount) > 0n : false,
         // Default metadata
         rarity: 'Common' as Rarity,
         stars: 0,
